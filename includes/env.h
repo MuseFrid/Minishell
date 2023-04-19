@@ -1,39 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 01:16:35 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/19 01:58:16 by aabda            ###   ########.fr       */
+/*   Created: 2023/04/19 01:43:03 by aabda             #+#    #+#             */
+/*   Updated: 2023/04/19 02:09:56 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#ifndef ENV_H
+# define ENV_H
 
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
+void	ft_getenv(t_data *data, char **envp);
+void	ft_ensure(t_data *data, char *value);
 
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
-
-	if (n == 0)
-		return (0);
-	i = 0;
-	while (i < n && (s1[i] || s2[i]))
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
-}
+#endif

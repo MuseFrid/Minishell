@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_utils.c                                      :+:      :+:    :+:   */
+/*   core.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 01:16:35 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/19 01:58:16 by aabda            ###   ########.fr       */
+/*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
+/*   Updated: 2023/04/19 02:12:49 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#ifndef CORE_H
+# define CORE_H
 
-size_t	ft_strlen(char *str)
+typedef struct s_env
 {
-	size_t	i;
+	int				index;
+	char			*value;
+	struct s_env	*next;
+	struct s_env	*prev;
+}	t_env;
 
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+typedef struct s_data
 {
-	size_t	i;
+	struct s_env	*env;
+}	t_data;
 
-	if (n == 0)
-		return (0);
-	i = 0;
-	while (i < n && (s1[i] || s2[i]))
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
-}
+void	ft_init_struct(t_data *data, char **envp);
+
+#endif
