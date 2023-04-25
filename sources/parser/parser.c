@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:16:20 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/25 18:03:47 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:12:10 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,16 @@ t_simple_cmds	*lst_new_cmds(t_arg *arg, int i)
 
 void	lst_add_back_cmds(t_simple_cmds **head, t_simple_cmds *new)
 {
+	t_simple_cmds	*snake;
+
 	if (!new)
 		return ;
-	if (*head)
+	snake = *head;
+	if (snake)
 	{
-		while ((*head)->next)
-			(*head) = (*head)->next;
-		(*head)->next = new;
+		while (snake->next)
+			snake = snake->next;
+		snake->next = new;
 	}
 	else
 		*head = new;
