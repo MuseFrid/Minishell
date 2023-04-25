@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/24 18:01:01 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:05:48 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	is_token(char *str, int *i, int able_touch_i)
 	return (pick);
 }
 
-int	lexer(t_arg *arg, char *str)
+t_arg	*lexer(t_arg *arg, char *str)
 {
 	int		i;
 	int		j;
@@ -102,14 +102,18 @@ int	lexer(t_arg *arg, char *str)
 		if (!str[i])
 			break ;
 	}
-	while (arg)
+	//test
+	new = arg;
+	printf("lexer part :\n");
+	while (new)
 	{
-		if (arg->word)
-			printf("%s\n", arg->word);
+		if (new->word)
+			printf("%s\n", new->word);
 		else
-			printf("%d\n", arg->is_token);
-		arg = arg->next;
+			printf("%d\n", new->is_token);
+		new = new->next;
 	}
-	lst_clear_arg(arg);
-	return (SUCCESS);
+	printf("End lexer part.\n\n");
+	//
+	return (arg);
 }

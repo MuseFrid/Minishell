@@ -6,13 +6,13 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/24 15:32:27 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/25 16:46:35 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	parsing(char *str, char **envp)
+/*void	parsing(char *str, char **envp)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ void	parsing(char *str, char **envp)
 	char *buf;
 	buf = (char *)malloc(sizeof(char) * 1000);
 	printf("%s\n", getcwd(buf, 100));
-}
+}*/
 
 int build_exit(char *str)
 {
@@ -59,10 +59,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	char *str;
 	//char *test;
+	t_data	data;
+	t_env	*env;
 	
+	ft_init_struct(&data, envp);
+	env = data.env;
 	(void) argc;
 	(void) argv;
-	(void) envp;
 	 /*if (signal(SIGUSR1, sig_handler) == SIG_ERR)
         printf("Error\ncan't catch SIGUSR1\n");
     if (signal(SIGKILL, sig_handler) == SIG_ERR)
@@ -77,11 +80,11 @@ int	main(int argc, char **argv, char **envp)
 		if (build_exit(str))
 			break ;
 		//parsing(str, envp);
-		lexer(NULL, str);
+		parser(lexer(NULL, str), data);
 		free(str);
 	}// if we are out free everything.
 	free(str);
-	return (0);
+	exit(0);
 }
 		
 
