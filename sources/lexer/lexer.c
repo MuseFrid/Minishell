@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/25 18:05:48 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:22:13 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,12 @@ t_arg	*lexer(t_arg *arg, char *str)
 		if (!str[i])
 			break ;
 	}
+	set_previous(arg);
 	//test
 	new = arg;
-	printf("lexer part :\n");
+	printf("%slexer part :%s\n", GREEN, RESET);
+//	while (new->next)
+//		new = new->next;
 	while (new)
 	{
 		if (new->word)
@@ -112,8 +115,9 @@ t_arg	*lexer(t_arg *arg, char *str)
 		else
 			printf("%d\n", new->is_token);
 		new = new->next;
+		//new = new->previous;
 	}
-	printf("End lexer part.\n\n");
+	printf("%sEnd lexer part.%s\n\n", GREEN, RESET);
 	//
 	return (arg);
 }

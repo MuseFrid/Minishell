@@ -6,21 +6,21 @@
 #    By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/04/25 16:41:55 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/04/27 17:25:02 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf
 .PHONY: all clean fclean re
 
 HEADERS = $(addprefix $(HEADERS_D), $(HEADERS_LIST))
-HEADERS_D = ./include/
+HEADERS_D = ./includes/
 HEADERS_LIST = minishell.h
 
 SOURCES = $(addprefix $(SOURCES_D), $(SOURCES_LIST))
@@ -39,7 +39,8 @@ LEXER_LIST = lst_lexer.c \
 
 PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
 PARSER_D = parser/
-PARSER_LIST = parser.c
+PARSER_LIST = parser.c \
+			  lst_parser.c
 
 ALEXIS_PART = $(addprefix $(ALEXIS_PART_D), $(ALEXIS_PART_LIST))
 ALEXIS_PART_D = alexis_part/

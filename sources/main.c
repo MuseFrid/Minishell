@@ -6,11 +6,11 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/25 16:46:35 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:07:26 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell.h"
 
 /*void	parsing(char *str, char **envp)
 {
@@ -42,7 +42,7 @@ int build_exit(char *str)
 {
 	if (ft_strncmp(str, "exit", 5))
 		return (0);
-	return (printf("exit\n"));
+	return (printf("%sexit%s\n", BOLDRED, RESET));
 }
 
 void sig_handler(int signo)
@@ -76,7 +76,10 @@ int	main(int argc, char **argv, char **envp)
 	//init global_variable + everything we need.
 	while (1)
 	{
+		printf("%s", BOLDYELLOW);
 		str = readline("microshell$ ");
+	//printf("errno -> %d\n", errno);
+		printf("%s", RESET);
 		if (build_exit(str))
 			break ;
 		//parsing(str, envp);
