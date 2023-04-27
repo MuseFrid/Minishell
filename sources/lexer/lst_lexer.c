@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:33:43 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/26 16:46:45 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:02:32 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,27 @@ t_arg	*lst_new_arg(char *new_word, int token, int index)
 	new->next = NULL;
 	new->previous = NULL;
 	return (new);
+}
+
+void	lst_unlink_arg(t_arg *arg)
+{
+	t_arg	*before;
+	t_arg	*after;
+
+	before = NULL;
+	after = NULL;
+	if (arg->next)
+	{
+		after = arg->next;
+		after->previous = before;
+	}
+	if (arg->previous)
+	{
+		before = arg->previous;
+		before->next = after;
+	}
+	arg->next = NULL;
+	arg->previous = NULL;
 }
 
 void	lst_add_arg(t_arg **arg, t_arg *new)
@@ -48,7 +69,7 @@ void	lst_clear_arg(t_arg *arg)
 {
 	t_arg	*to_free;
 
-	if (!arg)
+	if (arg)
 		return ;
 	while (arg)
 	{
