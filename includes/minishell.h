@@ -5,19 +5,35 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/16 12:47:26 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/19 02:13:08 by aabda            ###   ########.fr       */
+/*   Created: 2023/04/02 15:11:21 by gduchesn          #+#    #+#             */
+/*   Updated: 2023/04/28 21:12:23 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
+# include <stdio.h>
+# include <readline/readline.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include "./core.h"
-# include "./utils.h"
-# include "./env.h"
+# include <errno.h>
+# include <fcntl.h>
+# include <dirent.h>
+# include <string.h>
+# include <signal.h>
+# include "color.h"
+# include "lexer.h"
+# include "core.h"
+# include "parser.h"
+
+# define SUCCESS 0
+# define FAIL 1
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *str);
+//char	*parse(char **envp, const char *cmd);
+int		ga_error(char *error_msg);
 
 #endif

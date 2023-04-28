@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/19 02:12:49 by aabda            ###   ########.fr       */
+/*   Updated: 2023/04/28 21:12:07 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ typedef struct s_data
 	struct s_env	*env;
 }	t_data;
 
+void	ft_init_struct(t_data *data, char **envp);
+void	ft_getenv(t_data *data, char **envp);
+void	ft_unset(t_data *data, char *value);
 void	ft_init_struct(t_data *data, char **envp);
 
 #endif
