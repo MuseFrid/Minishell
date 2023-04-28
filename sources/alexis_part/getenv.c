@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 12:51:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/25 16:44:50 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:20:41 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 ft_getenv:
 ...
 
-ft_ensure :
+ft_unset :
 Check if current exist, if current doesn't exist = exit
-loop on current to find if the ft_strncmp find the variable to ensure
+loop on current to find if the ft_strncmp find the variable to unset
 	if the variable is the first one on the list :
 		change the head of the list on the next one,
 		put the prev on NULL and free current.
@@ -78,7 +78,7 @@ void	ft_getenv(t_data *data, char **envp)
 	}
 }
 
-void	ft_ensure(t_data *data, char *value)
+void	ft_unset(t_data *data, char *value)
 {
 	t_env	*current;
 

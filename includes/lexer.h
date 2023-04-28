@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:35:11 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/27 14:18:51 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/28 01:49:38 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 # define LEXER_H
 # define UNCLOSED_QUOTE "Error\nSimple or Double quote are not closed\n"
 
-enum e_token
+typedef enum e_token
 {
-	NOT_A_TOKEN = 0,
+	NOT_A_TOKEN,
 	PIPE,
 	GREATER,
 	D_GREATER,
 	LOWER,
 	D_LOWER
-};
+}	t_token;
 
 typedef struct s_arg
 {
 	int				index;
 	char			*word;
-	int				is_token;
+	t_token			is_token;
 	struct s_arg	*next;
 	struct s_arg	*previous;
 }	t_arg;
