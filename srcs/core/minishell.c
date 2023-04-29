@@ -6,38 +6,33 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:47:01 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/19 01:56:26 by aabda            ###   ########.fr       */
+/*   Updated: 2023/04/29 20:26:14 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_init_struct(t_data *data, char **envp)
-{
-	data->env = NULL;
-	ft_getenv(data, envp);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-	t_env	*env;
 
+	if (argc != 1)
+		return (-1);
+	(void)argv;
 	ft_init_struct(&data, envp);
-	env = data.env;
-	while (env)
+	while (1)
 	{
-		printf("[%p] <- [%p] -> [%p] | %s\n", env->prev, env, env->next, env->value);
-		env = env->next;
+		data.line = readline("Minishell$ ");
+		if (ft_strncmp(data.line, "exit", 4) == 0)
+			ft_exit(NULL);
+		if (ft_strncmp(data.line, "env", 3) == 0)
+			ft_env(&data);
+		if (ft_strncmp(data.line, "$?", 2) == 0)
+			printf("%d\n", data.err_return_val);
+		if (ft_strncmp(data.line, "pwd", 3) == 0)
+			ft_pwd(NULL);
+		free(data.line);
 	}
-	printf("\n========================\n\n");
-	char *str = "COLORTERM";
-	ft_ensure(&data, str);
-	env = data.env;
-	while (env)
-	{
-		printf("%s\n", env->value);
-		env = env->next;
-	}
-	return (0);
+	free(data.line);
+	return (data.err_return_val);
 }
