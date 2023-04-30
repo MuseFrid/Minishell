@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 13:36:56 by aabda             #+#    #+#              #
-#    Updated: 2023/04/30 04:58:10 by aabda            ###   ########.fr        #
+#    Updated: 2023/04/30 05:35:10 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS = $(DIR)builtins/ft_env.c $(DIR)builtins/ft_exit.c \
 	$(DIR)core/minishell.c
 
 # SRCS TEMPORARILY NOT SET \
-$(DIR)builtins/ft_unset.c $(DIR)env/add_var_env.c
+$(DIR)builtins/ft_unset.c $(DIR)builtins/ft_export.c
 
 OBJS = $(SRCS:.c=.o)
 
