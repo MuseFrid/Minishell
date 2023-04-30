@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/27 14:22:13 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/30 19:34:32 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,10 @@ t_arg	*lexer(t_arg *arg, char *str)
 {
 	int		i;
 	int		j;
-	int		index;
 	char	*new_word;
 	t_arg	*new;
 
 	i = 0;
-	index = 0;
 	while (1)
 	{
 		j = 0;
@@ -91,18 +89,17 @@ t_arg	*lexer(t_arg *arg, char *str)
 		if (j > 0)
 		{
 			new_word = ft_substr(str, i - j, j);
-			new = lst_new_arg(new_word, NOT_A_TOKEN, index++);
+			new = lst_new_arg(new_word, NOT_A_TOKEN);
 			lst_add_arg(&arg, new);
 		}
 		if (is_token(str, &i, 0))
 		{
-			new = lst_new_arg(NULL, is_token(str, &i, 1), index++);
+			new = lst_new_arg(NULL, is_token(str, &i, 1));
 			lst_add_arg(&arg, new);
 		}
 		if (!str[i])
 			break ;
 	}
-	set_previous(arg);
 	//test
 	new = arg;
 	printf("%slexer part :%s\n", GREEN, RESET);

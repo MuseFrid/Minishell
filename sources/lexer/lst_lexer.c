@@ -6,13 +6,13 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:33:43 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/27 19:02:32 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/04/30 19:40:33 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_arg	*lst_new_arg(char *new_word, int token, int index)
+t_arg	*lst_new_arg(char *new_word, int token)
 {
 	t_arg	*new;
 
@@ -20,32 +20,14 @@ t_arg	*lst_new_arg(char *new_word, int token, int index)
 	if (!new)
 		exit(1);
 	new->word = new_word;
-	new->index = index;
 	new->is_token = token;
 	new->next = NULL;
-	new->previous = NULL;
 	return (new);
 }
 
 void	lst_unlink_arg(t_arg *arg)
 {
-	t_arg	*before;
-	t_arg	*after;
-
-	before = NULL;
-	after = NULL;
-	if (arg->next)
-	{
-		after = arg->next;
-		after->previous = before;
-	}
-	if (arg->previous)
-	{
-		before = arg->previous;
-		before->next = after;
-	}
 	arg->next = NULL;
-	arg->previous = NULL;
 }
 
 void	lst_add_arg(t_arg **arg, t_arg *new)
@@ -75,16 +57,19 @@ void	lst_clear_arg(t_arg *arg)
 	{
 		to_free = arg;
 		arg = arg->next;
+		lst_unlink_arg(to_free);
 		free(to_free->word);
 		free(to_free);
 	}
 }
 
-void	set_previous(t_arg *arg)
+/*void	set_previous(t_arg *arg)
 {
 	t_arg	*tmp;
 	t_arg	*head;
 
+	if (!arg)
+		return ;
 	head = arg;
 	while (1)
 	{
@@ -97,4 +82,4 @@ void	set_previous(t_arg *arg)
 		else
 			break ;
 	}
-}
+}*/
