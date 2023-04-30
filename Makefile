@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/30 13:36:56 by aabda             #+#    #+#              #
-#    Updated: 2023/04/29 00:31:41 by aabda            ###   ########.fr        #
+#    Updated: 2023/04/30 04:58:10 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,12 @@ CC		= gcc
 FLAGS	= -Wall -Wextra -Werror
 
 SRCS = $(DIR)builtins/ft_env.c $(DIR)builtins/ft_exit.c \
-	$(DIR)builtins/ft_pwd.c \
-	$(DIR)builtins/ft_unset.c $(DIR)env/getenv.c \
+	$(DIR)builtins/ft_pwd.c $(DIR)env/getenv.c \
 	$(DIR)utils/libft_utils.c $(DIR)utils/utils.c \
-	$(DIR)core/minishell.c 
+	$(DIR)core/minishell.c
+
+# SRCS TEMPORARILY NOT SET \
+$(DIR)builtins/ft_unset.c $(DIR)env/add_var_env.c
 
 OBJS = $(SRCS:.c=.o)
 
