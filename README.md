@@ -12,3 +12,7 @@
 
 #### Executor :
 Not yet started
+
+----------
+
+> Maybe change the logic with environemental variable to stock in the struct with `key` to have the name of the variable and `value` to have the value. Not have all the `key` `value` in one variable.
