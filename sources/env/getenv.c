@@ -6,35 +6,58 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 12:51:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/25 16:44:50 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:18:18 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
-/*
-
-ft_getenv:
-...
-
-ft_ensure :
-Check if current exist, if current doesn't exist = exit
-loop on current to find if the ft_strncmp find the variable to ensure
-	if the variable is the first one on the list :
-		change the head of the list on the next one,
-		put the prev on NULL and free current.
-
-	if the variable is not the first element of the list :
-		the variable next of the previous element = next element
-		if a next element exist,
-		the prev variable of the next element = previous
-		and free current.
-*/
-
-void	ft_init_struct(t_data *data, char **envp)
+static void	ft_fill_key_value(t_env *new, char **envp, int i)
 {
-	data->env = NULL;
-	ft_getenv(data, envp);
+	int	j;
+	int	k;
+	int	check_equal;
+
+	j = 0;
+	k = 0;
+	check_equal = 0;
+	while (envp[i][j])
+	{
+		if (!check_equal && envp[i][j - 1] == '=')
+			check_equal = j;
+		if (!check_equal)
+			new->key[j] = envp[i][j];
+		else
+		{
+			new->value[k] = envp[i][j];
+			k++;
+		}
+		j++;
+	}
+}
+
+static void	ft_key_value(t_env *new, char **envp, int i)
+{
+	int	j;
+	int	equal_index;
+
+	j = 0;
+	equal_index = 0;
+	while (envp[i][j])
+	{
+		if (!equal_index && envp[i][j - 1] == '=')
+			equal_index = j;
+		j++;
+	}
+	new->key = malloc(sizeof(char) * equal_index + 1);
+	if (!new->key)
+		exit(EXIT_FAILURE);		//	need to put the error function !
+	new->key[equal_index] = '\0';
+	new->value = malloc(sizeof(char) * (j - equal_index) + 1);
+	if (!new->value)
+		exit(EXIT_FAILURE);		//	need to put the error function !
+	new->value[j - equal_index] = '\0';
+	ft_fill_key_value(new, envp, i);
 }
 
 static void	ft_add_value(t_data *data, t_env *new, char **envp, int i)
@@ -43,7 +66,7 @@ static void	ft_add_value(t_data *data, t_env *new, char **envp, int i)
 
 	current = data->env;
 	new->index = i;
-	new->value = envp[i];
+	ft_key_value(new, envp, i);
 	new->next = NULL;
 	if (!current)
 	{
@@ -73,36 +96,7 @@ void	ft_getenv(t_data *data, char **envp)
 	{
 		new = malloc(sizeof(t_env));
 		if (!new)
-			exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);		//	need to put the error function !
 		ft_add_value(data, new, envp, i);
-	}
-}
-
-void	ft_ensure(t_data *data, char *value)
-{
-	t_env	*current;
-
-	current = data->env;
-	if (!current)
-		exit(EXIT_FAILURE);
-	while (current)
-	{
-		if (ft_strncmp(value, current->value, ft_strlen(value)) == 0)
-		{
-			if (current == data->env)
-			{
-				data->env = current->next;
-				current->next->prev = NULL;
-			}
-			else
-			{
-				current->prev->next = current->next;
-				if (current->next)
-					current->next->prev = current->prev;
-			}
-			free(current);
-			break ;
-		}
-		current = current->next;
 	}
 }

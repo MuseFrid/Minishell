@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.h                                             :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/28 22:59:00 by aabda            ###   ########.fr       */
+/*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
+/*   Updated: 2023/04/30 06:00:10 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORE_H
-# define CORE_H
+#include "../../includes/minishell.h"
 
-typedef struct s_data
+int	ft_echo(t_data *data)
 {
-	int				err_return_val;
-	char			*line;
-	struct s_env	*env;
-}	t_data;
+	(void)data;
+	char	**value;
+	int		i;
 
-#endif
+	// value = 					need to put the value of the struct
+	i = 0;
+	while (value[i])
+		i++;
+	if (i == 3 && ft_strncmp(value[1], "-n", 2) == 0)
+		printf("%s", value[2]);
+	else if (i == 2)
+		printf("%s\n", value[1]);
+	else
+		printf("\n");
+	return (0);
+}

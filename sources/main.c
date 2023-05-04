@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/27 17:07:26 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:58:14 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@ int	main(int argc, char **argv, char **envp)
 	char *str;
 	//char *test;
 	t_data	data;
-	t_env	*env;
 	
-	ft_init_struct(&data, envp);
-	env = data.env;
-	(void) argc;
+	if (argc != 1)
+		return (-1);
 	(void) argv;
+	ft_init_struct(&data, envp);
 	 /*if (signal(SIGUSR1, sig_handler) == SIG_ERR)
         printf("Error\ncan't catch SIGUSR1\n");
     if (signal(SIGKILL, sig_handler) == SIG_ERR)
@@ -78,11 +77,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		printf("%s", BOLDYELLOW);
 		str = readline("microshell$ ");
-	//printf("errno -> %d\n", errno);
 		printf("%s", RESET);
 		if (build_exit(str))
 			break ;
-		//parsing(str, envp);
 		parser(lexer(NULL, str), data);
 		free(str);
 	}// if we are out free everything.

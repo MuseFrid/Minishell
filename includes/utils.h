@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.h                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/28 22:59:00 by aabda            ###   ########.fr       */
+/*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
+/*   Updated: 2023/05/04 17:50:40 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORE_H
-# define CORE_H
+#ifndef UTILS_H
+# define UTILS_H
 
-typedef struct s_data
-{
-	int				err_return_val;
-	char			*line;
-	struct s_env	*env;
-}	t_data;
+void	ft_init_struct(t_data *data, char **envp);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strdup(const char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:11:21 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/25 18:00:17 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/04 17:51:00 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,12 @@
 # include "lexer.h"
 # include "core.h"
 # include "parser.h"
+# include "env.h"
+# include "utils.h"
 
 # define SUCCESS 0
 # define FAIL 1
 
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-int		ft_strlen(const char *str);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *str);
-//char	*parse(char **envp, const char *cmd);
 int		ga_error(char *error_msg);
 
 #endif

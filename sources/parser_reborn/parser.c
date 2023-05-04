@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/04 17:15:42 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:26:01 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ t_arg	*grab_redirections(t_arg **arg, t_simple_cmds *new)
 			return (pre_cmd);
 		}
 		if ((*arg)->is_token)
-			its_token(arg, &new);
+		{
+			if (its_token(arg, &new))
+				exit(1); // free everything error fonciton
+		}
 		else
 		{
 			lst_add_arg(&pre_cmd, *arg);
