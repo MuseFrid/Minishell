@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 15:44:49 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/30 14:59:09 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:11:24 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,17 @@
 
 void	destroy_one_nod(t_arg *arg)
 {
-	t_arg	*before;
 	t_arg	*after;
 
 	if (!arg)
 		return ;
-	before = arg->previous;
 	after = arg->next;
-	if (before)
-		before->next = after;
-	if (after)
-		after->previous = before;
 	arg->next = NULL;
-	arg->previous = NULL;
 	lst_clear_arg(arg);
 	arg = NULL;
 }
 
-void	destroy_nod(t_arg *arg, int how_many, int *i)
+/*void	destroy_nod(t_arg *arg, int how_many, int *i)
 {
 	int		j;
 	t_arg	*tmp;
@@ -78,4 +71,4 @@ void	destroy_nod(t_arg *arg, int how_many, int *i)
 	printf("%d\n", j);
 	if (j != how_many + 1)
 		printf("there is a issue in destroy_nod\n");
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:16:20 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/30 21:55:10 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/03 20:59:07 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,17 @@
 
 void	printing_parsing(t_simple_cmds *head);
 
-int	its_token(t_arg *arg, t_simple_cmds **cmds)
+int	its_token(t_arg **arg, t_simple_cmds **cmds)
 {
-	t_arg			*tmp;
-
-	if (!(arg && arg->next))
+	if (!(*arg && (*arg)->next))
 		return (printf("%sno arguments but care about |%s\n", RED, RESET));//no arguments but care about |
-	tmp = arg->next->next;
-	if (arg->next->is_token)
+	if ((*arg)->next->is_token)
 		return (printf("%sunexpected token%s\n", RED, RESET));
-	arg->word = ft_strdup(arg->next->word);//index to change
-	destroy_one_nod(arg->next);//no more need because content already dup
-	lst_unlink_arg(arg);
-	lst_add_arg(&(*cmds)->redirections, arg);
-	arg = tmp;
+	(*arg)->word = ft_strdup((*arg)->next->word);//index to change
+	destroy_one_nod((*arg)->next);//no more need because content already dup
+	lst_unlink_arg((*arg));
+	lst_add_arg(&(*cmds)->redirections, (*arg));
+	(*arg) = (*arg)->next->next;
 	//destroy_nod(arg, 2, i);
 	//cmds->redirections = arg;
 	return (0);
@@ -89,17 +86,20 @@ t_arg	*fill_cmd(t_arg *arg, t_simple_cmds **new)
 	t_arg	*tmp;
 	
 	before_tab = NULL;
-	while (arg && arg->next && arg->is_token != PIPE)
+	while (arg && arg->is_token != PIPE)
 	{
 		if (arg->is_token)
 		{
-			if (its_token(arg, new))
+			if (its_token(&arg, new))
 				return (NULL);
 		}
-		tmp = arg;
-		arg = arg->next;
-		lst_add_arg(&before_tab, tmp);
-		tmp->next = NULL;
+		else
+		{
+			tmp = arg;
+			arg = arg->next;
+			lst_add_arg(&before_tab, tmp);
+			tmp->next = NULL;
+		}
 	}
 	return (before_tab);
 }
@@ -107,20 +107,20 @@ t_arg	*fill_cmd(t_arg *arg, t_simple_cmds **new)
 t_simple_cmds	*new_cmd(t_arg *head, t_simple_cmds *cmds)
 {
 	t_simple_cmds	*new;
-	t_arg			*cmd;
+	t_arg			*pre_tab;
 
-	cmd = NULL;
+	pre_tab = NULL;
+	new = NULL;
 	lst_new_cmds(&new);
 	if (!new)
 		exit (1);
-	while (1)
-	{
-		cmd = fill_cmd(head, &new);
-		if (cmd == NULL)
-			break ;
-		lst_add_back_cmds(&cmds, new);
-		create_tab(head, &new);
-	}
+	pre_tab = fill_cmd(head, &new);
+	if (pre_tab == NULL)
+		return (NULL);
+	new->redirection = pre_tab;
+	lst_add_back_cmds(&cmds, new);
+	create_tab(head, &new);
+	new = NULL;
 	if (!new)// need to free everything
 		return (NULL);
 	return (cmds);
@@ -129,28 +129,11 @@ t_simple_cmds	*new_cmd(t_arg *head, t_simple_cmds *cmds)
 void	parser(t_arg *arg, t_data data)
 {
 	t_simple_cmds	*head;
-	//t_arg			*snake;
-	
-	//
 	t_arg			*arg_head;
+	
 	arg_head = arg;
-	//
 	head = NULL;
-	//snake = arg;
-	head = new_cmd(arg, head);
-	/*while (snake)
-	{
-		i++;
-		if (snake->is_token == PIPE || snake->next == NULL)
-		{
-		//	lst_add_back_cmds(&head, lst_new_cmds(arg, i));
-			lst_add_back_cmds(&head, new_cmds(arg, i));
-			if (snake->next)
-				arg = snake->next;
-			i = 0;
-		}
-		snake = snake->next;
-	}*/
+	new_cmd(arg, head);// after that cmds are finished so we got str[][] and redirection in every nod
 	printing_parsing(head);//test
 	lst_clear_cmds(head);
 	lst_clear_arg(arg_head);
