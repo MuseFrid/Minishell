@@ -6,11 +6,59 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 04:31:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/30 05:36:12 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/04 03:32:39 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static void	ft_fill_key_value(t_env *new, char *value)
+{
+	int	i;
+	int	j;
+	int	check_equal;
+
+	i = 0;
+	j = 0;
+	check_equal = 0;
+	while (value[i])
+	{
+		if (!check_equal && value[i - 1] == '=')
+			check_equal = i;
+		if (!check_equal)
+			new->key[i] = value[i];
+		else
+		{
+			new->value[j] = value[i];
+			j++;
+		}
+		i++;
+	}
+}
+
+static void	ft_key_value(t_env *new, char *value)
+{
+	int	i;
+	int	equal_index;
+
+	i = 0;
+	equal_index = 0;
+	while (value[i])
+	{
+		if (!equal_index && value[i - 1] == '=')
+			equal_index = i;
+		i++;
+	}
+	new->key = malloc(sizeof(char) * equal_index + 1);
+	if (!new->key)
+		exit(EXIT_FAILURE);		//	need to put the error function !
+	new->key[equal_index] = '\0';
+	new->value = malloc(sizeof(char) * (i - equal_index) + 1);
+	if (!new->value)
+		exit(EXIT_FAILURE);		//	need to put the error function !
+	new->value[i - equal_index] = '\0';
+	ft_fill_key_value(new, value);
+}
 
 static	void	ft_add_node(t_env *current, t_env *new, char *value)
 {
@@ -18,10 +66,10 @@ static	void	ft_add_node(t_env *current, t_env *new, char *value)
 	if (!new)
 		exit(EXIT_FAILURE);		//	need to put the good error handling malloc fail !
 	new->index = current->index + 1;
+	ft_key_value(new, value);
 	new->next = NULL;
 	new->prev = current;
 	current->next = new;
-	new->value = value;
 }
 
 int	ft_export(t_data *data)
