@@ -6,7 +6,7 @@
 #    By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/04 20:46:14 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/05/05 13:43:16 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D)
 all: $(NAME)
 
 $(NAME): $(OBJECTS_MAIN_D) $(OBJECTS)
-		$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS) -o $(NAME)
+		$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) -o $(NAME) $(LIBRARIES)
 
 $(OBJECTS_MAIN_D):
 	mkdir -p $(OBJECTS_CREATE_D)
