@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/04 17:58:14 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:19:42 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char **argv, char **envp)
 		printf("%s", RESET);
 		if (build_exit(str))
 			break ;
-		parser(lexer(NULL, str), data);
+		parser(lexer(NULL, str), &data);
 		free(str);
 	}// if we are out free everything.
 	free(str);

@@ -6,14 +6,14 @@
 #    By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/05 13:43:16 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/05/05 15:58:30 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf
@@ -45,7 +45,8 @@ PARSER_LIST = parser.c \
 
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
-ENV_LIST = getenv.c
+ENV_LIST = getenv.c \
+	   env_-i.c
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"

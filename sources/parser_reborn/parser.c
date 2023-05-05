@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/04 18:26:01 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/05 17:47:18 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_arg	*grab_redirections(t_arg **arg, t_simple_cmds *new)
 		if ((*arg)->is_token)
 		{
 			if (its_token(arg, &new))
-				exit(1); // free everything error fonciton
+				exit(1); // free everything error fonction
 		}
 		else
 		{
@@ -62,13 +62,59 @@ t_arg	*grab_redirections(t_arg **arg, t_simple_cmds *new)
 	return (pre_cmd);
 }
 
-void	parser(t_arg *arg, t_data data)
+void	print_parser(t_simple_cmds *cmds)
+{
+	t_simple_cmds	*tmp;
+	tmp = cmds;
+	while (tmp)
+	{
+		while (tmp->test_red)
+		{
+			printf("pre_cmd : %s\n", tmp->test_red->word);
+			tmp->test_red = tmp->test_red->next;
+		}
+		while (tmp->redirections)
+		{
+			printf("redirections : %s token : %d\n", tmp->redirections->word, tmp->redirections->is_token);
+			tmp->redirections = tmp->redirections->next;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void	print_data(t_data data)
+{
+	while (data.env)
+	{
+		printf("%s\n", data.env->key);
+		data.env = data.env->next;
+	}
+}
+
+void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)
+{
+	int	i;
+	while (pre_cmd)
+	{
+		i = 0;
+		while (pre_cmd->word[i])
+		{
+			i++;
+		}
+		pre_cmd = pre_cmd->next;
+	}
+	print_data(*data);
+	(void) data;
+	(void) new;
+	(void) pre_cmd;
+}
+
+void	parser(t_arg *arg, t_data *data)
 {
 	t_simple_cmds	*cmds;
 	t_simple_cmds	*new;
 	t_arg			*pre_cmd;
 
-	(void) data;
 	pre_cmd = NULL;
 	cmds = NULL;
 	while (arg)
@@ -78,22 +124,8 @@ void	parser(t_arg *arg, t_data data)
 		lst_new_cmds(&new);
 		pre_cmd = grab_redirections(&arg, new);
 		new->test_red = pre_cmd;
+		design_cmd(pre_cmd, new, data);
 		lst_add_back_cmds(&cmds, new);
 	}
-	t_simple_cmds	*tmp;
-	tmp = cmds;
-	while (cmds)
-	{
-		while (cmds->test_red)
-		{
-			printf("pre_cmd : %s\n", cmds->test_red->word);
-			cmds->test_red = cmds->test_red->next;
-		}
-		while (cmds->redirections)
-		{
-			printf("redirections : %s token : %d\n", cmds->redirections->word, cmds->redirections->is_token);
-			cmds->redirections = cmds->redirections->next;
-		}
-		cmds = cmds->next;
-	}
+	print_parser(cmds);
 }
