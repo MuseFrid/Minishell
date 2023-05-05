@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 12:51:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/04 22:30:37 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/05 05:00:52 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	ft_getenv(t_data *data, char **envp)
 	t_env	*new;
 	int		i;
 
+	if (!envp || !envp[0])
+		ft_run_without_env(data);
 	i = -1;
 	while (envp && envp[++i])
 	{
