@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/05 17:47:18 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:39:02 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,33 +80,6 @@ void	print_parser(t_simple_cmds *cmds)
 		}
 		tmp = tmp->next;
 	}
-}
-
-void	print_data(t_data data)
-{
-	while (data.env)
-	{
-		printf("%s\n", data.env->key);
-		data.env = data.env->next;
-	}
-}
-
-void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)
-{
-	int	i;
-	while (pre_cmd)
-	{
-		i = 0;
-		while (pre_cmd->word[i])
-		{
-			i++;
-		}
-		pre_cmd = pre_cmd->next;
-	}
-	print_data(*data);
-	(void) data;
-	(void) new;
-	(void) pre_cmd;
 }
 
 void	parser(t_arg *arg, t_data *data)

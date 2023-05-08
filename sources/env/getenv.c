@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 12:51:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/05 05:00:52 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/08 13:44:52 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_key_value(t_env *new, char **envp, int i)
 	while (envp[i][j])
 	{
 		if (!equal_index && envp[i][j] == '=')
-			equal_index = j + 1;
+			equal_index = j;
 		j++;
 	}
 	new->key = malloc(sizeof(char) * equal_index + 1);

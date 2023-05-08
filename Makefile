@@ -6,7 +6,7 @@
 #    By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/05 15:58:30 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/05/08 17:23:28 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
 PARSER_D = parser_reborn/
 PARSER_LIST = parser.c \
 			  lst_parser.c \
-			  #destroy_nod.c
+			  design_cmd.c \
+			  parsing_strjoin.c
 
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
