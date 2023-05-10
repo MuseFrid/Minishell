@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 13:37:19 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/08 17:25:43 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:12:21 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,30 @@ int	is_interaction(char c)
 	return (i + 1);
 }
 
-void	handle_quotes(char *str, int tmp, int *i, int *start)
+int	get_dollar_word(char *str, int i)
+{
+	while (str[i])
+	{
+		if (is_token(str, &i, 0) || str[i] == ' ')
+			break;
+		i++;
+	}
+	return (i);
+}
+
+void	handle_quotes(char *str, int tmp, int *i, t_data data)
 {
 	char	stop;
 
 	stop = str[(*i)++];
-	*start = *i;
 	while (str[*i] != stop)
 	{
 		if (tmp == DOUBLE_QUOTES && str[*i] == '$')
-			;
+		{
+			return ;
+		};
+		if (tmp == DOLLAR)
+			get_dollar_word(str, i);
 	}
 	(void) str;
 	(void) tmp;
@@ -68,7 +82,8 @@ void	looking_for_expend(char *str, t_data data)
 		if (tmp && tmp != DOLLAR)
 		{
 			final_str = parsing_strjoin(final_str, ft_substr(str, start, i - start));
-			handle_quotes(str, tmp, &i, &start);
+			start = i + 1;
+			handle_quotes(str, tmp, &i, data);
 		}
 		//if (str[i] == '\'')
 		//	i++;

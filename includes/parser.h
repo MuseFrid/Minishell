@@ -6,14 +6,21 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/08 17:22:05 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:58:16 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-# define DOLLAR 3
-# define DOUBLE_QUOTES 2
+//# define DOLLAR 3
+//# define DOUBLE_QUOTES 2
+
+enum e_parsing
+{
+	SIMPLE_QUOTE = 1,
+	DOUBLE_QUOTES,
+	DOLLAR
+};
 
 typedef struct s_simple_cmds
 {

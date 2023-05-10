@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_strjoin.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gduchesn <gduchesn@students.s19.be>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/10 15:22:51 by gduchesn          #+#    #+#             */
+/*   Updated: 2023/05/10 15:23:57 by gduchesn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static char	*free_before_return(char const *s1, char const *s2, char *return_str)
 {
-	free(s1);
-	free(s2);
+	free((void *)s1);
+	free((void *)s2);
 	return (return_str);
 }
 

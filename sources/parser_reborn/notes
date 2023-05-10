@@ -1,0 +1,4 @@
+if tmp != $
+-> if \" rechercher les $ dans le cas ou il y en a rappeler la fonction qui gere les $
+
+tmp == $ aller chercher le mot associer le sortir de la phrase et aller chercher la variable d'environnement associer et la mettre a la place du $ initial
