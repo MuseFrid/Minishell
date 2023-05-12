@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 20:23:48 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/12 22:20:39 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ int	main(int argc, char **argv, char **envp)
 		// print_parser(data.cmds);
 		// print_tab(data.cmds);
 		ft_check_builtins(&data);
+		if (data.cmds->builtin)
+			data.cmds->builtin(&data);
+		else
+			printf("Not a builtin !\n");
 		free(str);
 	}
 	free(str);

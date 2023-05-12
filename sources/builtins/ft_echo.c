@@ -6,11 +6,34 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 17:00:13 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/12 22:19:54 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_loop(char **value, int i)
+{
+	if (value[i + 1])
+		printf("%s ", value[i]);
+	else
+		printf("%s", value[i]);
+}
+
+static void	ft_logic(char **value, int i)
+{
+	if (value[1] && ft_strncmp(value[1], "-n", 2) == 0)
+	{
+		i++;
+		while (value[++i])
+			ft_loop(value, i);
+		return ;
+	}
+	else
+		while (value[++i])
+			ft_loop(value, i);
+	printf("\n");
+}
 
 int	ft_echo(t_data *data)
 {
@@ -19,13 +42,6 @@ int	ft_echo(t_data *data)
 
 	value = data->cmds->str;
 	i = 0;
-	while (value[i])
-		i++;
-	if (i == 3 && ft_strncmp(value[1], "-n", 2) == 0)
-		printf("%s", value[2]);
-	else if (i == 2)
-		printf("%s\n", value[1]);
-	else
-		printf("\n");
+	ft_logic(value, i);
 	return (0);
 }
