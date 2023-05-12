@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 14:48:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/12 20:46:22 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_cd(t_data *data)
 
 	pwd = data->env;
 	old_pwd = data->env;
-	// cd =				//	variable in struct where the user need to cd
+	cd = data->cmds->str[1];
 	current_path = getcwd(NULL, 0);
 	if (!pwd || !old_pwd || !current_path)
 		return (1);		//	call the error function

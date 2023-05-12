@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:11:21 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/08 15:45:32 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:49:35 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "color.h"
 # include "core.h"
 # include "parser.h"
+# include "builtins.h"
 # include "env.h"
 # include "utils.h"
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 13:37:19 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 14:15:33 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:58:45 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,20 @@ int	get_dollar_word(char *str, int i)
 	return (i);
 }
 
-char	*env_variable(char *str, int tmp, t_env env)
+char	*env_variable(char *str, int tmp, t_env *env)
 {
 	while (env)
 	{
 		if (!ft_strncmp(str, env->key, tmp))
-			return (ft_strdup(env->line));
+			return (ft_strdup(env->value));
 		env = env->next;
 	}
 	return (NULL);
 }
 
-void	handle_quotes(char *str, int tmp, int *i, t_data data)
+char	*handle_quotes(char *str, int tmp, int *i, t_data data)
 {
 	char	stop;
-	int		tmp;
 	char 	*dollard;//after_get_dollard_value
 	char	*quote_content;
 
@@ -70,7 +69,7 @@ void	handle_quotes(char *str, int tmp, int *i, t_data data)
 		if (tmp == DOUBLE_QUOTES && str[*i] == '$')
 		{
 			tmp = get_dollar_word(str, *i);
-			dollard = env_variable((str + *i), tmp, data->env);
+			dollard = env_variable((str + *i), tmp, data.env);
 			*i += tmp;
 		};
 	}

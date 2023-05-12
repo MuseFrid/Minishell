@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/05 16:19:42 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:23:48 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,37 +57,26 @@ void sig_handler(int signo)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char *str;
-	//char *test;
+	char 	*str;
 	t_data	data;
-	
+
 	if (argc != 1)
 		return (-1);
 	(void) argv;
 	ft_init_struct(&data, envp);
-	 /*if (signal(SIGUSR1, sig_handler) == SIG_ERR)
-        printf("Error\ncan't catch SIGUSR1\n");
-    if (signal(SIGKILL, sig_handler) == SIG_ERR)
-        printf("Error\ncan't catch SIGKILL\n");
-    if (signal(SIGSTOP, sig_handler) == SIG_ERR)
-        printf("Error\ncan't catch SIGSTOP\n");*/
-	//init_mini();
-	//init global_variable + everything we need.
 	while (1)
 	{
 		printf("%s", BOLDYELLOW);
-		str = readline("microshell$ ");
+		str = readline("minishell$ ");
 		printf("%s", RESET);
-		if (build_exit(str))
-			break ;
-		parser(lexer(NULL, str), &data);
+		// if (build_exit(str))
+		// 	break ;
+		data.cmds = parser(lexer(NULL, str), &data);
+		// print_parser(data.cmds);
+		// print_tab(data.cmds);
+		ft_check_builtins(&data);
 		free(str);
-	}// if we are out free everything.
+	}
 	free(str);
 	exit(0);
 }
-		
-
-//errno = 10;
-//write(2, strerror(errno), strlen(strerror(errno)));
-//perror("Error in while");
