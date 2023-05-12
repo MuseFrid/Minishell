@@ -6,11 +6,11 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 22:18:03 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/28 22:48:21 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/12 14:48:25 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_exit(t_data *data)
 {
