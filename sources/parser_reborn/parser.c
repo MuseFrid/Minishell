@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/08 13:39:02 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:22:34 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,52 @@ void	print_parser(t_simple_cmds *cmds)
 	}
 }
 
+int	lst_size_arg(t_arg *pre_cmd)
+{
+	int	i;
+
+	i = 0;
+	if (pre_cmd)
+	{
+		while (pre_cmd && ++i)
+			pre_cmd = pre_cmd->next;
+	}
+	return (i);
+}
+
+char **double_tab_to_keep_going(t_arg *pre_cmd)
+{
+	int	size;
+	char	**tab;
+	int	i;
+
+	i = 0;
+	size = lst_size_arg(pre_cmd);
+	tab = malloc(sizeof(char *) * (size + 1));
+	if (!tab)
+		return (NULL);
+	tab[size] = NULL;
+	while (pre_cmd)
+	{
+		tab[i++] = ft_strdup(pre_cmd->word);
+		pre_cmd = pre_cmd->next;
+	}
+	return (tab);
+}
+
+void	print_tab(t_simple_cmds *cmds)
+{
+	int	i;
+
+	while (cmds)
+	{
+		i = 0;
+		while (cmds->str[i])
+			printf("%s\n", cmds->str[i++]);
+		cmds = cmds->next;
+	}
+}
+
 void	parser(t_arg *arg, t_data *data)
 {
 	t_simple_cmds	*cmds;
@@ -97,8 +143,10 @@ void	parser(t_arg *arg, t_data *data)
 		lst_new_cmds(&new);
 		pre_cmd = grab_redirections(&arg, new);
 		new->test_red = pre_cmd;
+		new->str = double_tab_to_keep_going(pre_cmd);
 		design_cmd(pre_cmd, new, data);
 		lst_add_back_cmds(&cmds, new);
 	}
+	print_tab(new);
 	print_parser(cmds);
 }

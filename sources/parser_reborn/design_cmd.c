@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 13:37:19 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/10 18:12:21 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:15:33 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,42 @@ int	get_dollar_word(char *str, int i)
 	return (i);
 }
 
+char	*env_variable(char *str, int tmp, t_env env)
+{
+	while (env)
+	{
+		if (!ft_strncmp(str, env->key, tmp))
+			return (ft_strdup(env->line));
+		env = env->next;
+	}
+	return (NULL);
+}
+
 void	handle_quotes(char *str, int tmp, int *i, t_data data)
 {
 	char	stop;
+	int		tmp;
+	char 	*dollard;//after_get_dollard_value
+	char	*quote_content;
 
 	stop = str[(*i)++];
+	dollard = NULL;
 	while (str[*i] != stop)
 	{
 		if (tmp == DOUBLE_QUOTES && str[*i] == '$')
 		{
-			return ;
+			tmp = get_dollar_word(str, *i);
+			dollard = env_variable((str + *i), tmp, data->env);
+			*i += tmp;
 		};
-		if (tmp == DOLLAR)
-			get_dollar_word(str, i);
 	}
+	(void) data;
 	(void) str;
 	(void) tmp;
-	return ;
+	return (quote_content);
 }
 
-void	looking_for_expend(char *str, t_data data)
+char	*looking_for_expend(char *str, t_data data)
 {
 	int	i;
 	int	tmp;
@@ -73,7 +89,6 @@ void	looking_for_expend(char *str, t_data data)
 
 	i = 0;
 	tmp = 0;
-	(void) data;
 	start = i;
 	final_str = NULL;
 	while (str[i])
@@ -83,11 +98,9 @@ void	looking_for_expend(char *str, t_data data)
 		{
 			final_str = parsing_strjoin(final_str, ft_substr(str, start, i - start));
 			start = i + 1;
-			handle_quotes(str, tmp, &i, data);
+			//final_str = parsing_strjoin(final_str, handle_quotes(str, tmp, &i, data));
+			//start = i;
 		}
-		//if (str[i] == '\'')
-		//	i++;
-		//if (str[i] == '$')
 		i++;
 	}
 }
@@ -95,14 +108,11 @@ void	looking_for_expend(char *str, t_data data)
 void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)
 {
 	int	i;
+
+	i = 0;
 	while (pre_cmd)
 	{
-		i = 0;
-		looking_for_expend(pre_cmd->word, *data);
-		while (pre_cmd->word[i])
-		{
-			i++;
-		}
+		new->str[i++] = looking_for_expend(pre_cmd->word, *data);
 		pre_cmd = pre_cmd->next;
 	}
 	print_data(*data);
