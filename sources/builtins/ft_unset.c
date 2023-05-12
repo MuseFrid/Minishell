@@ -6,38 +6,47 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 23:05:56 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 19:25:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/12 23:09:01 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_logic(t_data *data, t_env *current, char **value)
+static void	ft_var_found(t_data *data, t_env *current)
 {
-	int	i;
-
-	i = 1;
-	while (current && i < current->index)
+	if (current == data->env)
 	{
-		if (ft_strncmp(value[i], current->key, ft_strlen(value[i])) == 0)
+		data->env = current->next;
+		current->next->prev = NULL;
+	}
+	else
+	{
+		current->prev->next = current->next;
+		if (current->next)
+			current->next->prev = current->prev;
+	}
+	free(current->key);
+	free(current->value);
+	free(current);
+}
+
+static void	ft_logic(t_data *data, t_env *current, char **value, int i)
+{
+	t_env	*first;
+
+	while (value[i])
+	{
+		first = data->env;
+		current = first;
+		while (current)
 		{
-			if (current == data->env)
+			if (ft_strncmp(value[i], current->key, ft_strlen(value[i])) == 0)
 			{
-				data->env = current->next;
-				current->next->prev = NULL;
+				ft_var_found(data, current);
+				break ;
 			}
-			else
-			{
-				current->prev->next = current->next;
-				if (current->next)
-					current->next->prev = current->prev;
-			}
-			free(current->key);
-			free(current->value);
-			free(current);
-			break ;
+			current = current->next;
 		}
-		current = current->next;
 		i++;
 	}
 }
@@ -46,11 +55,13 @@ int	ft_unset(t_data *data)
 {
 	t_env	*current;
 	char	**value;
+	int		i;
 
 	current = data->env;
 	value = data->cmds->str;
-	if (!current)
+	i = 1;
+	if (!current || !value)
 		return (1);
-	ft_logic(data, current, value);
+	ft_logic(data, current, value, i);
 	return (0);
 }
