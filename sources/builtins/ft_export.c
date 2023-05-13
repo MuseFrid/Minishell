@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 04:31:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 14:48:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/13 19:45:45 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,21 @@ int	ft_export(t_data *data)
 {
 	t_env	*current;
 	t_env	*new;
-	char	*value = "SALUT=test";
+	char	**value;
+	int		i;
 
 	current = data->env;
-	// value = 						need to put the good string in the struct
+	value = data->cmds->str;
 	if (!current)
 		return (1);		//	need to put the good error handling if the linked list doesn't exist !
 	new = NULL;
 	while (current->next)
 		current = current->next;
-	ft_add_node(current, new, value);
+	i = 0;
+	while (value[++i])
+	{
+		ft_add_node(current, new, value[i]);
+		current = current->next;
+	}
 	return (0);
 }
