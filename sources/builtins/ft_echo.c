@@ -6,13 +6,13 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 22:19:54 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/14 04:22:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_loop(char **value, int i)
+static void	ft_check(char **value, int i)
 {
 	if (value[i + 1])
 		printf("%s ", value[i]);
@@ -26,12 +26,12 @@ static void	ft_logic(char **value, int i)
 	{
 		i++;
 		while (value[++i])
-			ft_loop(value, i);
+			ft_check(value, i);
 		return ;
 	}
 	else
 		while (value[++i])
-			ft_loop(value, i);
+			ft_check(value, i);
 	printf("\n");
 }
 
