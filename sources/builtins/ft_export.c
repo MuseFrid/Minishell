@@ -6,66 +6,31 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 04:31:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/13 19:45:45 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/16 23:12:20 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_fill_key_value(t_env *new, char *value, int equal_index)
+static	void	ft_node(t_data *data, t_env *current, t_env *new, char *val)
 {
-	int	i;
-	int	j;
+	t_env	*tmp;
+	int		replace;
 
-	i = 0;
-	j = 0;
-	while (value[i])
+	tmp = data->env;
+	replace = 0;
+	while (tmp)
 	{
-		if (i < equal_index)
-			new->key[i] = value[i];
-		else
+		if (ft_strncmp(tmp->key, val, ft_strlen(tmp->key)) == 0)
 		{
-			new->value[j] = value[i];
-			j++;
+			ft_replace_value_env(tmp, val);
+			replace = 1;
+			break ;
 		}
-		i++;
+		tmp = tmp->next;
 	}
-}
-
-static void	ft_key_value(t_env *new, char *value)
-{
-	int	i;
-	int	equal_index;
-
-	i = 0;
-	equal_index = 0;
-	while (value[i])
-	{
-		if (!equal_index && value[i] == '=')
-			equal_index = i + 1;
-		i++;
-	}
-	new->key = malloc(sizeof(char) * equal_index + 1);
-	if (!new->key)
-		exit(EXIT_FAILURE);		//	need to put the error function !
-	new->key[equal_index] = '\0';
-	new->value = malloc(sizeof(char) * (i - equal_index) + 1);
-	if (!new->value)
-		exit(EXIT_FAILURE);		//	need to put the error function !
-	new->value[i - equal_index] = '\0';
-	ft_fill_key_value(new, value, equal_index);
-}
-
-static	void	ft_add_node(t_env *current, t_env *new, char *value)
-{
-	new = malloc(sizeof(t_env));
-	if (!new)
-		exit(EXIT_FAILURE);		//	need to put the good error handling malloc fail !
-	new->index = current->index + 1;
-	ft_key_value(new, value);
-	new->next = NULL;
-	new->prev = current;
-	current->next = new;
+	if (!replace)
+		ft_new_node_env(data, current, new, val);
 }
 
 int	ft_export(t_data *data)
@@ -85,7 +50,7 @@ int	ft_export(t_data *data)
 	i = 0;
 	while (value[++i])
 	{
-		ft_add_node(current, new, value[i]);
+		ft_node(data, current, new, value[i]);
 		current = current->next;
 	}
 	return (0);

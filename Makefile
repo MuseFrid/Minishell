@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/12 16:59:31 by aabda            ###   ########.fr        #
+#    Updated: 2023/05/16 23:09:53 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ BUILTINS_LIST = ft_cd.c ft_echo.c \
 UTILS = $(addprefix $(UTILS_D), $(UTILS_LIST))
 UTILS_D = utils/
 UTILS_LIST = utils.c ga_error.c \
-	builtins.c
+	builtins.c env.c \
+	env_new_node.c env_concat_value.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/
@@ -59,8 +60,7 @@ PARSER_LIST = parser.c \
 
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
-ENV_LIST = getenv.c \
-	   env_-i.c
+ENV_LIST = getenv.c env_-i.c \
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"
