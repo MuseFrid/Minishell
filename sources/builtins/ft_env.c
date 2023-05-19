@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 21:39:36 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 14:48:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/19 03:01:11 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_env(t_data *data)
 		return (1);
 	while (current)
 	{
-		printf("%s%s\n", current->key, current->value);
+		printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
 	return (0);
