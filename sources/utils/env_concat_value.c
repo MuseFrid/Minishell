@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 23:09:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/19 05:14:51 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/19 09:27:07 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ void	ft_concat_env(t_data *data, t_env *new, char *value, int equal_index)
 	while (current)
 	{
 		if (ft_cmp_str_strict(current->key, key) == 0)
-			{
-				ft_free(key);
-				check = 1;
-				ft_logic(current, value, equal_index);
-			}
+		{
+			ft_free(key);
+			check = 1;
+			ft_logic(current, value, equal_index);
+		}
 		current = current->next;
 	}
 	if (!check)
