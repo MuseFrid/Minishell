@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/16 23:09:53 by aabda            ###   ########.fr        #
+#    Updated: 2023/05/17 17:27:39 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ UTILS = $(addprefix $(UTILS_D), $(UTILS_LIST))
 UTILS_D = utils/
 UTILS_LIST = utils.c ga_error.c \
 	builtins.c env.c \
-	env_new_node.c env_concat_value.c
+	env_new_node.c env_concat_value.c \
+	utils2.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/

@@ -6,30 +6,71 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:24:14 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/16 23:30:21 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/19 03:21:55 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+char	*ft_catch_value_env(char *value)
+{
+	int		i;
+	int		j;
+	int		equal_index;
+	char	*str;
+
+	str = NULL;
+	equal_index = 0;
+	i = -1;
+	while (value[++i])
+		if (value[i] == '=')
+			equal_index = i;
+	str = malloc(sizeof(char) * (i - equal_index + 1));
+	if (!str)
+		return (NULL);	// need to call the error function !
+	j = 0;
+	while (++equal_index < i)
+	{
+		str[j] = value[equal_index];
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
+}
+
+char	*ft_catch_key_env(char *value)
+{
+	int		i;
+	int		equal_index;
+	char	*key;
+
+	key = NULL;
+	i = 0;
+	equal_index = 0;
+	while (value[i])
+	{
+		if (value[i] == '+' && value[i + 1] == '=')
+			break ;
+		if (value[i] == '=')
+			break ;
+		equal_index++;
+		i++;
+	}
+	key = malloc(sizeof(char) * equal_index + 1);
+	if (!key)
+		return (NULL);		//	need to call the error function !
+	i = -1;
+	while (++i < equal_index)
+		key[i] = value[i];
+	key[i] = '\0';
+	return (key);
+}
+
 void	ft_replace_value_env(t_env *current, char *value)
 {
-	int	equal_index;
-	int	i;
+	char	*new_val;
 
-	equal_index = 0;
-	while (value[equal_index] != '=')
-		equal_index++;
-	free(current->value);
-	current->value = malloc(sizeof(char *) * \
-		(ft_strlen(value) - equal_index) + 1);
-	if (!current->value)
-		exit(EXIT_FAILURE);		//	need to put the error function
-	i = -1;
-	while (++i < ft_strlen(value) && value[equal_index])
-	{
-		current->value[i] = value[equal_index + 1];
-		equal_index++;
-	}
-	current->value[i] = '\0';
+	ft_free(current->value);
+	new_val = ft_catch_value_env(value);
+	current->value = new_val;
 }
