@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 20:46:22 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/20 05:07:08 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 {
 	if (ft_strncmp(old_pwd->key, "OLDPWD", 6) == 0)
 	{
-		free(old_pwd->value);
+		ft_free(old_pwd->value);
 		old_pwd->value = current_path;
 	}
 	current_path = getcwd(NULL, 0);
@@ -24,7 +24,7 @@ static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 		return (1);		//	call the error function
 	if (ft_strncmp(old_pwd->key, "PWD", 3) == 0)
 	{
-		free(pwd->value);
+		ft_free(pwd->value);
 		pwd->value = current_path;
 	}
 	else

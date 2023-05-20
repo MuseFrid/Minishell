@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 23:05:56 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/20 05:01:00 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/20 05:07:00 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	ft_var_found(t_data *data, t_env *current)
 		if (current->next)
 			current->next->prev = current->prev;
 	}
-	free(current->key);
-	free(current->value);
-	free(current);
+	ft_free(current->key);
+	ft_free(current->value);
+	ft_free(current);
 }
 
 static void	ft_logic(t_data *data, t_env *current, char **value, int i)
