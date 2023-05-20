@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 23:05:56 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 23:09:01 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/20 05:01:00 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,23 @@ static void	ft_var_found(t_data *data, t_env *current)
 static void	ft_logic(t_data *data, t_env *current, char **value, int i)
 {
 	t_env	*first;
+	char	*key;
 
 	while (value[i])
 	{
+		key = ft_catch_key_env(value[i]);
 		first = data->env;
 		current = first;
 		while (current)
 		{
-			if (ft_strncmp(value[i], current->key, ft_strlen(value[i])) == 0)
+			if (ft_cmp_str_strict(key, current->key) == 0)
 			{
 				ft_var_found(data, current);
 				break ;
 			}
 			current = current->next;
 		}
+		ft_free(key);
 		i++;
 	}
 }
