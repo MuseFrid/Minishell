@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 14:15:30 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:03:06 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds *next;
 	struct s_simple_cmds *prev;
 }	t_simple_cmds;
+
+typedef struct s_bool
+{
+	int	simple_q;
+	int	double_q;
+}	t_bool;
 
 void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data);
 void	parser(t_arg *arg, t_data *data);

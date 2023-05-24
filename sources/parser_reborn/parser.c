@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 13:22:34 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/12 19:40:49 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void	print_tab(t_simple_cmds *cmds)
 	while (cmds)
 	{
 		i = 0;
-		while (cmds->str[i])
+		while (cmds->str && cmds->str[i])
 			printf("%s\n", cmds->str[i++]);
 		cmds = cmds->next;
 	}
@@ -147,6 +147,6 @@ void	parser(t_arg *arg, t_data *data)
 		design_cmd(pre_cmd, new, data);
 		lst_add_back_cmds(&cmds, new);
 	}
-	print_tab(new);
+	print_tab(cmds);
 	print_parser(cmds);
 }
