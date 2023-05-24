@@ -6,47 +6,65 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 23:05:56 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/04 03:40:18 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/20 05:07:00 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-static void	ft_logic(t_data *data, t_env *current, char *value)
+static void	ft_var_found(t_data *data, t_env *current)
 {
-	while (current)
+	if (current == data->env)
 	{
-		if (ft_strncmp(value, current->key, ft_strlen(value)) == 0)
+		data->env = current->next;
+		current->next->prev = NULL;
+	}
+	else
+	{
+		current->prev->next = current->next;
+		if (current->next)
+			current->next->prev = current->prev;
+	}
+	ft_free(current->key);
+	ft_free(current->value);
+	ft_free(current);
+}
+
+static void	ft_logic(t_data *data, t_env *current, char **value, int i)
+{
+	t_env	*first;
+	char	*key;
+
+	while (value[i])
+	{
+		key = ft_catch_key_env(value[i]);
+		first = data->env;
+		current = first;
+		while (current)
 		{
-			if (current == data->env)
+			if (ft_cmp_str_strict(key, current->key) == 0)
 			{
-				data->env = current->next;
-				current->next->prev = NULL;
+				ft_var_found(data, current);
+				break ;
 			}
-			else
-			{
-				current->prev->next = current->next;
-				if (current->next)
-					current->next->prev = current->prev;
-			}
-			free(current->key);
-			free(current->value);
-			free(current);
-			break ;
+			current = current->next;
 		}
-		current = current->next;
+		ft_free(key);
+		i++;
 	}
 }
 
 int	ft_unset(t_data *data)
 {
 	t_env	*current;
-	char	*value;			//	assign value to the arg in the struct (the variable to unset)
+	char	**value;
+	int		i;
 
 	current = data->env;
-	//value =
-	if (!current)
+	value = data->cmds->str;
+	i = 1;
+	if (!current || !value)
 		return (1);
-	ft_logic(data, current, value);
+	ft_logic(data, current, value, i);
 	return (0);
 }

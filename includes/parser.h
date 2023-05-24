@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 16:03:06 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:40:25 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ enum e_parsing
 
 typedef struct s_simple_cmds
 {
-	char **str;
-	//int (*builtin)(t_tools *, struct s_simple_cmds *);
-	t_arg *redirections;
-	t_arg *test_red;
-	struct s_simple_cmds *next;
-	struct s_simple_cmds *prev;
+	char					**str;
+	int						(*builtin)(struct s_data *);
+	t_arg					*redirections;
+	t_arg					*test_red;
+	struct s_simple_cmds	*next;
+	struct s_simple_cmds	*prev;
 }	t_simple_cmds;
 
 typedef struct s_bool
@@ -45,5 +45,7 @@ void	lst_clear_cmds(t_simple_cmds *head);
 void	lst_unlink_arg(t_arg *arg);
 void	lst_new_cmds(t_simple_cmds **new);
 char	*parsing_strjoin(char const *s1, char const *s2);
+void	print_parser(t_simple_cmds *cmds);
+void	print_tab(t_simple_cmds *cmds);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 19:40:49 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:42:27 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	print_tab(t_simple_cmds *cmds)
 	}
 }
 
-void	parser(t_arg *arg, t_data *data)
+t_simple_cmds	*parser(t_arg *arg, t_data *data)
 {
 	t_simple_cmds	*cmds;
 	t_simple_cmds	*new;
@@ -144,9 +144,9 @@ void	parser(t_arg *arg, t_data *data)
 		pre_cmd = grab_redirections(&arg, new);
 		new->test_red = pre_cmd;
 		new->str = double_tab_to_keep_going(pre_cmd);
-		design_cmd(pre_cmd, new, data);
+		// design_cmd(pre_cmd, new, data);
 		lst_add_back_cmds(&cmds, new);
 	}
-	print_tab(cmds);
-	print_parser(cmds);
+	(*data).cmds = cmds;
+	return (cmds);
 }

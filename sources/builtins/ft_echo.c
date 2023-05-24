@@ -6,27 +6,42 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/04/30 06:00:10 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/14 04:22:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
+
+static void	ft_check(char **value, int i)
+{
+	if (value[i + 1])
+		printf("%s ", value[i]);
+	else
+		printf("%s", value[i]);
+}
+
+static void	ft_logic(char **value, int i)
+{
+	if (value[1] && ft_strncmp(value[1], "-n", 2) == 0)
+	{
+		i++;
+		while (value[++i])
+			ft_check(value, i);
+		return ;
+	}
+	else
+		while (value[++i])
+			ft_check(value, i);
+	printf("\n");
+}
 
 int	ft_echo(t_data *data)
 {
-	(void)data;
 	char	**value;
 	int		i;
 
-	// value = 					need to put the value of the struct
+	value = data->cmds->str;
 	i = 0;
-	while (value[i])
-		i++;
-	if (i == 3 && ft_strncmp(value[1], "-n", 2) == 0)
-		printf("%s", value[2]);
-	else if (i == 2)
-		printf("%s\n", value[1]);
-	else
-		printf("\n");
+	ft_logic(value, i);
 	return (0);
 }

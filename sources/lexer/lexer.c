@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/30 19:34:32 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/12 20:45:04 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,19 +102,19 @@ t_arg	*lexer(t_arg *arg, char *str)
 	}
 	//test
 	new = arg;
-	printf("%slexer part :%s\n", GREEN, RESET);
-//	while (new->next)
-//		new = new->next;
-	while (new)
-	{
-		if (new->word)
-			printf("%s\n", new->word);
-		else
-			printf("%d\n", new->is_token);
-		new = new->next;
-		//new = new->previous;
-	}
-	printf("%sEnd lexer part.%s\n\n", GREEN, RESET);
+// 	printf("%slexer part :%s\n", GREEN, RESET);
+// //	while (new->next)
+// //		new = new->next;
+// 	while (new)
+// 	{
+// 		if (new->word)
+// 			printf("%s\n", new->word);
+// 		else
+// 			printf("%d\n", new->is_token);
+// 		new = new->next;
+// 		//new = new->previous;
+// 	}
+// 	printf("%sEnd lexer part.%s\n\n", GREEN, RESET);
 	//
 	return (arg);
 }

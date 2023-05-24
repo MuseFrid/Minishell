@@ -6,11 +6,11 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 04:38:55 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/05 05:10:46 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/17 19:38:04 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	ft_env_pwd(t_data *data)
 {
@@ -65,7 +65,7 @@ static void	ft_env_underscore(t_data *data)
 		exit(EXIT_FAILURE);
 	new->index = 3;
 	new->key = ft_strdup("_=");
-	new->value = ft_strdup("test");
+	new->value = ft_strdup("test");		//	need to have the good value
 	current->next = new;
 	new->next = NULL;
 	new->prev = current;

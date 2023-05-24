@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+         #
+#    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/08 17:23:28 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/05/17 17:27:39 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,27 @@ HEADERS_LIST = minishell.h
 
 SOURCES = $(addprefix $(SOURCES_D), $(SOURCES_LIST))
 SOURCES_D = ./sources/
-SOURCES_LIST = main.c \
-			   utils.c \
-			   ga_error.c \
-			   $(LEXER) \
-			   $(PARSER) \
-			   $(ENV)
+SOURCES_LIST = $(LEXER) $(PARSER) \
+	$(ENV) $(CORE) \
+	$(BUILTINS) $(UTILS)
+
+CORE = $(addprefix $(CORE_D), $(CORE_LIST))
+CORE_D = core/
+CORE_LIST = minishell.c
+
+BUILTINS = $(addprefix $(BUILTINS_D), $(BUILTINS_LIST))
+BUILTINS_D = builtins/
+BUILTINS_LIST = ft_cd.c ft_echo.c \
+	ft_env.c ft_exit.c \
+	ft_export.c ft_pwd.c \
+	ft_unset.c
+
+UTILS = $(addprefix $(UTILS_D), $(UTILS_LIST))
+UTILS_D = utils/
+UTILS_LIST = utils.c ga_error.c \
+	builtins.c env.c \
+	env_new_node.c env_concat_value.c \
+	utils2.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/
@@ -41,13 +56,12 @@ PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
 PARSER_D = parser_reborn/
 PARSER_LIST = parser.c \
 			  lst_parser.c \
-			  design_cmd.c \
 			  parsing_strjoin.c
+			#   design_cmd.c
 
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
-ENV_LIST = getenv.c \
-	   env_-i.c
+ENV_LIST = getenv.c env_-i.c \
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"
@@ -56,7 +70,7 @@ OBJECTS = $(addprefix $(OBJECTS_MAIN_D), $(OBJECTS_LIST))
 OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_LIST))
 OBJECTS_MAIN_D = objects/
 OBJECTS_CREATE_D = $(OBJECTS_MAIN_D) $(addprefix $(OBJECTS_MAIN_D), $(OBJECTS_SUB_D))
-OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D)
+OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D) $(CORE_D) $(UTILS_D) $(BUILTINS_D)
 
 all: $(NAME)
 

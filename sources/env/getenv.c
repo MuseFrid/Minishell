@@ -6,11 +6,11 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 12:51:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/08 13:44:52 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:45:23 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	ft_fill_key_value(t_env *new, char **envp, int i, int equal_index)
 {
@@ -25,8 +25,10 @@ static void	ft_fill_key_value(t_env *new, char **envp, int i, int equal_index)
 			new->key[j] = envp[i][j];
 		else
 		{
-			new->value[k] = envp[i][j];
+			new->value[k] = envp[i][j + 1];
 			k++;
+			if (!envp[i][j + 1])
+				break ;
 		}
 		j++;
 	}

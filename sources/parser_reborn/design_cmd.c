@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 13:37:19 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 19:27:39 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:42:05 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	*env_variable(char *str, int tmp, t_env *env)
 char	*handle_quotes(char *str, int tmp, int *i, t_data data)
 {
 	char	stop;
-	int		number_c;
 	char 	*dollard;//after_get_dollard_value
 	char	*quote_content;
 
@@ -70,10 +69,10 @@ char	*handle_quotes(char *str, int tmp, int *i, t_data data)
 	{
 		if (tmp == DOUBLE_QUOTES && str[*i] == '$')
 		{
-			number_c = get_dollar_word(str, *i);
-			dollard = env_variable(&str[(*i)], number_c, data.env);
-			*i += number_c;
-		}
+			tmp = get_dollar_word(str, *i);
+			dollard = env_variable((str + *i), tmp, data.env);
+			*i += tmp;
+		};
 	}
 	(void) data;
 	(void) str;
