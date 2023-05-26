@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/19 02:01:33 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/26 17:32:30 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	ft_cmp_str_strict(const char *s1, const char *s2)
 	return (1);
 }
 
-void	ft_free(void *value)
+void	ft_free(void **value)
 {
-	free(value);
-	value = NULL;
+	free(*value);
+	*value = NULL;
 }
