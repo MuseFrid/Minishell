@@ -6,7 +6,7 @@
 /*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/24 14:40:25 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/25 12:52:26 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_bool
 }	t_bool;
 
 void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data);
-void	parser(t_arg *arg, t_data *data);
+t_simple_cmds	*parser(t_arg *arg, t_data *data);
 void	lst_add_back_cmds(t_simple_cmds **head, t_simple_cmds *new);
 void	lst_clear_cmds(t_simple_cmds *head);
 void	lst_unlink_arg(t_arg *arg);

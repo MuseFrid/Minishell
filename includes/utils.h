@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/19 05:11:02 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/26 15:29:38 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,9 @@ void	ft_new_node_env(t_data *data, t_env *current, t_env *new, char *val);
 
 //		sources/utils/builtins.c
 int		ft_check_builtins(t_data *data);
+
+//		source/utils/free_all.c
+void	free_env(t_env *env);
+void	free_all(t_data *data);
 
 #endif

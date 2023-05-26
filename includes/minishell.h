@@ -6,14 +6,13 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:11:21 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 16:49:35 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/26 15:29:51 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdio.h>
-# include <readline/readline.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
@@ -28,6 +27,7 @@
 # include "builtins.h"
 # include "env.h"
 # include "utils.h"
+# include <readline/readline.h>
 
 # define SUCCESS 0
 # define FAIL 1

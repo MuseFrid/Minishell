@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.h                                             :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/26 15:29:59 by gduchesn         ###   ########.fr       */
+/*   Created: 2023/05/26 15:07:19 by gduchesn          #+#    #+#             */
+/*   Updated: 2023/05/26 15:30:58 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORE_H
-# define CORE_H
+#include "minishell.h"
 
-typedef struct s_data
+void	free_env(t_env *env)
 {
-	int						err_return_val;
-	struct s_env			*env;
-	struct s_simple_cmds	*cmds;
-}	t_data;
-int	ret_val;
-#endif
+	free(env->key);
+	free(env->value);
+	free(env);
+}
+
+void	free_all(t_data *data)
+{
+	free_env(data->env);
+	lst_clear_cmds(data->cmds);
+	free(data);
+	exit(ret_val);
+}
