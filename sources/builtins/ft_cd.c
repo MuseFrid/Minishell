@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/20 05:07:08 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:11:13 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,23 @@
 
 static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 {
-	if (ft_strncmp(old_pwd->key, "OLDPWD", 6) == 0)
-	{
-		ft_free(old_pwd->value);
-		old_pwd->value = current_path;
-	}
+	ft_free((void **)&old_pwd->value);
+	old_pwd->value = current_path;
 	current_path = getcwd(NULL, 0);
 	if (!current_path)
 		return (1);		//	call the error function
-	if (ft_strncmp(old_pwd->key, "PWD", 3) == 0)
-	{
-		ft_free(pwd->value);
-		pwd->value = current_path;
-	}
-	else
-		return (1);		// call the error function
+	ft_free((void **)&pwd->value);
+	pwd->value = current_path;
 	return (0);
+}
+
+static void	ft_error_msg(t_env *pwd, t_env *old_pwd, char *cd, char *c_path)
+{
+	(void)pwd;
+	(void)old_pwd;
+	(void)cd;
+	free(c_path);
+	printf("%s\n", c_path);
 }
 
 int	ft_cd(t_data *data)
@@ -45,12 +46,15 @@ int	ft_cd(t_data *data)
 	current_path = getcwd(NULL, 0);
 	if (!pwd || !old_pwd || !current_path)
 		return (1);		//	call the error function
-	while (ft_strncmp(pwd->key, "PWD", 3) == 0)
+	while (ft_cmp_str_strict(pwd->key, "PWD") != 0)
 		pwd = pwd->next;
-	while (ft_strncmp(old_pwd->key, "OLDPWD", 6) == 0)
+	while (ft_cmp_str_strict(old_pwd->key, "OLDPWD") != 0)
 		old_pwd = old_pwd->next;
 	if (chdir(cd) == -1)
+	{
+		ft_error_msg(pwd, old_pwd, cd, current_path);
 		return (1);		//	call the error function
+	}
 	if (ft_add_value(pwd, old_pwd, current_path) != 0)
 		return (1);		//	call the error function
 	return (0);

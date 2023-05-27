@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:57:53 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/19 05:12:30 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:34:40 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,24 @@ static void	ft_key_value(t_env *new, char *value)
 	new->value = val;
 }
 
-static void	ft_fill_values(t_env *current, t_env *new, char *value)
+static void	ft_fill_values(t_data *data, t_env *new, char *value)
 {
+	t_env	*last;
+
+	last = ft_last_elem_env(data);
+	if (!last)
+		exit(EXIT_FAILURE);		//	need to put the error function
 	new = malloc(sizeof(t_env));
 	if (!new)
 		exit(EXIT_FAILURE);		//	need to put the good error handling malloc fail !
-	new->index = current->index + 1;
+	new->index = last->index + 1;
 	ft_key_value(new, value);
 	new->next = NULL;
-	new->prev = current;
-	current->next = new;
+	new->prev = last;
+	last->next = new;
 }
 
-void	ft_new_node_env(t_data *data, t_env *current, t_env *new, char *val)
+void	ft_new_node_env(t_data *data, t_env *new, char *val)
 {
 	int	i;
 	int	equal_index;
@@ -52,7 +57,7 @@ void	ft_new_node_env(t_data *data, t_env *current, t_env *new, char *val)
 				ft_concat_env(data, new, val, equal_index);
 				break ;
 			}
-			ft_fill_values(current, new, val);
+			ft_fill_values(data, new, val);
 		}
 	}
 }

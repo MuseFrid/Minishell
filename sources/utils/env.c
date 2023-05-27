@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:24:14 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/19 03:21:55 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:34:55 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,19 @@ void	ft_replace_value_env(t_env *current, char *value)
 {
 	char	*new_val;
 
-	ft_free(current->value);
+	ft_free((void **)&current->value);
 	new_val = ft_catch_value_env(value);
 	current->value = new_val;
+}
+
+t_env	*ft_last_elem_env(t_data *data)
+{
+	t_env	*current;
+	
+	current = data->env;
+	if (!current)
+		return (NULL);		//	Need to put error function
+	while (current->next)
+		current = current->next;
+	return (current);
 }

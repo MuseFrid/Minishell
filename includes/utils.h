@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/19 05:11:02 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:35:13 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,19 @@ char	*ft_strdup(const char *str);
 
 //		sources/utils/utils2.c
 int		ft_cmp_str_strict(const char *s1, const char *s2);
-void	ft_free(void *value);
+void	ft_free(void **value);
 
 //		sources/utils/env.c
 void	ft_replace_value_env(t_env *current, char *value);
 char	*ft_catch_key_env(char *value);
 char	*ft_catch_value_env(char *value);
+t_env	*ft_last_elem_env(t_data *data);
 
 //		sources/utils/env_concat_value.c
 void	ft_concat_env(t_data *data, t_env *new, char *value, int equal_index);
 
 //		sources/utils/env_new_node.c
-void	ft_new_node_env(t_data *data, t_env *current, t_env *new, char *val);
+void	ft_new_node_env(t_data *data, t_env *new, char *val);
 
 //		sources/utils/builtins.c
 int		ft_check_builtins(t_data *data);
