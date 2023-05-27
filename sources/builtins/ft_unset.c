@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 23:05:56 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:11:15 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:45:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_logic(t_data *data, t_env *current, char **value, int i)
 		current = first;
 		while (current)
 		{
-			if (ft_cmp_str_strict(key, current->key) == 0)
+			if (ft_strcmp_strict(key, current->key) == 0)
 			{
 				ft_var_found(data, current);
 				break ;

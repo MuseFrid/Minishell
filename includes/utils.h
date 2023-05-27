@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:35:13 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:45:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *str);
 
 //		sources/utils/utils2.c
-int		ft_cmp_str_strict(const char *s1, const char *s2);
+int		ft_strcmp_strict(const char *s1, const char *s2);
 void	ft_free(void **value);
 
 //		sources/utils/env.c

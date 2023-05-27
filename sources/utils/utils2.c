@@ -6,13 +6,13 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:40:46 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:45:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_cmp_str_strict(const char *s1, const char *s2)
+int	ft_strcmp_strict(const char *s1, const char *s2)
 {
 	int	len_s1;
 	int	len_s2;

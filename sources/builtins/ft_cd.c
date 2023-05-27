@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:11:13 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:45:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int	ft_cd(t_data *data)
 	current_path = getcwd(NULL, 0);
 	if (!pwd || !old_pwd || !current_path)
 		return (1);		//	call the error function
-	while (ft_cmp_str_strict(pwd->key, "PWD") != 0)
+	while (ft_strcmp_strict(pwd->key, "PWD") != 0)
 		pwd = pwd->next;
-	while (ft_cmp_str_strict(old_pwd->key, "OLDPWD") != 0)
+	while (ft_strcmp_strict(old_pwd->key, "OLDPWD") != 0)
 		old_pwd = old_pwd->next;
 	if (chdir(cd) == -1)
 	{

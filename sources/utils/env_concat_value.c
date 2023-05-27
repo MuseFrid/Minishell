@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 23:09:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:11:16 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/27 19:45:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_concat_env(t_data *data, t_env *new, char *value, int equal_index)
 	check = 0;
 	while (current)
 	{
-		if (ft_cmp_str_strict(current->key, key) == 0)
+		if (ft_strcmp_strict(current->key, key) == 0)
 		{
 			ft_free((void **)&key);
 			check = 1;
