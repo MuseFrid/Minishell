@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 04:38:55 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/17 19:38:04 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/28 02:00:48 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_env_pwd(t_data *data)
 	if (!new || !path)
 		exit(EXIT_FAILURE);
 	new->index = 1;
-	new->key = ft_strdup("PWD=");
+	new->key = ft_strdup("PWD");
 	new->value = ft_strdup(path);
 	new->next = NULL;
 	new->prev = NULL;
@@ -43,7 +43,7 @@ static void	ft_env_shlvl(t_data *data)
 	if (!new)
 		exit(EXIT_FAILURE);
 	new->index = 2;
-	new->key = ft_strdup("SHLVL=");
+	new->key = ft_strdup("SHLVL");
 	new->value = ft_strdup("1");
 	current->next = new;
 	new->next = NULL;
@@ -64,7 +64,7 @@ static void	ft_env_underscore(t_data *data)
 	if (!new)
 		exit(EXIT_FAILURE);
 	new->index = 3;
-	new->key = ft_strdup("_=");
+	new->key = ft_strdup("_");
 	new->value = ft_strdup("test");		//	need to have the good value
 	current->next = new;
 	new->next = NULL;
