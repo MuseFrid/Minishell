@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 04:38:55 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/28 02:00:48 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/28 18:40:15 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	ft_env_shlvl(t_data *data)
 	new->prev = current;
 }
 
-static void	ft_env_underscore(t_data *data)
+static void	ft_underscore_without_env(t_data *data)
 {
 	t_env	*current;
 	t_env	*new;
@@ -65,7 +65,7 @@ static void	ft_env_underscore(t_data *data)
 		exit(EXIT_FAILURE);
 	new->index = 3;
 	new->key = ft_strdup("_");
-	new->value = ft_strdup("test");		//	need to have the good value
+	new->value = ft_strdup("./minishell");		//	maybe false
 	current->next = new;
 	new->next = NULL;
 	new->prev = current;
@@ -75,5 +75,5 @@ void	ft_run_without_env(t_data *data)
 {
 	ft_env_pwd(data);
 	ft_env_shlvl(data);
-	ft_env_underscore(data);
+	ft_underscore_without_env(data);
 }

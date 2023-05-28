@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/17 17:27:39 by aabda            ###   ########.fr        #
+#    Updated: 2023/05/28 02:06:16 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ PARSER_LIST = parser.c \
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
 ENV_LIST = getenv.c env_-i.c \
+	underscore.c
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"

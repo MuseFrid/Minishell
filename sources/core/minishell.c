@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/14 04:21:32 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/29 00:37:50 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		printf("%s", RESET);
 		data.cmds = parser(lexer(NULL, str), &data);
 		ft_check_builtins(&data);
+		ft_env_underscore(&data);
 		if (data.cmds->builtin)
 			data.cmds->builtin(&data);
 		else
