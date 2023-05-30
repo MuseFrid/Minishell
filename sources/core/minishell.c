@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/29 00:37:50 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/30 15:31:46 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		printf("%s", BOLDYELLOW);
-		str = readline("minishell$ ");
+		str = readline(ft_path_and_username(&data));
 		printf("%s", RESET);
 		data.cmds = parser(lexer(NULL, str), &data);
 		ft_check_builtins(&data);

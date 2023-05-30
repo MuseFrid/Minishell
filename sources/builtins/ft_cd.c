@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:45:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/30 16:09:40 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,30 @@ static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 	return (0);
 }
 
-static void	ft_error_msg(t_env *pwd, t_env *old_pwd, char *cd, char *c_path)
+static char	*ft_get_home(t_data *data)
 {
-	(void)pwd;
-	(void)old_pwd;
-	(void)cd;
-	free(c_path);
-	printf("%s\n", c_path);
+	t_env	*current;
+	char	*res;
+
+	current = data->env;
+	res = NULL;
+	if (!current)
+		return (NULL);		// call the error function
+	while (current)
+	{
+		if (ft_strcmp_strict(current->key, "HOME") == 0)
+		{
+			res = current->value;
+			break ;
+		}
+		current = current->next;
+	}
+	return (res);
+}
+
+static void	ft_error_msg(char *c_path)
+{
+	printf("cd: %s: No such file or directory\n", c_path);
 }
 
 int	ft_cd(t_data *data)
@@ -43,6 +60,8 @@ int	ft_cd(t_data *data)
 	pwd = data->env;
 	old_pwd = data->env;
 	cd = data->cmds->str[1];
+	if (!cd)
+		cd = ft_get_home(data);
 	current_path = getcwd(NULL, 0);
 	if (!pwd || !old_pwd || !current_path)
 		return (1);		//	call the error function
@@ -52,7 +71,7 @@ int	ft_cd(t_data *data)
 		old_pwd = old_pwd->next;
 	if (chdir(cd) == -1)
 	{
-		ft_error_msg(pwd, old_pwd, cd, current_path);
+		ft_error_msg(cd);
 		return (1);		//	call the error function
 	}
 	if (ft_add_value(pwd, old_pwd, current_path) != 0)
