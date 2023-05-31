@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/30 16:09:40 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 19:42:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 {
-	ft_free((void **)&old_pwd->value);
-	old_pwd->value = current_path;
-	current_path = getcwd(NULL, 0);
-	if (!current_path)
-		return (1);		//	call the error function
-	ft_free((void **)&pwd->value);
-	pwd->value = current_path;
+	if (pwd && old_pwd)
+	{
+		ft_free((void **)&old_pwd->value);
+		old_pwd->value = current_path;
+		current_path = getcwd(NULL, 0);
+		if (!current_path)
+			return (1);		//	call the error function
+		ft_free((void **)&pwd->value);
+		pwd->value = current_path;
+	}
 	return (0);
 }
 
@@ -42,12 +45,38 @@ static char	*ft_get_home(t_data *data)
 		}
 		current = current->next;
 	}
+	if (!res)
+		res = ft_catch_home_by_dir(res);
 	return (res);
 }
 
 static void	ft_error_msg(char *c_path)
 {
 	printf("cd: %s: No such file or directory\n", c_path);
+}
+
+static int	ft_check_val_err(t_env *pwd, t_env *old_pwd, char *cd, char *c_path)
+{
+	while (pwd)
+	{
+		if (ft_strcmp_strict(pwd->key, "PWD") == 0)
+			break ;
+		pwd = pwd->next;
+	}
+	while (old_pwd)
+	{
+		if (ft_strcmp_strict(old_pwd->key, "OLDPWD") == 0)
+			break ;
+		old_pwd = old_pwd->next;
+	}
+	if (chdir(cd) == -1)
+	{
+		ft_error_msg(cd);
+		return (1);		//	call the error function
+	}
+	if (ft_add_value(pwd, old_pwd, c_path) != 0)
+		return (1);		//	call the error function
+	return (0);
 }
 
 int	ft_cd(t_data *data)
@@ -65,16 +94,10 @@ int	ft_cd(t_data *data)
 	current_path = getcwd(NULL, 0);
 	if (!pwd || !old_pwd || !current_path)
 		return (1);		//	call the error function
-	while (ft_strcmp_strict(pwd->key, "PWD") != 0)
-		pwd = pwd->next;
-	while (ft_strcmp_strict(old_pwd->key, "OLDPWD") != 0)
-		old_pwd = old_pwd->next;
-	if (chdir(cd) == -1)
-	{
-		ft_error_msg(cd);
-		return (1);		//	call the error function
-	}
-	if (ft_add_value(pwd, old_pwd, current_path) != 0)
-		return (1);		//	call the error function
-	return (0);
+	return (ft_check_val_err(pwd, old_pwd, cd, current_path));
 }
+
+/*
+	(crash if unset PWD and try to change directory)
+	need to fix pwd (line 68 and line 70) if PWD or OLDPWD does not exist !
+*/
