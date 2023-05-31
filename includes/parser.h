@@ -6,7 +6,7 @@
 /*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/25 12:52:26 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:07:16 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ enum e_parsing
 
 typedef struct s_simple_cmds
 {
-	char					**str;
+	char					**tab;
 	int						(*builtin)(struct s_data *);
 	t_arg					*redirections;
 	t_arg					*test_red;

@@ -3,47 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   design_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 13:37:19 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/26 18:13:46 by gduchesn         ###   ########.fr       */
+/*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
+/*   Updated: 2023/05/31 16:47:07 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_data(t_data data)
-{
-	while (data.env)
-	{
-		printf("%s\n", data.env->key);
-		data.env = data.env->next;
-	}
-}
-
-int	is_interaction(char c)
-{
-	static char	str[] = "\'\"$";
-	int			i;
-
-	i = 0;
-	while (str[i] != c && str[i])
-		i++;
-	if (i == 3)
-		return (0);
-	return (i + 1);
-}
-
-int	get_dollar_word(char *str, int i)
-{
-	while (str[i])
-	{
-		if (is_token(str, &i, 0) || str[i] == ' ')
-			break;
-		i++;
-	}
-	return (i);
-}
 
 char	*env_variable(char *str, int tmp, t_env *env)
 {
@@ -54,30 +21,6 @@ char	*env_variable(char *str, int tmp, t_env *env)
 		env = env->next;
 	}
 	return (NULL);
-}
-
-char	*handle_quotes(char *str, int tmp, int *i, t_data data)
-{
-	char	stop;
-	char 	*dollard;//after_get_dollard_value
-	char	*quote_content;
-
-	stop = str[(*i)++];
-	dollard = NULL;
-	quote_content = NULL;
-	while (str[*i] != stop)
-	{
-		if (tmp == DOUBLE_QUOTES && str[*i] == '$')
-		{
-			tmp = get_dollar_word(str, *i);
-			dollard = env_variable((str + *i), tmp, data.env);
-			*i += tmp;
-		};
-	}
-	(void) data;
-	(void) str;
-	(void) tmp;
-	return (quote_content);
 }
 
 void	bool_init(t_bool *bool_quotes)
@@ -94,54 +37,64 @@ void	change_bool_value(int *bool_v)
 		*bool_v = 0;
 }
 
-char	*dollar_case(char *str, int *i, t_data data)
-{
-	int	tmp;
-	char	*dollar;
-
-	tmp = get_dollar_word(str, *i);
-	dollar = env_variable(&str[(*i)], tmp, data.env);
-	*i += tmp;
-	return (dollar);
-}
-
-char	*looking_for_expend(char *str, t_data data)
+char	*getend(char *str, int start, char **final_str, t_env *env)
 {
 	int	i;
-	int	tmp;
-	int	start;
-	char	*final_str;
+
+	i = start;
+	*final_str = ft_substr(str, 0, start);
+	printf("%s\n", *final_str);
+	while (1)
+	{
+		i++;
+		if (is_token(str, &i, 0) || str[i] == ' ' || !str[i])
+		{
+			while (env && strncmp((str + start + 1), env->key, i - start - 1))
+				env = env->next;
+			printf("%s\n", env->key);
+			printf("out\n");
+			break ;
+		}
+	}
+	printf("%s\n", str);
+	if (str[i])
+		str = ft_substr(str, i, (ft_strlen(str) - i));
+	else
+		str = NULL;
+	printf("%s\n", str);
+	return (str);
+}
+
+void	expand_env(char *str, t_data data, char **final_str)
+{
+	int	i;
 	t_bool	bool_quotes;
 
+	(void) data;
 	i = 0;
-	tmp = 0;
-	start = 0;
-	final_str = NULL;
 	bool_init(&bool_quotes);
-	while (str[i])
+	while (str && str[i++])
 	{
-		tmp = is_interaction(str[i]);
-		if (tmp)
+		if (str[i] == '\'' && bool_quotes.double_q == 0)
+			change_bool_value(&bool_quotes.simple_q);
+		if (str[i] == '\"' && bool_quotes.simple_q == 0)
+			change_bool_value(&bool_quotes.double_q);
+		if (str[i] == '$' && bool_quotes.simple_q == 0)
 		{
-			parsing_strjoin(final_str, ft_substr(str, start, i - start));
-			start = i;
-			if (tmp == DOLLAR && bool_quotes.simple_q == 0)
-				parsing_strjoin(final_str, dollar_case(str, &i, data));
-			if (tmp == SIMPLE_QUOTE && bool_quotes.double_q == 0)
-				change_bool_value(&bool_quotes.simple_q);
-			if (tmp == DOUBLE_QUOTES && bool_quotes.simple_q == 0)
-				change_bool_value(&bool_quotes.double_q);
+			str = getend(str, i, final_str, data.env);
+			i = 0;
 		}
-		if (tmp && tmp != DOLLAR)
-		{
-			final_str = parsing_strjoin(final_str, ft_substr(str, start, i - start));
-			start = i + 1;
-			//final_str = parsing_strjoin(final_str, handle_quotes(str, tmp, &i, data));
-			//start = i;
-		}
-		i++;
 	}
-	return (final_str);
+}
+
+char	*clean_cmd(char *str, t_data data)
+{
+	char	*after_expand;
+
+	after_expand = NULL;
+	expand_env(str, data, &after_expand);
+	//ft_free((void **) str);
+	return (NULL);
 }
 
 void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)
@@ -151,7 +104,8 @@ void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)
 	i = 0;
 	while (pre_cmd)
 	{
-		new->str[i++] = looking_for_expend(pre_cmd->word, *data);
+		printf("%s\n", pre_cmd->word);
+		new->tab[i++] = clean_cmd(pre_cmd->word, *data);
 		pre_cmd = pre_cmd->next;
 	}
 	//print_data(*data);
