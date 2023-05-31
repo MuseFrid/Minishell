@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 19:42:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 19:46:44 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,3 @@ int	ft_cd(t_data *data)
 		return (1);		//	call the error function
 	return (ft_check_val_err(pwd, old_pwd, cd, current_path));
 }
-
-/*
-	(crash if unset PWD and try to change directory)
-	need to fix pwd (line 68 and line 70) if PWD or OLDPWD does not exist !
-*/
