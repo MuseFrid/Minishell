@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:34:11 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 22:07:11 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 20:10:02 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_builtins_tab(char *cmd)
 	i = 0;
 	while (tab[i])
 	{
-		if (strncmp(cmd, tab[i], ft_strlen(cmd)) == 0)
+		if (ft_strcmp_strict(cmd, tab[i]) == 0)
 			return (i);
 		i++;
 	}
