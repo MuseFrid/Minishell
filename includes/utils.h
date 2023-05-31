@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 00:55:35 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 18:55:09 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ void	ft_free(void **value);
 //		sources/utils/path_user_dollar.c
 char	*ft_path_and_username(t_data *data);
 
-//		sources/utils/path_user_dollar.c
+//		sources/utils/path_user_dollar2.c
 char	*ft_catch_user_env(t_data *data);
 void	ft_join_pwd_user_dollar(char *user, char *pwd, char *res);
+char	*ft_catch_home_by_dir(char *str);
 
 //		sources/utils/env.c
 void	ft_replace_value_env(t_env *current, char *value);

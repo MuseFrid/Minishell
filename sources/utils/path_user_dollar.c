@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:15:00 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 11:53:12 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 19:05:01 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	ft_create_pwd_str(char *home, char *str, char *res)
 
 static char	*ft_cmp_res(char *res, char *home_str, char *str)
 {
+	if (!home_str)
+		home_str = ft_catch_home_by_dir(home_str);
 	if ((ft_strlen(str) - ft_strlen(home_str) == 0))
 	{
 		res = malloc(sizeof(char) * 3);
@@ -69,29 +71,18 @@ static char	*ft_catch_home(t_data *data, char *str)
 		}
 		home = home->next;
 	}
+	if (!home_str)
+		return (ft_cmp_res(res, home_str, str));
 	return (ft_cmp_res(res, home_str, str));
 }
 
 static char	*ft_catch_pwd_env(t_data *data)
 {
-	t_env	*current;
 	char	*res;
 
-	current = data->env;
-	res = NULL;
-	if (!current)
-		return (NULL);		//	call the error function
-	while (current)
-	{
-		if (ft_strcmp_strict(current->key, "PWD") == 0)
-		{
-			res = current->value;
-			break ;
-		}
-		current = current->next;
-	}
+	res = getcwd(NULL, 0);
 	if (!res)
-		return ("NO_PWD_IN_ENV");
+		return (NULL);	//	call error function
 	res = ft_catch_home(data, res);
 	return (res);
 }
