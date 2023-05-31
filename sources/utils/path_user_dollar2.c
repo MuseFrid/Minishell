@@ -6,17 +6,11 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:53:23 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 19:02:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 19:08:02 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	ft_free_finish_str(char *res, char *str, int i)
-{
-	res[i] = '\0';
-	ft_free((void **)&str);
-}
 
 char	*ft_catch_home_by_dir(char *str)
 {
@@ -42,7 +36,8 @@ char	*ft_catch_home_by_dir(char *str)
 	i = -1;
 	while (++i < len_home)
 		res[i] = str[i];
-	ft_free_finish_str(res, str, i);
+	res[i] = '\0';
+	ft_free((void **)&str);
 	return (res);
 }
 
@@ -70,7 +65,8 @@ static char	*ft_get_username_by_dir(char *str)
 		++i;
 		++first_slash;
 	}
-	ft_free_finish_str(res, str, i);
+	res[i] = '\0';
+	ft_free((void **)&str);
 	return (res);
 }
 
