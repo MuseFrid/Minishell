@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:15:00 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 00:55:07 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 11:53:12 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char	*ft_catch_pwd_env(t_data *data)
 	char	*res;
 
 	current = data->env;
-	res = "NONE";
+	res = NULL;
 	if (!current)
 		return (NULL);		//	call the error function
 	while (current)
@@ -90,6 +90,8 @@ static char	*ft_catch_pwd_env(t_data *data)
 		}
 		current = current->next;
 	}
+	if (!res)
+		return ("NO_PWD_IN_ENV");
 	res = ft_catch_home(data, res);
 	return (res);
 }

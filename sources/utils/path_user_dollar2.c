@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:53:23 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 00:55:06 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 11:53:29 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_catch_user_env(t_data *data)
 	char	*res;
 
 	current = data->env;
-	res = "user";
+	res = NULL;
 	if (!current)
 		return (NULL);		//	need to put the error function
 	while (current)
@@ -30,6 +30,8 @@ char	*ft_catch_user_env(t_data *data)
 		}
 		current = current->next;
 	}
+	if (!res)
+		return ("NO_USER_IN_ENV");
 	return (res);
 }
 
