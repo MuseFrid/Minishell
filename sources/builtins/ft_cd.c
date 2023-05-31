@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 19:46:44 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 19:54:40 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 		ft_free((void **)&pwd->value);
 		pwd->value = current_path;
 	}
+	else
+		ft_free((void **)&current_path);
 	return (0);
 }
 
