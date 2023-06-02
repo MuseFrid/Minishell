@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 18:55:09 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/02 16:53:57 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_strdup(const char *str);
 //		sources/utils/utils2.c
 int		ft_strcmp_strict(const char *s1, const char *s2);
 void	ft_free(void **value);
+char	*ft_get_value_env(t_data *data, char *key);
+int		ft_count_slash(char *str);
 
 //		sources/utils/path_user_dollar.c
 char	*ft_path_and_username(t_data *data);

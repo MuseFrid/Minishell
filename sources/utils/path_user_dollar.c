@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:15:00 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 19:05:01 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/02 16:21:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,37 +53,30 @@ static char	*ft_cmp_res(char *res, char *home_str, char *str)
 
 static char	*ft_catch_home(t_data *data, char *str)
 {
-	t_env	*home;
-	char	*home_str;
+	char	*home;
 	char	*res;
 
-	home = data->env;
-	home_str = NULL;
 	res = NULL;
+	home = ft_get_value_env(data, "HOME");
 	if (!home)
-		return (NULL);	//	call the error function
-	while (home)
-	{
-		if (ft_strcmp_strict(home->key, "HOME") == 0)
-		{
-			home_str = home->value;
-			break ;
-		}
-		home = home->next;
-	}
-	if (!home_str)
-		return (ft_cmp_res(res, home_str, str));
-	return (ft_cmp_res(res, home_str, str));
+		return (NULL);
+	return (ft_cmp_res(res, home, str));
 }
 
 static char	*ft_catch_pwd_env(t_data *data)
 {
 	char	*res;
+	char	*home;
 
 	res = getcwd(NULL, 0);
+	home = NULL;
 	if (!res)
 		return (NULL);	//	call error function
-	res = ft_catch_home(data, res);
+	home = ft_get_value_env(data, "HOME");
+	if (!home)
+		return (res);
+	if (ft_strlen(home) < ft_strlen(res))
+		res = ft_catch_home(data, res);
 	return (res);
 }
 

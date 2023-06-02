@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/30 16:14:03 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/02 16:53:23 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,37 @@ void	ft_free(void **value)
 	if (*value)
 		free(*value);
 	*value = NULL;
+}
+
+char	*ft_get_value_env(t_data *data, char *key)
+{
+	t_env	*current;
+
+	current = data->env;
+	if (!current || !key)
+		return (NULL);		// call the error function
+	while (current)
+	{
+		if (ft_strcmp_strict(current->key, key) == 0)
+			break ;
+		current = current->next;
+	}
+	if (!current)
+		return (NULL);
+	return (current->value);
+}
+
+int	ft_count_slash(char *str)
+{
+	int	i;
+	int	count;
+
+	if (!str)
+		return (0);
+	count = 0;
+	i = -1;
+	while (str[++i])
+		if (str[i] == '/')
+			++count;
+	return (count);
 }

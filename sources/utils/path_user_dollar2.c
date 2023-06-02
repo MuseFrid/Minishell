@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:53:23 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 19:08:02 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/02 17:09:04 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,29 @@ char	*ft_catch_home_by_dir(char *str)
 	return (res);
 }
 
+static void	ft_fill_string(int f_slash, int l_slash, char *str, char *res)
+{
+	int	i;
+
+	i = 0;
+	while (f_slash != l_slash - 1)
+	{
+		res[i] = str[f_slash + 1];
+		++i;
+		++f_slash;
+	}
+	res[i] = '\0';
+}
+
 static char	*ft_get_username_by_dir(char *str)
 {
 	int		first_slash;
 	int		last_slash;
-	int		i;
 	char	*res;
 
 	str = getcwd(NULL, 0);
+	if (ft_count_slash(str) <= 2)
+		return (NULL);
 	first_slash = 1;
 	while (str[first_slash] != '/')
 		++first_slash;
@@ -58,38 +73,23 @@ static char	*ft_get_username_by_dir(char *str)
 	res = malloc(sizeof(char) * last_slash - first_slash);
 	if (!res)
 		exit(EXIT_FAILURE);		// call error function
-	i = 0;
-	while (first_slash != last_slash - 1)
-	{
-		res[i] = str[first_slash + 1];
-		++i;
-		++first_slash;
-	}
-	res[i] = '\0';
+	ft_fill_string(first_slash, last_slash, str, res);
 	ft_free((void **)&str);
 	return (res);
 }
 
 char	*ft_catch_user_env(t_data *data)
 {
-	t_env	*current;
 	char	*res;
 
-	current = data->env;
-	res = NULL;
-	if (!current)
-		return (NULL);		//	need to put the error function
-	while (current)
-	{
-		if (ft_strcmp_strict(current->key, "USER") == 0)
-		{
-			res = current->value;
-			break ;
-		}
-		current = current->next;
-	}
+	res = ft_get_value_env(data, "USER");
 	if (!res)
+	{
 		res = ft_get_username_by_dir(res);
+		if (!res)
+			res = \
+				ft_strdup("You are so sus why you want to crash our Minishell");
+	}
 	return (res);
 }
 
