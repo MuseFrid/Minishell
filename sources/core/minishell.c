@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/30 15:31:46 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/02 14:30:52 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ int	main(int argc, char **argv, char **envp)
 		str = readline(ft_path_and_username(&data));
 		printf("%s", RESET);
 		data.cmds = parser(lexer(NULL, str), &data);
-		ft_check_builtins(&data);
-		ft_env_underscore(&data);
-		if (data.cmds->builtin)
-			data.cmds->builtin(&data);
-		else
-			printf("Not a builtin !\n");
-		free(str);
+		if (data.cmds)
+		{
+			ft_check_builtins(&data);
+			ft_env_underscore(&data);
+			if (data.cmds->builtin)
+				data.cmds->builtin(&data);
+			else
+				printf("Not a builtin !\n");
+		}
+		ft_free((void **)&str);
 	}
 	free(str);
 	exit(0);
