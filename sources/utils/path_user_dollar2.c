@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:53:23 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/02 17:09:04 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 18:22:55 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ft_join_pwd_user_dollar(char *user, char *pwd, char *res)
 	i = -1;
 	while (pwd[++i])
 		res[i] = pwd[i];
-	res[i] = '\t';
+	res[i] = ' ';
 	++i;
 	j = -1;
 	while (user[++j])

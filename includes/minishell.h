@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:11:21 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 16:49:35 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 22:50:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <dirent.h>
 # include <string.h>
 # include <signal.h>
+# include <limits.h>
 # include "lexer.h"
 # include "color.h"
 # include "core.h"

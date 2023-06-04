@@ -6,21 +6,11 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/02 14:30:52 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 20:05:38 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void sig_handler(int signo)
-{
-    if (signo == SIGUSR1)
-        printf("received SIGUSR1\n");
-    else if (signo == SIGKILL)
-        printf("received SIGKILL\n");
-    else if (signo == SIGSTOP)
-        printf("received SIGSTOP\n");
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -29,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (-1);
-	(void) argv;
+	(void)argv;
 	ft_init_struct(&data, envp);
 	while (1)
 	{
@@ -39,6 +29,7 @@ int	main(int argc, char **argv, char **envp)
 		data.cmds = parser(lexer(NULL, str), &data);
 		if (data.cmds)
 		{
+			add_history(str);
 			ft_check_builtins(&data);
 			ft_env_underscore(&data);
 			if (data.cmds->builtin)
@@ -48,6 +39,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		ft_free((void **)&str);
 	}
-	free(str);
+	ft_free((void **)&str);
 	exit(0);
 }
