@@ -70,7 +70,7 @@ void	ft_replace_value_env(t_env *current, char *value)
 {
 	char	*new_val;
 
-	ft_free(current->value);
+	ft_free((void **)&current->value);
 	new_val = ft_catch_value_env(value);
 	current->value = new_val;
 }

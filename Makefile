@@ -27,7 +27,8 @@ SOURCES = $(addprefix $(SOURCES_D), $(SOURCES_LIST))
 SOURCES_D = ./sources/
 SOURCES_LIST = $(LEXER) $(PARSER) \
 	$(ENV) $(CORE) \
-	$(BUILTINS) $(UTILS)
+	$(BUILTINS) $(UTILS) \
+	$(EXECUTOR)
 
 CORE = $(addprefix $(CORE_D), $(CORE_LIST))
 CORE_D = core/
@@ -62,6 +63,10 @@ ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
 ENV_LIST = getenv.c env_-i.c \
 
+EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
+EXECUTOR_D=executor/
+EXECUTOR_LIST= heredoc_handler.c redirection_hub.c
+
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"
 
@@ -69,7 +74,7 @@ OBJECTS = $(addprefix $(OBJECTS_MAIN_D), $(OBJECTS_LIST))
 OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_LIST))
 OBJECTS_MAIN_D = objects/
 OBJECTS_CREATE_D = $(OBJECTS_MAIN_D) $(addprefix $(OBJECTS_MAIN_D), $(OBJECTS_SUB_D))
-OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D) $(CORE_D) $(UTILS_D) $(BUILTINS_D)
+OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D) $(CORE_D) $(UTILS_D) $(BUILTINS_D) $(EXECUTOR)
 
 all: $(NAME)
 

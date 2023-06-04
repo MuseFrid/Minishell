@@ -16,7 +16,7 @@ static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 {
 	if (ft_strncmp(old_pwd->key, "OLDPWD", 6) == 0)
 	{
-		ft_free(old_pwd->value);
+		ft_free((void **)&old_pwd->value);
 		old_pwd->value = current_path;
 	}
 	current_path = getcwd(NULL, 0);
@@ -24,7 +24,7 @@ static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 		return (1);		//	call the error function
 	if (ft_strncmp(old_pwd->key, "PWD", 3) == 0)
 	{
-		ft_free(pwd->value);
+		ft_free((void **)&pwd->value);
 		pwd->value = current_path;
 	}
 	else
@@ -41,7 +41,7 @@ int	ft_cd(t_data *data)
 
 	pwd = data->env;
 	old_pwd = data->env;
-	cd = data->cmds->str[1];
+	cd = data->cmds->tab[1];
 	current_path = getcwd(NULL, 0);
 	if (!pwd || !old_pwd || !current_path)
 		return (1);		//	call the error function

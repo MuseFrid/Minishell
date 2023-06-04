@@ -14,15 +14,21 @@
 
 void	free_env(t_env *env)
 {
-	free(env->key);
-	free(env->value);
-	free(env);
+	t_env	*tmp;
+
+	while (env)
+	{
+		free(env->key);
+		free(env->value);
+		tmp = env;
+		env = env->next;
+		free(tmp);
+	}
 }
 
 void	free_all(t_data *data)
 {
 	free_env(data->env);
 	lst_clear_cmds(data->cmds);
-	free(data);
-	exit(ret_val);
+	exit(1);
 }

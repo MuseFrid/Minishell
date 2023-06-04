@@ -25,9 +25,9 @@ static void	ft_var_found(t_data *data, t_env *current)
 		if (current->next)
 			current->next->prev = current->prev;
 	}
-	ft_free(current->key);
-	ft_free(current->value);
-	ft_free(current);
+	ft_free((void **)&current->key);
+	ft_free((void **)&current->value);
+	ft_free((void **)&current);
 }
 
 static void	ft_logic(t_data *data, t_env *current, char **value, int i)
@@ -49,7 +49,7 @@ static void	ft_logic(t_data *data, t_env *current, char **value, int i)
 			}
 			current = current->next;
 		}
-		ft_free(key);
+		ft_free((void **)&key);
 		i++;
 	}
 }
@@ -61,7 +61,7 @@ int	ft_unset(t_data *data)
 	int		i;
 
 	current = data->env;
-	value = data->cmds->str;
+	value = data->cmds->tab;
 	i = 1;
 	if (!current || !value)
 		return (1);

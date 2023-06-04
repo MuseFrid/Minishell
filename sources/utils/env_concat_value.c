@@ -54,7 +54,7 @@ static void	ft_logic(t_env *current, char *value, int equal_index)
 		equal_index++;
 	}
 	str[i] = '\0';
-	ft_free(current->value);
+	ft_free((void **)&current->value);
 	current->value = str;
 }
 
@@ -71,7 +71,7 @@ void	ft_concat_env(t_data *data, t_env *new, char *value, int equal_index)
 	{
 		if (ft_cmp_str_strict(current->key, key) == 0)
 		{
-			ft_free(key);
+			ft_free((void **)&key);
 			check = 1;
 			ft_logic(current, value, equal_index);
 		}

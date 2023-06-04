@@ -23,6 +23,9 @@ char	*ft_strdup(const char *str);
 //		sources/utils/utils2.c
 int		ft_cmp_str_strict(const char *s1, const char *s2);
 void	ft_free(void **value);
+int    ft_strcmp_strict(const char *s1, const char *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_itoa(int n);
 
 //		sources/utils/env.c
 void	ft_replace_value_env(t_env *current, char *value);

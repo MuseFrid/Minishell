@@ -49,7 +49,7 @@ int	ft_check_builtins(t_data *data)
 	builtin[5] = &ft_pwd;
 	builtin[6] = &ft_unset;
 	builtin[7] = NULL;
-	res = ft_builtins_tab(data->cmds->str[0]);
+	res = ft_builtins_tab(data->cmds->tab[0]);
 	if (res < 0)
 		data->cmds->builtin = NULL;
 	else
