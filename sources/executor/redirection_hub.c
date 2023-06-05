@@ -26,8 +26,6 @@ void	open_infile(t_data *data, int *which, int pick, char *file_to_open)
 
 int	printf_redirection(t_arg *redirection)
 {
-	if (!redirection)
-		return (printf("No redirection\n"));
 	while (redirection)
 	{
 		printf("%s\n", redirection->word);
@@ -40,10 +38,8 @@ void	redirection_hub(t_arg *redirection, t_data *data, int fd[2])
 {
 	int	which;
 
-	printf("ah\n");
 	printf_redirection(redirection);
 	fd[IN] = heredoc_handler(redirection, data);
-	printf("%d\n", fd[IN]);
 	fd[OUT] = -2;
 	which = -2;
 	while (redirection && data->err_return_val == 0)
