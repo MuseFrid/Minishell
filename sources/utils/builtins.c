@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:34:11 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 20:10:02 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 23:56:42 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ int	ft_check_builtins(t_data *data)
 	builtin[5] = &ft_pwd;
 	builtin[6] = &ft_unset;
 	builtin[7] = NULL;
-	res = ft_builtins_tab(data->cmds->str[0]);
+	res = ft_builtins_tab(data->cmds->tab[0]);
 	argc = 0;
-	while (data->cmds->str[argc])
+	while (data->cmds->tab[argc])
 		++argc;
 	if (res < 0)
 		data->cmds->builtin = NULL;
-	else if (argc == 1 && ft_strcmp_strict(data->cmds->str[0], "export") == 0)
+	else if (argc == 1 && ft_strcmp_strict(data->cmds->tab[0], "export") == 0)
 		data->cmds->builtin = builtin[2];
 	else
 		data->cmds->builtin = builtin[res];

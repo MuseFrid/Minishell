@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 04:31:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:45:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 23:58:22 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_export(t_data *data)
 	char	**value;
 	int		i;
 
-	value = data->cmds->str;
+	value = data->cmds->tab;
 	if (!value)
 		return (1);		//	need to put the good error handling if the linked list doesn't exist !
 	new = NULL;

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 19:54:40 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/05 17:18:11 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_cd(t_data *data)
 
 	pwd = data->env;
 	old_pwd = data->env;
-	cd = data->cmds->str[1];
+	cd = data->cmds->tab[1];
 	if (!cd)
 		cd = ft_get_home(data);
 	current_path = getcwd(NULL, 0);

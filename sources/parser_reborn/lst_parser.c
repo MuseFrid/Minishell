@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/03 21:56:52 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/30 16:08:20 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	lst_new_cmds(t_simple_cmds **new)
 	*new = malloc(sizeof(t_simple_cmds));
 	if (!new)
 		exit(1);
-	(*new)->str = NULL;
+	(*new)->tab = NULL;
 	//builtin = NULL;
 	(*new)->redirections = NULL;
 	(*new)->test_red = NULL;

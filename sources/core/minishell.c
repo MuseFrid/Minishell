@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/04 20:05:38 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/05 17:15:51 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char 	*str;
 	t_data	data;
+	int	fd[2];
 
 	if (argc != 1)
 		return (-1);
@@ -32,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(str);
 			ft_check_builtins(&data);
 			ft_env_underscore(&data);
+			redirection_hub(data.cmds->redirections, &data, fd);
 			if (data.cmds->builtin)
 				data.cmds->builtin(&data);
 			else

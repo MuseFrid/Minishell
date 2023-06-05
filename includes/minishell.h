@@ -6,14 +6,13 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:11:21 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/04 22:50:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 23:59:10 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdio.h>
-# include <readline/readline.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
@@ -22,6 +21,7 @@
 # include <string.h>
 # include <signal.h>
 # include <limits.h>
+# include <sys/wait.h>
 # include "lexer.h"
 # include "color.h"
 # include "core.h"
@@ -29,6 +29,8 @@
 # include "builtins.h"
 # include "env.h"
 # include "utils.h"
+# include "executor.h"
+# include <readline/readline.h>
 
 # define SUCCESS 0
 # define FAIL 1

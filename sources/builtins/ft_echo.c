@@ -40,7 +40,7 @@ int	ft_echo(t_data *data)
 	char	**value;
 	int		i;
 
-	value = data->cmds->str;
+	value = data->cmds->tab;
 	i = 0;
 	ft_logic(value, i);
 	return (0);

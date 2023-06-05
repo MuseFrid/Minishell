@@ -61,7 +61,7 @@ int	ft_unset(t_data *data)
 	int		i;
 
 	current = data->env;
-	value = data->cmds->str;
+	value = data->cmds->tab;
 	i = 1;
 	if (!current || !value)
 		return (1);

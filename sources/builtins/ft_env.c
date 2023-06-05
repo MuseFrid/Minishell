@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 21:39:36 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 23:47:37 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 23:58:22 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ int	ft_env(t_data *data)
 	if (!current)
 		return (1);
 	argc = 0;
-	while (data->cmds->str[argc])
+	while (data->cmds->tab[argc])
 		++argc;
-	if (argc == 1 && ft_strcmp_strict(data->cmds->str[0], "export") == 0)
+	if (argc == 1 && ft_strcmp_strict(data->cmds->tab[0], "export") == 0)
 		ft_env_sorted(data);
 	else
 	{

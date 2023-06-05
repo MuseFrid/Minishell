@@ -1,20 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 14:41:32 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/04 23:46:37 by aabda            ###   ########.fr       */
+/*   Created: 2023/05/26 15:07:19 by gduchesn          #+#    #+#             */
+/*   Updated: 2023/06/05 17:42:42 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_init_struct(t_data *data, char **envp)
+void	ft_free(void **value)
 {
-	data->err_return_val = 0;
-	data->env = NULL;
-	ft_getenv(data, envp);
+	if (*value)
+		free(*value);
+	*value = NULL;
+}
+
+void	free_env(t_env *env)
+{
+	t_env	*tmp;
+
+	while (env)
+	{
+		ft_free((void **)&env->key);
+		ft_free((void **)&env->value);
+		tmp = env;
+		env = env->next;
+		ft_free((void **)&tmp);
+	}
+}
+
+void	free_all(t_data *data)
+{
+	free_env(data->env);
+	lst_clear_cmds(data->cmds);
+	exit(1);
 }

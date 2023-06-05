@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 16:15:06 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/30 17:01:43 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	lst_size_arg(t_arg *pre_cmd)
 	return (i);
 }
 
+//to remove
 char **double_tab_to_keep_going(t_arg *pre_cmd)
 {
 	int	size;
@@ -122,8 +123,8 @@ void	print_tab(t_simple_cmds *cmds)
 	while (cmds)
 	{
 		i = 0;
-		while (cmds->str[i])
-			printf("%s\n", cmds->str[i++]);
+		while (cmds->tab && cmds->tab[i])
+			printf("%s\n", cmds->tab[i++]);
 		cmds = cmds->next;
 	}
 }
@@ -143,8 +144,8 @@ t_simple_cmds	*parser(t_arg *arg, t_data *data)
 		lst_new_cmds(&new);
 		pre_cmd = grab_redirections(&arg, new);
 		new->test_red = pre_cmd;
-		new->str = double_tab_to_keep_going(pre_cmd);
-		// design_cmd(pre_cmd, new, data);
+		new->tab = double_tab_to_keep_going(pre_cmd);
+		//design_cmd(pre_cmd, new, data);
 		lst_add_back_cmds(&cmds, new);
 	}
 	(*data).cmds = cmds;

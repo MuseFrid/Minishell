@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/02 16:53:23 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 23:48:35 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,6 @@ int	ft_strcmp_strict(const char *s1, const char *s2)
 	if (len_s1 == len_s2 && ft_strncmp(s1, s2, len_s1) == 0)
 		return (0);
 	return (1);
-}
-
-void	ft_free(void **value)
-{
-	if (*value)
-		free(*value);
-	*value = NULL;
 }
 
 char	*ft_get_value_env(t_data *data, char *key)

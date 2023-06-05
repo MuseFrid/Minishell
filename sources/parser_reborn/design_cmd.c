@@ -3,47 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   design_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 13:37:19 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/12 14:58:45 by aabda            ###   ########.fr       */
+/*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
+/*   Updated: 2023/05/31 16:47:07 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_data(t_data data)
-{
-	while (data.env)
-	{
-		printf("%s\n", data.env->key);
-		data.env = data.env->next;
-	}
-}
-
-int	is_interaction(char c)
-{
-	static char	str[] = "\'\"$";
-	int			i;
-
-	i = 0;
-	while (str[i] != c && str[i])
-		i++;
-	if (i == 3)
-		return (0);
-	return (i + 1);
-}
-
-int	get_dollar_word(char *str, int i)
-{
-	while (str[i])
-	{
-		if (is_token(str, &i, 0) || str[i] == ' ')
-			break;
-		i++;
-	}
-	return (i);
-}
 
 char	*env_variable(char *str, int tmp, t_env *env)
 {
@@ -56,52 +23,78 @@ char	*env_variable(char *str, int tmp, t_env *env)
 	return (NULL);
 }
 
-char	*handle_quotes(char *str, int tmp, int *i, t_data data)
+void	bool_init(t_bool *bool_quotes)
 {
-	char	stop;
-	char 	*dollard;//after_get_dollard_value
-	char	*quote_content;
-
-	stop = str[(*i)++];
-	dollard = NULL;
-	while (str[*i] != stop)
-	{
-		if (tmp == DOUBLE_QUOTES && str[*i] == '$')
-		{
-			tmp = get_dollar_word(str, *i);
-			dollard = env_variable((str + *i), tmp, data.env);
-			*i += tmp;
-		};
-	}
-	(void) data;
-	(void) str;
-	(void) tmp;
-	return (quote_content);
+	bool_quotes->simple_q = 0;
+	bool_quotes->double_q = 0;
 }
 
-char	*looking_for_expend(char *str, t_data data)
+void	change_bool_value(int *bool_v)
+{
+	if (*bool_v == 0)
+		*bool_v = 1;
+	else if (*bool_v == 1)
+		*bool_v = 0;
+}
+
+char	*getend(char *str, int start, char **final_str, t_env *env)
 {
 	int	i;
-	int	tmp;
-	int	start;
-	char	*final_str;
 
-	i = 0;
-	tmp = 0;
-	start = i;
-	final_str = NULL;
-	while (str[i])
+	i = start;
+	*final_str = ft_substr(str, 0, start);
+	printf("%s\n", *final_str);
+	while (1)
 	{
-		tmp = is_interaction(str[i]);
-		if (tmp && tmp != DOLLAR)
-		{
-			final_str = parsing_strjoin(final_str, ft_substr(str, start, i - start));
-			start = i + 1;
-			//final_str = parsing_strjoin(final_str, handle_quotes(str, tmp, &i, data));
-			//start = i;
-		}
 		i++;
+		if (is_token(str, &i, 0) || str[i] == ' ' || !str[i])
+		{
+			while (env && strncmp((str + start + 1), env->key, i - start - 1))
+				env = env->next;
+			printf("%s\n", env->key);
+			printf("out\n");
+			break ;
+		}
 	}
+	printf("%s\n", str);
+	if (str[i])
+		str = ft_substr(str, i, (ft_strlen(str) - i));
+	else
+		str = NULL;
+	printf("%s\n", str);
+	return (str);
+}
+
+void	expand_env(char *str, t_data data, char **final_str)
+{
+	int	i;
+	t_bool	bool_quotes;
+
+	(void) data;
+	i = 0;
+	bool_init(&bool_quotes);
+	while (str && str[i++])
+	{
+		if (str[i] == '\'' && bool_quotes.double_q == 0)
+			change_bool_value(&bool_quotes.simple_q);
+		if (str[i] == '\"' && bool_quotes.simple_q == 0)
+			change_bool_value(&bool_quotes.double_q);
+		if (str[i] == '$' && bool_quotes.simple_q == 0)
+		{
+			str = getend(str, i, final_str, data.env);
+			i = 0;
+		}
+	}
+}
+
+char	*clean_cmd(char *str, t_data data)
+{
+	char	*after_expand;
+
+	after_expand = NULL;
+	expand_env(str, data, &after_expand);
+	//ft_free((void **) str);
+	return (NULL);
 }
 
 void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)
@@ -111,10 +104,11 @@ void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)
 	i = 0;
 	while (pre_cmd)
 	{
-		new->str[i++] = looking_for_expend(pre_cmd->word, *data);
+		printf("%s\n", pre_cmd->word);
+		new->tab[i++] = clean_cmd(pre_cmd->word, *data);
 		pre_cmd = pre_cmd->next;
 	}
-	print_data(*data);
+	//print_data(*data);
 	(void) data;
 	(void) new;
 	(void) pre_cmd;

@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/31 00:53:48 by aabda            ###   ########.fr        #
+#    Updated: 2023/06/04 23:48:32 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SOURCES = $(addprefix $(SOURCES_D), $(SOURCES_LIST))
 SOURCES_D = ./sources/
 SOURCES_LIST = $(LEXER) $(PARSER) \
 	$(ENV) $(CORE) \
-	$(BUILTINS) $(UTILS)
+	$(BUILTINS) $(UTILS) \
+	$(EXECUTOR)
 
 CORE = $(addprefix $(CORE_D), $(CORE_LIST))
 CORE_D = core/
@@ -46,7 +47,9 @@ UTILS_LIST = utils.c ga_error.c \
 	builtins.c env.c \
 	env_new_node.c env_concat_value.c \
 	utils2.c path_user_dollar.c \
-	path_user_dollar2.c
+	path_user_dollar2.c \
+	utils2.c free.c \
+	libft_utils.c libft_utils2.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/
@@ -57,13 +60,16 @@ PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
 PARSER_D = parser_reborn/
 PARSER_LIST = parser.c \
 			  lst_parser.c \
-			  parsing_strjoin.c
-			#   design_cmd.c
+			  parsing_strjoin.c design_cmd.c
 
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
 ENV_LIST = getenv.c env_-i.c \
 	underscore.c
+
+EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
+EXECUTOR_D=executor/
+EXECUTOR_LIST= heredoc_handler.c redirection_hub.c
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"
@@ -72,7 +78,7 @@ OBJECTS = $(addprefix $(OBJECTS_MAIN_D), $(OBJECTS_LIST))
 OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_LIST))
 OBJECTS_MAIN_D = objects/
 OBJECTS_CREATE_D = $(OBJECTS_MAIN_D) $(addprefix $(OBJECTS_MAIN_D), $(OBJECTS_SUB_D))
-OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D) $(CORE_D) $(UTILS_D) $(BUILTINS_D)
+OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D) $(CORE_D) $(UTILS_D) $(BUILTINS_D) $(EXECUTOR)
 
 all: $(NAME)
 
