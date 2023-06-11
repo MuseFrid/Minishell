@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:41:32 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/11 16:09:48 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/11 16:18:29 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ static void	ft_fill_shlvl(t_env *current, t_env *b_last)
 	else
 	{
 		val = ft_atoi(current->value);
+		ft_free((void **)&current->value);
 		if (val + 1 > INT_MAX)
 			current->value = ft_strdup("0");
 		else
-		{
-			ft_free((void **)&current->value);
 			current->value = ft_strdup(ft_itoa(val + 1));
-		}
 	}
 }
 
