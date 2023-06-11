@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:24:14 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 22:08:13 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/11 21:16:39 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*ft_catch_value_env(char *value)
 	while (value[++i])
 		if (value[i] == '=')
 			equal_index = i;
+	if (!equal_index)
+		return (NULL);
 	str = malloc(sizeof(char) * (i - equal_index + 1));
 	if (!str)
 		return (NULL);	// need to call the error function !
@@ -70,8 +72,10 @@ void	ft_replace_value_env(t_env *current, char *value)
 {
 	char	*new_val;
 
-	ft_free((void **)&current->value);
 	new_val = ft_catch_value_env(value);
+	if (!new_val)
+		return ;
+	ft_free((void **)&current->value);
 	current->value = new_val;
 }
 
