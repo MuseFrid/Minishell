@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 04:38:55 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/28 18:40:15 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/11 16:11:23 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_env_shlvl(t_data *data)
 		exit(EXIT_FAILURE);
 	new->index = 2;
 	new->key = ft_strdup("SHLVL");
-	new->value = ft_strdup("1");
+	new->value = ft_strdup("0");
 	current->next = new;
 	new->next = NULL;
 	new->prev = current;
