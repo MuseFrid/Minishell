@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/14 15:13:12 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:03:53 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,18 @@ char	*expand_env(char *str, t_data data, char **final_str)
 	(void) data;
 	while (str && str[i])
 	{
-		printf("str devant la boucle == %s\n", str);
-		printf("je suis la 2 fois\n");
+		// printf("str devant la boucle == %s\n", str);
+		// printf("je suis la 2 fois\n");
 		if (str[i] == '\'' || str[i] == '\"' || str[i] == '$')
 		{
-		printf("je suis la 2 fois\n");
+		// printf("je suis la 2 fois\n");
 			allreadyclean = ft_strldup(str, i);
-			printf("ah %s\n", allreadyclean);
+			// printf("ah %s\n", allreadyclean);
 			if (str[i] == '\'')
 				allreadyclean = get_simple_q(&str, i, allreadyclean);
 			//getend(str, i, final_str, data.env);
 			i = 0;
-			printf("str == %s\n", str);
+			// printf("str == %s\n", str);
 		}
 		i++;
 	}
@@ -126,7 +126,7 @@ void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)
 	i = 0;
 	while (pre_cmd)
 	{
-		printf("%s\n", pre_cmd->word);
+		// printf("%s\n", pre_cmd->word);
 		new->tab[i++] = clean_cmd(pre_cmd->word, *data);
 		pre_cmd = pre_cmd->next;
 	}
