@@ -20,6 +20,7 @@
 # include <dirent.h>
 # include <string.h>
 # include <signal.h>
+# include <sys/wait.h>
 # include "lexer.h"
 # include "color.h"
 # include "core.h"
@@ -27,6 +28,7 @@
 # include "builtins.h"
 # include "env.h"
 # include "utils.h"
+# include "executor.h"
 # include <readline/readline.h>
 
 # define SUCCESS 0

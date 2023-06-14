@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 19:57:49 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:52:55 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int		ft_cmp_str_strict(const char *s1, const char *s2);
 void	ft_free(void **value);
 char	*ft_strldup(const char *str, int len);
 char	*ft_strjoin(char const *s1, char const *s2);
+int    ft_strcmp_strict(const char *s1, const char *s2);
+char	*ft_itoa(int n);
 
 //		sources/utils/env.c
 void	ft_replace_value_env(t_env *current, char *value);

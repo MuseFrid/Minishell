@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 20:37:54 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:49:00 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ char	*ft_strldup(const char *str, int len)
 	return (new);
 }
 
+int    ft_strcmp_strict(const char *s1, const char *s2)
+{
+    int    len_s1;
+    int    len_s2;
+
+    len_s1 = ft_strlen(s1);
+    len_s2 = ft_strlen(s2);
+    if (len_s1 == len_s2 && ft_strncmp(s1, s2, len_s1) == 0)
+        return (0);
+    return (1);
+}
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*strfinal;
@@ -78,4 +90,51 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		strfinal[i++] = s2[j++];
 	strfinal[i] = 0;
 	return (strfinal);
+}
+
+static int	ft_count_len(long *len, int *sign)
+{
+	long	count;
+	long	i;
+
+	count = 0;
+	if (*len < 0)
+	{
+		*len = -(*len);
+		count++;
+		*sign = -1;
+	}
+	i = *len;
+	while (i != 0)
+	{
+		i = i / 10;
+		count++;
+	}
+	return (count);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	long	count;
+	long	len;
+	int		sign;
+
+	len = n;
+	count = ft_count_len(&len, &sign);
+	if (len == 0)
+		return (ft_strdup("0"));
+	str = (char *)malloc(sizeof(char) * (count + 1));
+	if (!str)
+		return (NULL);
+	if (sign < 0)
+		str[0] = 45;
+	str[count] = 0;
+	while (len != 0)
+	{
+		str[count - 1] = ((len % 10) + 48);
+		len = len / 10;
+		count--;
+	}
+	return (str);
 }

@@ -19,5 +19,5 @@ typedef struct s_data
 	struct s_env			*env;
 	struct s_simple_cmds	*cmds;
 }	t_data;
-int	ret_val;
+extern int ret_val;
 #endif
