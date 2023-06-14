@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/04 23:48:35 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/14 17:56:45 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,28 @@ int	ft_count_slash(char *str)
 		if (str[i] == '/')
 			++count;
 	return (count);
+}
+
+char	*ft_strldup(const char *str, int len)
+{
+	char	*new;
+	int		i;
+	int		size_str;
+
+	i = 0;
+	if (!str)
+		return (NULL);
+	size_str = ft_strlen(str);
+	if (size_str > len)
+		size_str = len;
+	new = (char *)malloc(sizeof(char) * (size_str + 1));
+	if (!new)
+		exit(1);
+	while (i < len && str[i])
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[i] = 0;
+	return (new);
 }

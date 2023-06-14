@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/31 16:47:07 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:13:12 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,11 @@ char	*env_variable(char *str, int tmp, t_env *env)
 	return (NULL);
 }
 
-void	bool_init(t_bool *bool_quotes)
-{
-	bool_quotes->simple_q = 0;
-	bool_quotes->double_q = 0;
-}
-
-void	change_bool_value(int *bool_v)
-{
-	if (*bool_v == 0)
-		*bool_v = 1;
-	else if (*bool_v == 1)
-		*bool_v = 0;
-}
-
 char	*getend(char *str, int start, char **final_str, t_env *env)
 {
 	int	i;
 
+	return (NULL);
 	i = start;
 	*final_str = ft_substr(str, 0, start);
 	printf("%s\n", *final_str);
@@ -65,26 +52,60 @@ char	*getend(char *str, int start, char **final_str, t_env *env)
 	return (str);
 }
 
-void	expand_env(char *str, t_data data, char **final_str)
+char	*get_simple_q(char **str, int i, char *allreadyclean)
 {
-	int	i;
-	t_bool	bool_quotes;
+	int		start;
+	char	*in_quotes;
+	char	*tmp;
 
-	(void) data;
+	start = ++i;
+	while ((*str)[i] && (*str)[i] != '\'')
+		i++;
+	printf("i = %d / start = %d\n", i, start);
+	in_quotes = ft_substr(*str, start, i - start);
+	tmp = ft_substr(*str, i, ft_strlen(*str) - i);
+	free(*str);
+	//*str = NULL;
+	*str = tmp;
+	printf("str == %p\n", *str);
+	printf("in_quotes : %s\n", in_quotes);
+	printf("allreadyclean : %s\n", allreadyclean);
+	tmp = ft_strjoin(allreadyclean, in_quotes);
+	printf("*str = %p / tmp = %s\n", *str, tmp);
+	ft_free((void **)&in_quotes);
+	ft_free((void **)&allreadyclean);
+	return (tmp);
+}
+
+char	*expand_env(char *str, t_data data, char **final_str)
+{
+	int		i;
+	char	*allreadyclean;
+	
 	i = 0;
-	bool_init(&bool_quotes);
-	while (str && str[i++])
+	allreadyclean = NULL;
+	(void) final_str;
+	(void) data;
+	while (str && str[i])
 	{
-		if (str[i] == '\'' && bool_quotes.double_q == 0)
-			change_bool_value(&bool_quotes.simple_q);
-		if (str[i] == '\"' && bool_quotes.simple_q == 0)
-			change_bool_value(&bool_quotes.double_q);
-		if (str[i] == '$' && bool_quotes.simple_q == 0)
+		printf("str devant la boucle == %s\n", str);
+		printf("je suis la 2 fois\n");
+		if (str[i] == '\'' || str[i] == '\"' || str[i] == '$')
 		{
-			str = getend(str, i, final_str, data.env);
+		printf("je suis la 2 fois\n");
+			allreadyclean = ft_strldup(str, i);
+			printf("ah %s\n", allreadyclean);
+			if (str[i] == '\'')
+				allreadyclean = get_simple_q(&str, i, allreadyclean);
+			//getend(str, i, final_str, data.env);
 			i = 0;
+			printf("str == %s\n", str);
 		}
+		i++;
 	}
+	if (allreadyclean)
+		return (ft_strjoin(allreadyclean, str));
+	return (str);
 }
 
 char	*clean_cmd(char *str, t_data data)
@@ -93,6 +114,7 @@ char	*clean_cmd(char *str, t_data data)
 
 	after_expand = NULL;
 	expand_env(str, data, &after_expand);
+	exit(0);
 	//ft_free((void **) str);
 	return (NULL);
 }

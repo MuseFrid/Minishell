@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/11 15:46:07 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/14 17:56:39 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define UTILS_H
 
 //		sources/utils/access.c
-
 
 //		sources/utils/builtins.c
 int		ft_check_builtins(t_data *data);
@@ -62,9 +61,9 @@ char	*ft_catch_home_by_dir(char *str);
 void	ft_init_struct(t_data *data, char **envp);
 
 //		sources/utils/utils2.c
-int		ft_count_slash(char *str);
-char	*ft_get_value_env(t_data *data, char *key);
 int		ft_strcmp_strict(const char *s1, const char *s2);
-
+char	*ft_get_value_env(t_data *data, char *key);
+int		ft_count_slash(char *str);
+char	*ft_strldup(const char *str, int len);
 
 #endif

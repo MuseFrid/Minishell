@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/14 16:27:50 by aabda            ###   ########.fr        #
+#    Updated: 2023/06/14 17:42:56 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ LEXER_LIST = lst_lexer.c \
 			 lexer.c
 
 PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
-PARSER_D = parser_reborn/
+PARSER_D = parser/
 PARSER_LIST = parser.c \
 			  lst_parser.c \
 			  parsing_strjoin.c design_cmd.c

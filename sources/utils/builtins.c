@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:34:11 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/04 23:56:42 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/14 16:57:45 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ int	ft_check_builtins(t_data *data)
 	builtin[5] = &ft_pwd;
 	builtin[6] = &ft_unset;
 	builtin[7] = NULL;
+	if (!data->cmds)
+		return (0);
+	if (!data->cmds->tab)
+	{
+		data->cmds->builtin = NULL;
+		return (0);
+	}
 	res = ft_builtins_tab(data->cmds->tab[0]);
 	argc = 0;
 	while (data->cmds->tab[argc])
