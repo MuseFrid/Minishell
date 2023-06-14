@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:41:32 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/26 15:06:11 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:42:59 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!new)
 		return (NULL);
 	if (start >= i)
+	{
+		new[0] = 0;
 		return (new);
+	}
 	i = 0;
 	while (i < len)
 		new[i++] = s[start++];

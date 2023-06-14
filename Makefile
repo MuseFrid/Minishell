@@ -6,12 +6,14 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/05/30 16:08:55 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/06/14 16:15:05 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
+LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
+CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 LIBRARIES = -lreadline
@@ -53,7 +55,7 @@ LEXER_LIST = lst_lexer.c \
 			 lexer.c
 
 PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
-PARSER_D = parser_reborn/
+PARSER_D = parser/
 PARSER_LIST = parser.c \
 			  lst_parser.c \
 			  parsing_strjoin.c design_cmd.c
@@ -74,13 +76,13 @@ OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D) $(CORE_D) $(UTILS_D) $(BUILTINS_
 all: $(NAME)
 
 $(NAME): $(OBJECTS_MAIN_D) $(OBJECTS)
-		$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) -o $(NAME) $(LIBRARIES)
+		$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) $(LDFLAGS) $(CPPFLAGS) $(LIBRARIES) -o $(NAME) 
 
 $(OBJECTS_MAIN_D):
 	mkdir -p $(OBJECTS_CREATE_D)
 
 $(OBJECTS_MAIN_D)%.o : $(SOURCES_D)%.c $(HEADERS)
-	$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+	$(CC) $(FLAGS) $(CPPFLAGS) -c $(INCLUDES) $< -o $@
 
 clean:
 	$(REMOVE) $(OBJECTS_MAIN_D)

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 04:31:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/19 02:39:54 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 16:53:50 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static	void	ft_node(t_data *data, t_env *current, t_env *new, char *val)
 	}
 	if (!replace)
 		ft_new_node_env(data, current, new, val);
-	ft_free(key);
+	ft_free((void **)&key);
 }
 
 int	ft_export(t_data *data)
@@ -64,7 +64,7 @@ int	ft_export(t_data *data)
 	int		i;
 
 	current = data->env;
-	value = data->cmds->str;
+	value = data->cmds->tab;
 	if (!current)
 		return (1);		//	need to put the good error handling if the linked list doesn't exist !
 	new = NULL;

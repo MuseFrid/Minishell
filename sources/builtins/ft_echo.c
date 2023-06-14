@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/14 04:22:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/05/31 16:52:58 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_echo(t_data *data)
 	char	**value;
 	int		i;
 
-	value = data->cmds->str;
+	value = data->cmds->tab;
 	i = 0;
 	ft_logic(value, i);
 	return (0);
