@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/05 17:43:17 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/14 17:28:37 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ typedef struct s_data
 	struct s_env			*env;
 	struct s_simple_cmds	*cmds;
 }	t_data;
+int	ret_val;
 #endif

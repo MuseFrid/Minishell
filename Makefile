@@ -6,16 +6,16 @@
 #    By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/14 17:26:28 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/06/14 17:31:50 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
-CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+LDFLAGS = -L/opt/homebrew/opt/readline/lib
+CPPFLAGS = -I/opt/homebrew/opt/readline/include
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf
@@ -84,7 +84,7 @@ OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D) $(CORE_D) $(UTILS_D) $(BUILTINS_
 all: $(NAME)
 
 $(NAME): $(OBJECTS_MAIN_D) $(OBJECTS)
-		$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) $(LDFLAGS) $(CPPFLAGS) $(LIBRARIES) -o $(NAME) 
+		$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) $(LDFLAGS) $(CPPFLAGS) $(LIBRARIES) -o $(NAME)
 
 $(OBJECTS_MAIN_D):
 	mkdir -p $(OBJECTS_CREATE_D)
