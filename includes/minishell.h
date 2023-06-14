@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:11:21 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/04 23:59:10 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/14 16:31:24 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include "utils.h"
 # include "executor.h"
 # include <readline/readline.h>
+# include <readline/history.h>
 
 # define SUCCESS 0
 # define FAIL 1

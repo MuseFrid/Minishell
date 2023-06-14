@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/05 20:55:52 by aabda            ###   ########.fr        #
+#    Updated: 2023/06/14 16:27:50 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,8 @@ NAME = minishell
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+LDFLAGS = -L/opt/homebrew/opt/readline/lib
+CPPFLAGS = -I/opt/homebrew/opt/readline/include
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf
@@ -32,7 +34,7 @@ SOURCES_LIST = $(LEXER) $(PARSER) \
 
 CORE = $(addprefix $(CORE_D), $(CORE_LIST))
 CORE_D = core/
-CORE_LIST = minishell.c
+CORE_LIST = minishell.c signal.c
 
 BUILTINS = $(addprefix $(BUILTINS_D), $(BUILTINS_LIST))
 BUILTINS_D = builtins/
@@ -82,13 +84,13 @@ OBJECTS_SUB_D = $(LEXER_D) $(PARSER_D) $(ENV_D) $(CORE_D) $(UTILS_D) $(BUILTINS_
 all: $(NAME)
 
 $(NAME): $(OBJECTS_MAIN_D) $(OBJECTS)
-		$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) -o $(NAME) $(LIBRARIES)
+		$(CC) $(FLAGS) $(INCLUDES) $(OBJECTS) $(LDFLAGS) $(CPPFLAGS) $(LIBRARIES) -o $(NAME)
 
 $(OBJECTS_MAIN_D):
 	mkdir -p $(OBJECTS_CREATE_D)
 
 $(OBJECTS_MAIN_D)%.o : $(SOURCES_D)%.c $(HEADERS)
-	$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+	$(CC) $(FLAGS) $(CPPFLAGS) -c $(INCLUDES) $< -o $@
 
 clean:
 	$(REMOVE) $(OBJECTS_MAIN_D)

@@ -6,21 +6,24 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/05 17:15:51 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/14 16:31:33 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+
 int	main(int argc, char **argv, char **envp)
 {
-	char 	*str;
+	char	*str;
 	t_data	data;
-	int	fd[2];
+	int		fd[2];
 
 	if (argc != 1)
 		return (-1);
 	(void)argv;
+	ft_handler_signal();
 	ft_init_struct(&data, envp);
 	while (1)
 	{
