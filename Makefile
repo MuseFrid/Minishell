@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
+#    By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/14 16:15:05 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/06/14 17:26:28 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ UTILS_D = utils/
 UTILS_LIST = utils.c ga_error.c \
 	builtins.c env.c \
 	env_new_node.c env_concat_value.c \
-	utils2.c free_all.c
+	utils2.c path_user_dollar.c \
+	path_user_dollar2.c  free.c \
+	libft_utils.c libft_utils2.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/
@@ -64,6 +66,7 @@ PARSER_LIST = parser.c \
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
 ENV_LIST = getenv.c env_-i.c \
+	underscore.c
 
 EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
 EXECUTOR_D=executor/

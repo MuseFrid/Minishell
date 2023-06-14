@@ -3,85 +3,61 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:41:32 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/31 20:42:59 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:20:15 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	ft_strlen(const char *str)
+static void	ft_fill_shlvl(t_env *current, t_env *b_last)
 {
-	size_t	i;
+	int	val;
 
-	i = 0;
-	while (str && str[i])
-		i++;
-	return (i);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t			i;
-	unsigned char	*str1;
-	unsigned char	*str2;
-
-	str1 = (unsigned char *) s1;
-	str2 = (unsigned char *) s2;
-	if (n == 0)
-		return (0);
-	i = 0;
-	while (str1[i] && str2[i] && i < n - 1 && str1[i] == str2[i])
-		i++;
-	return (str1[i] - str2[i]);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*new;
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	new = (char *) s;
-	i = ft_strlen(new);
-	if ((size_t) start > i)
-		return (ft_strdup(""));
-	if (i < len)
-		return (ft_strdup((char *) s + start));
-	new = (char *)malloc(sizeof(char) * (len + 1));
-	if (!new)
-		return (NULL);
-	if (start >= i)
+	if (!current)
 	{
-		new[0] = 0;
-		return (new);
+		current = malloc(sizeof(t_env));
+		if (!current)
+			exit(EXIT_FAILURE);		//	call error function
+		current->index = b_last->index + 1;
+		current->key = ft_strdup("SHLVL");
+		current->value = ft_strdup("1");
+		current->next = NULL;
+		current->prev = b_last;
+		b_last->next = current;
 	}
-	i = 0;
-	while (i < len)
-		new[i++] = s[start++];
-	new[i] = 0;
-	return (new);
+	else
+	{
+		val = ft_atoi(current->value);
+		ft_free((void **)&current->value);
+		if (val + 1 > INT_MAX)
+			current->value = ft_strdup("0");
+		else
+			current->value = ft_strdup(ft_itoa(val + 1));
+	}
 }
 
-char	*ft_strdup(const char *str)
+static void	ft_init_shlvl(t_data *data)
 {
-	char	*new;
-	int		i;
+	t_env	*current;
+	t_env	*b_last;
 
-	i = 0;
-	new = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
-	if (!new)
-		return (NULL);
-	while (str[i])
+	current = data->env;
+	while (current)
 	{
-		new[i] = str[i];
-		i++;
+		if (ft_strcmp_strict(current->key, "SHLVL") == 0)
+		{
+			ft_fill_shlvl(current, NULL);
+			break ;
+		}
+		if (current && !current->next)
+			b_last = current;
+		current = current->next;
 	}
-	new[i] = 0;
-	return (new);
+	if (!current)
+		ft_fill_shlvl(current, b_last);
 }
 
 void	ft_init_struct(t_data *data, char **envp)
@@ -89,4 +65,5 @@ void	ft_init_struct(t_data *data, char **envp)
 	data->err_return_val = 0;
 	data->env = NULL;
 	ft_getenv(data, envp);
+	ft_init_shlvl(data);
 }

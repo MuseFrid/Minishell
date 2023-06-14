@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:11:21 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/14 15:51:34 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:56:50 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <dirent.h>
 # include <string.h>
 # include <signal.h>
+# include <limits.h>
 # include <sys/wait.h>
 # include "lexer.h"
 # include "color.h"

@@ -6,23 +6,11 @@
 /*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/14 16:50:48 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:56:27 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*void sig_handler(int signo)
-{
-    if (signo == SIGUSR1)
-        printf("received SIGUSR1\n");
-    else if (signo == SIGKILL)
-        printf("received SIGKILL\n");
-    else if (signo == SIGSTOP)
-        printf("received SIGSTOP\n");
-}*/
-
-int	ret_val;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -32,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1)
 		return (-1);
-	(void) argv;
+	(void)argv;
 	ft_init_struct(&data, envp);
 	while (1)
 	{
@@ -42,15 +30,17 @@ int	main(int argc, char **argv, char **envp)
 		data.cmds = parser(lexer(NULL, str), &data);
 		if (data.cmds)
 		{
+			add_history(str);
 			ft_check_builtins(&data);
+			ft_env_underscore(&data);
 			redirection_hub(data.cmds->redirections, &data, fd);
-			//if (data.cmds->builtin)
-			//	data.cmds->builtin(&data);
-			//else
-			//	printf("Not a builtin !\n");
+			if (data.cmds->builtin)
+				data.cmds->builtin(&data);
+			else
+				printf("Not a builtin !\n");
 		}
 		ft_free((void **)&str);
 	}
-	free(str);
+	ft_free((void **)&str);
 	exit(0);
 }

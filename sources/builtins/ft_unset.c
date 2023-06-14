@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 23:05:56 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 16:54:44 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:22:45 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_logic(t_data *data, t_env *current, char **value, int i)
 		current = first;
 		while (current)
 		{
-			if (ft_cmp_str_strict(key, current->key) == 0)
+			if (ft_strcmp_strict(key, current->key) == 0)
 			{
 				ft_var_found(data, current);
 				break ;

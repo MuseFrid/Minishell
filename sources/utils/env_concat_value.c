@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_concat_value.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 23:09:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 17:07:17 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:58:01 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_concat_env(t_data *data, t_env *new, char *value, int equal_index)
 	check = 0;
 	while (current)
 	{
-		if (ft_cmp_str_strict(current->key, key) == 0)
+		if (ft_strcmp_strict(current->key, key) == 0)
 		{
 			ft_free((void **)&key);
 			check = 1;

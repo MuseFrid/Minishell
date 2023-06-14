@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 22:18:03 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/12 14:48:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/04 19:13:45 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_exit(t_data *data)
 {
 	(void)data;
+	printf("exit\n");
 	exit(EXIT_SUCCESS);
 	return (0);
 }

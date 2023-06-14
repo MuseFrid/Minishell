@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:24:14 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/31 16:55:30 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:58:14 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	*ft_catch_value_env(char *value)
 	while (value[++i])
 		if (value[i] == '=')
 			equal_index = i;
+	if (!equal_index)
+		return (NULL);
 	str = malloc(sizeof(char) * (i - equal_index + 1));
 	if (!str)
 		return (NULL);	// need to call the error function !
@@ -70,7 +72,21 @@ void	ft_replace_value_env(t_env *current, char *value)
 {
 	char	*new_val;
 
-	ft_free((void **)&current->value);
 	new_val = ft_catch_value_env(value);
+	if (!new_val)
+		return ;
+	ft_free((void **)&current->value);
 	current->value = new_val;
+}
+
+t_env	*ft_last_elem_env(t_data *data)
+{
+	t_env	*current;
+	
+	current = data->env;
+	if (!current)
+		return (NULL);		//	Need to put error function
+	while (current->next)
+		current = current->next;
+	return (current);
 }

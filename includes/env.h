@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:43:03 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/26 15:23:38 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/04 23:39:54 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ typedef struct s_env
 
 void	ft_getenv(t_data *data, char **envp);
 void	ft_run_without_env(t_data *data);
+void	ft_env_underscore(t_data *data);
 
 #endif
