@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/14 16:31:33 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/16 13:34:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	main(int argc, char **argv, char **envp)
 		printf("%s", BOLDYELLOW);
 		str = readline(ft_path_and_username(&data));
 		printf("%s", RESET);
+		if (!str)			//	exit if CTRL-D (maybe not the good way)
+			ft_exit(&data);
 		data.cmds = parser(lexer(NULL, str), &data);
 		if (data.cmds)
 		{
