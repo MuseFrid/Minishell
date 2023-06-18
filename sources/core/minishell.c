@@ -6,13 +6,23 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/16 13:34:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/18 20:20:30 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
+static void	ft_if_cmds(t_data *data, char *str, int fd[2])
+{
+	add_history(str);
+	ft_check_builtins(data);
+	ft_env_underscore(data);
+	redirection_hub(data->cmds->redirections, data, fd);
+	if (data->cmds->builtin)
+		data->cmds->builtin(data);
+	else
+		printf("Not a builtin !\n");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -21,31 +31,17 @@ int	main(int argc, char **argv, char **envp)
 	int		fd[2];
 
 	if (argc != 1)
-		return (-1);
+		exit(EXIT_FAILURE);
 	(void)argv;
 	ft_handler_signal();
 	ft_init_struct(&data, envp);
 	while (1)
 	{
-		printf("%s", BOLDYELLOW);
-		str = readline(ft_path_and_username(&data));
-		printf("%s", RESET);
-		if (!str)			//	exit if CTRL-D (maybe not the good way)
-			ft_exit(&data);
+		str = ft_prompt(&data);
 		data.cmds = parser(lexer(NULL, str), &data);
 		if (data.cmds)
-		{
-			add_history(str);
-			ft_check_builtins(&data);
-			ft_env_underscore(&data);
-			redirection_hub(data.cmds->redirections, &data, fd);
-			if (data.cmds->builtin)
-				data.cmds->builtin(&data);
-			else
-				printf("Not a builtin !\n");
-		}
+			ft_if_cmds(&data, str, fd);
 		ft_free((void **)&str);
 	}
-	ft_free((void **)&str);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }

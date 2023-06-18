@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/14 17:42:56 by aabda            ###   ########.fr        #
+#    Updated: 2023/06/18 19:59:42 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SOURCES_LIST = $(LEXER) $(PARSER) \
 
 CORE = $(addprefix $(CORE_D), $(CORE_LIST))
 CORE_D = core/
-CORE_LIST = minishell.c signal.c
+CORE_LIST = minishell.c signal.c \
+	prompt.c
 
 BUILTINS = $(addprefix $(BUILTINS_D), $(BUILTINS_LIST))
 BUILTINS_D = builtins/
