@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/18 19:59:42 by aabda            ###   ########.fr        #
+#    Updated: 2023/06/22 21:58:37 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,18 +51,19 @@ UTILS_LIST = utils.c ga_error.c \
 	env_new_node.c env_concat_value.c \
 	utils2.c path_user_dollar.c \
 	path_user_dollar2.c  free.c \
-	libft_utils.c libft_utils2.c
+	libft_utils.c libft_utils2.c \
+	utils3.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/
 LEXER_LIST = lst_lexer.c \
-			 lexer.c
+	lexer.c
 
 PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
 PARSER_D = parser/
-PARSER_LIST = parser.c \
-			  lst_parser.c \
-			  parsing_strjoin.c design_cmd.c
+PARSER_LIST = parser.c lst_parser.c \
+	parsing_strjoin.c design_cmd.c \
+	dollar.c dollar2.c dollar3.c
 
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/

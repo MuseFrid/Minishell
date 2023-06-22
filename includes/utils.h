@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/14 17:56:39 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/20 23:51:23 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,8 @@ int		ft_strcmp_strict(const char *s1, const char *s2);
 char	*ft_get_value_env(t_data *data, char *key);
 int		ft_count_slash(char *str);
 char	*ft_strldup(const char *str, int len);
+
+//		sources/utils/utils3.c
+int		ft_count_char_to_end(char *str, int index, char start, char *end);
 
 #endif
