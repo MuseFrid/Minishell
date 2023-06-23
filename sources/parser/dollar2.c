@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:30:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/23 14:39:38 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/23 15:06:06 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ char	*ft_replace_dollar_by_env(t_data *data, char *str, int *i_dollar)
 {
 	char	**words;
 
+	if (!i_dollar)
+		return (str);
 	words = ft_catch_dollar_word(str, i_dollar);
 	str = ft_dollar_to_env(data, str, words, i_dollar);
 	return (str);
