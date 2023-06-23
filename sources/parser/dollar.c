@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:23:13 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/22 23:07:42 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/23 14:42:08 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,15 @@ static int	*ft_catch_dollar_index(int *i_dollar, char *str)
 	return (i_dollar);
 }
 
-int	ft_check_dollar(t_data *data, char *str, int len)
+char	*ft_dollar_handling(t_data *data, char *str)
 {
-	(void)data;
-	// int	i;
 	int	quote[2];
 	int	*i_dollar;
 
-	// i = -1;
 	quote[0] = 0;
 	quote[1] = 0;
 	i_dollar = NULL;
 	i_dollar = ft_catch_dollar_index(i_dollar, str);
-	ft_replace_dollar_by_env(data, str, i_dollar);
-	ft_free((void **)&i_dollar);
-	return (len);
+	str = ft_replace_dollar_by_env(data, str, i_dollar);
+	return (str);
 }

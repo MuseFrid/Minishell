@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:30:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/22 23:10:27 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/23 14:39:38 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,12 @@ static void	ft_create_words(char *str, char **words, int *i_dollar)
 	word_len = 0;
 	while (i_dollar[++i] >= 0)
 	{
-		word_len = ft_count_char_to_end(str, i_dollar[i], '$', END_VAR_ENV) + 1;
+		word_len = ft_count_char_to_end(str, i_dollar[i], '$', END_VAR_ENV);
 		words[i] = malloc(sizeof(char) * (word_len + 1));
 		if (!words[i])
 			exit(EXIT_FAILURE);		//	call the error function
 		j = i_dollar[i];
-		k = 1;
-		words[i][0] = '$';
+		k = 0;
 		while (str && str[++j] && !ft_check_end_var(str[j]))
 		{
 			words[i][k] = str[j];
@@ -67,16 +66,14 @@ static char	**ft_catch_dollar_word(char *str, int *i_dollar)
 		exit(EXIT_FAILURE);		//	call the error function
 	words[i_dollar[i] * -1] = NULL;
 	ft_create_words(str, words, i_dollar);
-	
-	// for (int j = 0; words[j]; j++)
-	// 	printf("%s\n", words[j]);
 	return (words);
 }
 
-void	ft_replace_dollar_by_env(t_data *data, char *str, int *i_dollar)
+char	*ft_replace_dollar_by_env(t_data *data, char *str, int *i_dollar)
 {
 	char	**words;
 
 	words = ft_catch_dollar_word(str, i_dollar);
-	ft_dollar_to_env(data, str, words, i_dollar);
+	str = ft_dollar_to_env(data, str, words, i_dollar);
+	return (str);
 }

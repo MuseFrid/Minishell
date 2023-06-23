@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/22 23:05:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/23 14:39:56 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void			lst_new_cmds(t_simple_cmds **new);
 char			*parsing_strjoin(char const *s1, char const *s2);
 void			print_parser(t_simple_cmds *cmds);
 void			print_tab(t_simple_cmds *cmds);
-int				ft_check_dollar(t_data *data, char *str, int len);
-void			ft_replace_dollar_by_env(t_data *data, char *str, int *i_dollar);
+char			*ft_dollar_handling(t_data *data, char *str);
+char			*ft_replace_dollar_by_env(t_data *data, char *str, int *i_dollar);
 
 char	*ft_dollar_to_env(t_data *data, char *str, char **words, int *i_dollar);
 

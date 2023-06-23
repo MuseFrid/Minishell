@@ -6,66 +6,96 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/22 23:11:23 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/23 14:31:22 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static char	**ft_create_tab_env(t_env *cur, char **words, char **w_p, int len)
-// {
-// 	t_env	*first;
-// 	int		i;
 
-// 	first = cur;
-// 	w_p = malloc(sizeof(char *) * (len + 1));
-// 	if (!w_p)
-// 		exit(EXIT_FAILURE);		//	call error function
-// 	w_p[len] = NULL;
-// 	i = -1;
-// 	len = 0;
-// 	while (words && words[++i])
-// 	{
-// 		while (cur)
-// 		{
-// 			if (ft_strcmp_strict(cur->key, words[i]) == 0)
-// 			{
-// 				w_p[len] = cur->value;
-// 				++len;
-// 				break ;
-// 			}
-// 			cur = cur->next;
-// 		}
-// 		cur = first;
-// 	}
-// 	return (w_p);
-// }
+static int	ft_len_new_str(char *str, char *word, int word_i, int *i_dollar)
+{
+	int	len;
+
+	len = ft_strlen(str);
+	len -= ft_count_char_to_end(str, i_dollar[word_i], '$', END_VAR_ENV) + 1;
+	len += ft_strlen(word);
+	return (len);
+}
+
+static int	ft_fill_word(char *word, char *new_str, int j)
+{
+	int	i;
+
+	i = -1;
+	while (word[++i])
+	{
+		new_str[j] = word[i];
+		++j;
+	}
+	return (j);
+}
+
+static char	*ft_process_str(char *str, char *word, int word_i, int *i_dollar)
+{
+	char	*new_str;
+	int		i;
+	int		j;
+
+	new_str = malloc(sizeof(char) * \
+		ft_len_new_str(str, word, word_i, i_dollar) + 1);
+	if (!new_str)
+		exit(EXIT_FAILURE);		//	call error function
+	i = -1;
+	j = 0;
+	while (++i < i_dollar[word_i])
+	{
+		new_str[j] = str[i];
+		++j;
+	}
+	j = ft_fill_word(word, new_str, j);
+	i += ft_count_char_to_end(str, i_dollar[word_i], '$', END_VAR_ENV);
+	while (str && str[++i])
+	{
+		new_str[j] = str[i];
+		++j;
+	}
+	new_str[j] = '\0';
+	ft_free((void **)&str);
+	return (new_str);
+}
+
+static void	ft_free_all_dollar_process(char **words, int *i_dol, int j)
+{
+	while (--j >= 0)
+		ft_free((void **)&words[j]);
+	ft_free((void **)&words);
+	ft_free((void **)&i_dol);
+}
 
 char	*ft_dollar_to_env(t_data *data, char *str, char **words, int *i_dollar)
 {
-	// (void)str;
-	// char	**words_processed;
-	// t_env	*current;
-	// int		len;
+	char	*tmp;
+	int		i;
+	int		j;
 
-	// current = data->env;
-	// if (!current)
-	// 	exit(EXIT_FAILURE);		//	call error function
-	// words_processed = NULL;
-	// len = -1;
-	// while (i_dollar[++len] >= 0)
-	// 	;
-	// len = i_dollar[len] * -1;
-	// words_processed = ft_create_tab_env(current, words, words_processed, len);
-	// for (int i = 0; words_processed[i]; i++)
-	// 	printf("%s\n", words_processed[i]);
-	// return (NULL);
-
-	
-	(void)data;
-	(void)str;
-	(void)i_dollar;
-	for (int j = 0; words[j]; j++)
-		printf("%s\n", words[j]);
-	return (NULL);
+	i = -1;
+	while (i_dollar[++i] >= 0)
+		;
+	i = (i_dollar[i] * -1) + 1;
+	j = i;
+	while (--i >= 0)
+	{
+		tmp = ft_get_value_env(data, words[i]);
+		if (tmp)
+		{
+			ft_free((void **)&words[i]);
+			words[i] = tmp;
+			tmp = NULL;
+			str = ft_process_str(str, words[i], i, i_dollar);
+			words[i] = NULL;
+		}
+	}
+	ft_free_all_dollar_process(words, i_dollar, j);
+	return (str);
 }
