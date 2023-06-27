@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/27 17:36:24 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/27 19:06:47 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,7 @@ void	ft_create_child(char **cmds, t_env *env, t_fd *fd)
 		exit(1);
 	}
 	if (pid == 0)
-	{
 		ft_executer_child(cmds, env, fd);
-		exit(0);
-	}
 	if (fd->in != -2)
 		close(fd->in);
 	if (fd->out != -2)
@@ -111,6 +108,7 @@ void	ft_create_child(char **cmds, t_env *env, t_fd *fd)
 	fd->redirection[1] = -2;
 	fd->pipe[0] = -2;
 	fd->pipe[1] = -2;
+	fd->out = -2;
 	wait(NULL);
 }
 
