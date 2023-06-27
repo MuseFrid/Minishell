@@ -6,29 +6,26 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/18 20:20:30 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/26 18:01:20 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_if_cmds(t_data *data, char *str, int fd[2])
+static void	ft_if_cmds(t_data *data, char *str)
 {
 	add_history(str);
 	ft_check_builtins(data);
 	ft_env_underscore(data);
-	redirection_hub(data->cmds->redirections, data, fd);
-	if (data->cmds->builtin)
+	if (data->cmds->builtin && data->cmds->next == NULL)
 		data->cmds->builtin(data);
-	else
-		printf("Not a builtin !\n");
+	ft_run_all_cmds(data);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_data	data;
-	int		fd[2];
 
 	if (argc != 1)
 		exit(EXIT_FAILURE);
@@ -40,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 		str = ft_prompt(&data);
 		data.cmds = parser(lexer(NULL, str), &data);
 		if (data.cmds)
-			ft_if_cmds(&data, str, fd);
+			ft_if_cmds(&data, str);
 		ft_free((void **)&str);
 	}
 	exit(EXIT_SUCCESS);

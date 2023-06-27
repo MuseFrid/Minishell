@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/18 19:59:42 by aabda            ###   ########.fr        #
+#    Updated: 2023/06/27 15:55:58 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = minishell
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
-LDFLAGS = -L/opt/homebrew/opt/readline/lib
-CPPFLAGS = -I/opt/homebrew/opt/readline/include
+LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
+CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf
@@ -35,7 +35,7 @@ SOURCES_LIST = $(LEXER) $(PARSER) \
 CORE = $(addprefix $(CORE_D), $(CORE_LIST))
 CORE_D = core/
 CORE_LIST = minishell.c signal.c \
-	prompt.c
+			prompt.c
 
 BUILTINS = $(addprefix $(BUILTINS_D), $(BUILTINS_LIST))
 BUILTINS_D = builtins/
@@ -51,7 +51,8 @@ UTILS_LIST = utils.c ga_error.c \
 	env_new_node.c env_concat_value.c \
 	utils2.c path_user_dollar.c \
 	path_user_dollar2.c  free.c \
-	libft_utils.c libft_utils2.c
+	libft_utils.c libft_utils2.c \
+	ft_split.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/
@@ -71,7 +72,8 @@ ENV_LIST = getenv.c env_-i.c \
 
 EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
 EXECUTOR_D=executor/
-EXECUTOR_LIST= heredoc_handler.c redirection_hub.c
+EXECUTOR_LIST= heredoc_handler.c redirection_hub.c \
+			   run_all_cmds.c access.c
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"

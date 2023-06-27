@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:15:00 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/02 16:21:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/27 17:44:07 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ char	*ft_path_and_username(t_data *data)
 	char	*user;
 	char	*pwd;
 	char	*res;
+	char	*final;
 	int		len_total;
 
 	user = ft_catch_user_env(data);
@@ -94,5 +95,9 @@ char	*ft_path_and_username(t_data *data)
 	if (!user || !pwd || !res)
 		return (NULL);		//	Need to put the error function
 	ft_join_pwd_user_dollar(user, pwd, res);
-	return (res);
+	final = ft_strjoin(res, RESET);
+	free(res);
+	if (!final)
+		exit(1);
+	return (final);
 }

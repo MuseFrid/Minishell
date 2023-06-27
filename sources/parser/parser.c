@@ -6,7 +6,7 @@
 /*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/30 17:01:43 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:27:29 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ t_simple_cmds	*parser(t_arg *arg, t_data *data)
 		pre_cmd = grab_redirections(&arg, new);
 		new->test_red = pre_cmd;
 		new->tab = double_tab_to_keep_going(pre_cmd);
-		design_cmd(pre_cmd, new, data);
+		//design_cmd(pre_cmd, new, data);
 		lst_add_back_cmds(&cmds, new);
 	}
 	(*data).cmds = cmds;

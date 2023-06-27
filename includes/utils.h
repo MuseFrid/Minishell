@@ -6,14 +6,15 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/14 17:56:39 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/27 15:57:18 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-//		sources/utils/access.c
+//		sources/utils/ft_split.c
+char	**ft_split(char const *s, char c);
 
 //		sources/utils/builtins.c
 int		ft_check_builtins(t_data *data);

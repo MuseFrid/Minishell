@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirection_hub.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 17:05:18 by gduchesn          #+#    #+#             */
+/*   Updated: 2023/06/26 17:11:18 by gduchesn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	create_outfile(t_data *data, int fd[2], int pick, char *file_to_open)
@@ -28,7 +40,7 @@ int	printf_redirection(t_arg *redirection)
 {
 	while (redirection)
 	{
-		printf("%s\n", redirection->word);
+		printf("from redirection : %s\n", redirection->word);
 		redirection = redirection->next;
 	}
 	return (0);
