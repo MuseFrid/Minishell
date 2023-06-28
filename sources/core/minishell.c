@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 13:41:16 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:14:56 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv, char **envp)
 		data.cmds = parser(lexer(NULL, str), &data);
 		if (data.cmds)
 			ft_if_cmds(&data, str);
+		lst_clear_cmds(data.cmds);
 		ft_free((void **)&str);
 	}
 	exit(EXIT_SUCCESS);

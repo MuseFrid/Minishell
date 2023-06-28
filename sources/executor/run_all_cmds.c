@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 15:42:16 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:20:13 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void	ft_executer_child(char **cmds, t_env *env, t_fd *fd)
 		exit (1);
 	}
 	execve(path, cmds, final_env);
-	perror("execve");
 	exit(1);
 }
 
@@ -106,7 +105,7 @@ int	ft_create_child(char **cmds, t_env *env, t_fd *fd)
 	fd->pipe[0] = -2;
 	fd->pipe[1] = -2;
 	fd->out = -2;*/
-	wait(NULL);
+	//wait(NULL);
 	return (pid);
 }
 
@@ -130,10 +129,12 @@ void	ft_final_fd(t_fd *fd)
 
 void	ft_run_all_cmds(t_data *data)
 {
-	t_fd	fd;
+	t_fd			fd;
+	t_simple_cmds	*snake;
 
 	fd.in = -2;
-	while (data->cmds)
+	snake = data->cmds;
+	while (snake)
 	{
 		ft_init_fd(&fd);
 	/*printf("%d\n", fd.redirection[0]);
@@ -142,7 +143,7 @@ void	ft_run_all_cmds(t_data *data)
 	printf("%d\n", fd.pipe[1]);
 	printf("%d\n", fd.in);
 	printf("%d\n", fd.out);*/
-		if (data->cmds->next)
+		if (snake->next)
 		{
 			if (pipe(fd.pipe) == -1)
 			{
@@ -150,12 +151,12 @@ void	ft_run_all_cmds(t_data *data)
 				exit(1);
 			}
 		}
-		redirection_hub(data->cmds->redirections, data, fd.redirection);
+		redirection_hub(snake->redirections, data, fd.redirection);
 		ft_final_fd(&fd);
-		if (data->cmds->builtin && data->cmds->next == NULL)
-			data->cmds->builtin(data);
+		if (snake->builtin && snake->next == NULL)
+			snake->builtin(data);
 		else
-			data->cmds->pid = ft_create_child(data->cmds->tab, data->env, &fd);
-		data->cmds = data->cmds->next;
+			snake->pid = ft_create_child(snake->tab, data->env, &fd);
+		snake = snake->next;
 	}
 }

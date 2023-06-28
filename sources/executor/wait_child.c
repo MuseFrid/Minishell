@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 13:41:36 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 14:42:43 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:29:09 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 void	wait_child(t_data *data)
 {
-	int	stat;
+	int				stat;
+	t_simple_cmds	*snake;
 
-	while (data->cmds)
+	snake = data->cmds;
+	while (snake)
 	{
-		if (data->cmds->pid != -2)
+		if (snake->pid != -2)
 		{
-			waitpid(data->cmds->pid, &stat, 0);
+			waitpid(snake->pid, &stat, 0);
 			if (WIFSIGNALED(stat))
 				ret_val = WTERMSIG(stat);
 			else if (WIFEXITED(stat))
 				ret_val = WEXITSTATUS(stat);
 		}
-		data->cmds = data->cmds->next;
+		snake = snake->next;
 	}
 }
