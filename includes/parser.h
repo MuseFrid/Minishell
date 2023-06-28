@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/23 14:39:56 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/28 19:54:56 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //# define DOLLAR 3
 //# define DOUBLE_QUOTES 2
 
-# define END_VAR_ENV ":;,&|<>(){}[]\"'!^$*?%+=/\\`"
+# define END_VAR_ENV ":;,&|<>(){}[]\"'!^$#@*?%+=/\\`"
 
 enum e_parsing
 {
