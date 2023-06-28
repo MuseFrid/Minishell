@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/26 18:01:20 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:41:16 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	ft_if_cmds(t_data *data, char *str)
 	add_history(str);
 	ft_check_builtins(data);
 	ft_env_underscore(data);
-	if (data->cmds->builtin && data->cmds->next == NULL)
-		data->cmds->builtin(data);
 	ft_run_all_cmds(data);
+	if (data->cmds)
+		wait_child(data);
 }
 
 int	main(int argc, char **argv, char **envp)

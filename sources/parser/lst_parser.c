@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/30 16:08:20 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:34:01 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	lst_new_cmds(t_simple_cmds **new)
 	if (!new)
 		exit(1);
 	(*new)->tab = NULL;
-	//builtin = NULL;
+	(*new)->builtin = NULL;
+	(*new)->pid = -2;
 	(*new)->redirections = NULL;
 	(*new)->test_red = NULL;
 	(*new)->next = NULL;

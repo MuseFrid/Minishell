@@ -12,10 +12,11 @@ typedef struct s_fd
 	int	out;
 }	t_fd;
 
-void	ft_create_child(char **cmds, t_env *env, t_fd *fd);
+int		ft_create_child(char **cmds, t_env *env, t_fd *fd);
 void	ft_run_all_cmds(t_data *data);
 void 	redirection_hub(t_arg *redirection, t_data *data, int fd[2]);
 int		heredoc_handler(t_arg *snake, t_data *data);
 char	*parse(char **envp, const char *cmd);
+void	wait_child(t_data *data);
 
 #endif

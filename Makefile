@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/27 15:55:58 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/06/28 14:40:42 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,8 @@ ENV_LIST = getenv.c env_-i.c \
 EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
 EXECUTOR_D=executor/
 EXECUTOR_LIST= heredoc_handler.c redirection_hub.c \
-			   run_all_cmds.c access.c
+			   run_all_cmds.c access.c \
+			   wait_child.c
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"

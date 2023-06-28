@@ -6,7 +6,7 @@
 /*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/30 16:07:16 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:32:06 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_simple_cmds
 {
 	char					**tab;
 	int						(*builtin)(struct s_data *);
+	int						pid;
 	t_arg					*redirections;
 	t_arg					*test_red;
 	struct s_simple_cmds	*next;

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:15:00 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/27 17:44:07 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:58:49 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,9 @@ char	*ft_path_and_username(t_data *data)
 	free(res);
 	if (!final)
 		exit(1);
-	return (final);
+	res = ft_strjoin(BOLDYELLOW, final);
+	free(final);
+	if (!res)
+		exit(1);
+	return (res);
 }

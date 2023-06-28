@@ -6,23 +6,19 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/27 19:06:47 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:42:16 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_fd	ft_init_fd(void)
+void	ft_init_fd(t_fd *fd)
 {
-	t_fd	fd;
-
-	fd.pipe[0] = -2;
-	fd.pipe[1] = -2;
-	fd.redirection[0] = -2;
-	fd.redirection[1] = -2;
-	fd.in = -2;
-	fd.out = -2;
-	return (fd);
+	fd->pipe[0] = -2;
+	fd->pipe[1] = -2;
+	fd->redirection[0] = -2;
+	fd->redirection[1] = -2;
+	fd->out = -2;
 }
 
 char	*merge_keyvalue(t_env *env)
@@ -84,10 +80,11 @@ void	ft_executer_child(char **cmds, t_env *env, t_fd *fd)
 		exit (1);
 	}
 	execve(path, cmds, final_env);
+	perror("execve");
 	exit(1);
 }
 
-void	ft_create_child(char **cmds, t_env *env, t_fd *fd)
+int	ft_create_child(char **cmds, t_env *env, t_fd *fd)
 {
 	int	pid;
 
@@ -104,12 +101,13 @@ void	ft_create_child(char **cmds, t_env *env, t_fd *fd)
 	if (fd->out != -2)
 		close(fd->out);
 	fd->in = fd->pipe[0];
-	fd->redirection[0] = -2;
+	/*fd->redirection[0] = -2;
 	fd->redirection[1] = -2;
 	fd->pipe[0] = -2;
 	fd->pipe[1] = -2;
-	fd->out = -2;
+	fd->out = -2;*/
 	wait(NULL);
+	return (pid);
 }
 
 void	ft_final_fd(t_fd *fd)
@@ -134,9 +132,16 @@ void	ft_run_all_cmds(t_data *data)
 {
 	t_fd	fd;
 
-	fd = ft_init_fd();
+	fd.in = -2;
 	while (data->cmds)
 	{
+		ft_init_fd(&fd);
+	/*printf("%d\n", fd.redirection[0]);
+	printf("%d\n", fd.redirection[1]);
+	printf("%d\n", fd.pipe[0]);
+	printf("%d\n", fd.pipe[1]);
+	printf("%d\n", fd.in);
+	printf("%d\n", fd.out);*/
 		if (data->cmds->next)
 		{
 			if (pipe(fd.pipe) == -1)
@@ -147,7 +152,10 @@ void	ft_run_all_cmds(t_data *data)
 		}
 		redirection_hub(data->cmds->redirections, data, fd.redirection);
 		ft_final_fd(&fd);
-		ft_create_child(data->cmds->tab, data->env, &fd);
+		if (data->cmds->builtin && data->cmds->next == NULL)
+			data->cmds->builtin(data);
+		else
+			data->cmds->pid = ft_create_child(data->cmds->tab, data->env, &fd);
 		data->cmds = data->cmds->next;
 	}
 }
