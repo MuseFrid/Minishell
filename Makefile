@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/29 15:31:10 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/06/29 19:23:14 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ ENV_LIST = getenv.c env_-i.c \
 
 EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
 EXECUTOR_D=executor/
-EXECUTOR_LIST= heredoc_handler.c redirection_hub.c \
+EXECUTOR_LIST= new_heredoc.c redirection_hub.c \
 			   run_all_cmds.c access.c \
 			   wait_child.c
 
