@@ -6,14 +6,14 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/06/28 16:18:33 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/06/29 15:31:10 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
 CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
 LIBRARIES = -lreadline
