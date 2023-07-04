@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/26 22:57:57 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/28 22:03:30 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,30 +119,30 @@ static void	ft_free_all_dollar_process(char **words, int *i_dol, int j)
 	ft_free((void **)&i_dol);
 }
 
-char	*ft_dollar_to_env(t_data *data, char *str, char **words, int *i_dollar)
+char	*ft_dollar_to_env(t_data *data, t_dollar *dollar)
 {
 	char	*tmp;
 	int		i;
 	int		j;
 
 	i = -1;
-	while (i_dollar[++i] >= 0)
+	while (dollar->i_dollar[++i] >= 0)
 		;
-	i = (i_dollar[i] * -1) + 1;
+	i = (dollar->i_dollar[i] * -1) + 1;
 	j = i;
 	while (--i >= 0)
 	{
-		tmp = ft_get_value_env(data, words[i]);
+		tmp = ft_get_value_env(data, dollar->words[i]);
 		if (tmp)
 		{
-			// ft_process1(words[i], tmp, )
-			ft_free((void **)&words[i]);
-			words[i] = tmp;
-			tmp = NULL;
-			str = ft_process_str(str, words[i], i, i_dollar);
-			words[i] = NULL;
+			/*
+				faire une fonction qui prend le mot et tmp
+				free les mots si aucun tmp a été trouvé
+			*/
+			// dollar->str = ft_process_str(dollar->str, dollar->words[i], i, dollar->i_dollar);
+			// dollar->words[i] = NULL;
 		}
 	}
-	ft_free_all_dollar_process(words, i_dollar, j);
-	return (str);
+	ft_free_all_dollar_process(dollar->words, dollar->i_dollar, j);
+	return (dollar->str);
 }

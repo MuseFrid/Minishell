@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 19:54:56 by aabda            ###   ########.fr       */
+/*   Updated: 2023/06/28 21:58:03 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ typedef struct s_bool
 	int	double_q;
 }	t_bool;
 
+typedef struct s_dollar
+{
+	char	*str;
+	char	**words;
+	int		*i_dollar;
+	int		quote[2];
+}	t_dollar;
+
 void			design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data);
 t_simple_cmds	*parser(t_arg *arg, t_data *data);
 void			lst_add_back_cmds(t_simple_cmds **head, t_simple_cmds *new);
@@ -49,9 +57,8 @@ void			lst_new_cmds(t_simple_cmds **new);
 char			*parsing_strjoin(char const *s1, char const *s2);
 void			print_parser(t_simple_cmds *cmds);
 void			print_tab(t_simple_cmds *cmds);
-char			*ft_dollar_handling(t_data *data, char *str);
-char			*ft_replace_dollar_by_env(t_data *data, char *str, int *i_dollar);
-
-char	*ft_dollar_to_env(t_data *data, char *str, char **words, int *i_dollar);
+char			*ft_dollar_handling(t_data *data, t_dollar *dollar);
+char			*ft_replace_dollar_by_env(t_data *data, t_dollar *dollar);
+char			*ft_dollar_to_env(t_data *data, t_dollar *dollar);
 
 #endif
