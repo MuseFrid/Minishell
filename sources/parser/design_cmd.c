@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 21:42:45 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/07 22:16:16 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@
 // 	new_str = malloc(sizeof(char) * len + 1);
 // 	if (!new_str)
 // 		exit(EXIT_FAILURE);
-	
 // }
 
 static void	ft_parse_word(t_data *data, char *str)
@@ -79,7 +78,7 @@ static void	ft_parse_word(t_data *data, char *str)
 	dollar->str = ft_dollar_handling(data, dollar);
 	// len = ft_len_without_quote(str);
 	// ft_str_without_quote(str, len);
-	printf("%s\n", dollar->str);
+	// printf("%s\n", dollar->str);
 }
 
 void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data)

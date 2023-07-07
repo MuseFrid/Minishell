@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 21:58:03 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/07 17:15:45 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void			print_tab(t_simple_cmds *cmds);
 char			*ft_dollar_handling(t_data *data, t_dollar *dollar);
 char			*ft_replace_dollar_by_env(t_data *data, t_dollar *dollar);
 char			*ft_dollar_to_env(t_data *data, t_dollar *dollar);
+void			ft_join_p_word(t_dollar *dollar, char **process, char *word);
 
 #endif

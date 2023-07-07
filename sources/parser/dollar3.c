@@ -6,143 +6,108 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/28 22:03:30 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/07 22:11:35 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-// static int	ft_len_new_str(char *str, char *word, int word_i, int *i_dollar)
-// {
-// 	int	len;
-
-// 	len = ft_strlen(str);
-// 	len -= ft_count_char_to_end(str, i_dollar[word_i], '$', END_VAR_ENV);
-// 	len += ft_strlen(word);
-// 	return (len);
-// }
-
-// static int	ft_fill_word(char *word, char *new_str, int j)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (word[++i])
-// 	{
-// 		new_str[j] = word[i];
-// 		++j;
-// 	}
-// 	return (j);
-// }
-
-static char	*ft_process_str(char *str, char *word, int word_i, int *i_dollar)
+static char	**ft_create_p0(t_dollar *dollar, char **process, int idx)
 {
-	char	*new_str;
-	int		len_total;
-	int		i;
-	int		j;
+	int	i;
 
-	len_total = (int)ft_strlen(str) + (int)ft_strlen(word) - ft_count_char_to_end(str, word_i, '$', END_VAR_ENV);
-	new_str = malloc(sizeof(char) * len_total);
-	if (!new_str)
-		exit(EXIT_FAILURE);		//	call the error function
-	i = -1;
-	while (++i < i_dollar[word_i])
-		new_str[i] = str[i];
-	j = -1;
-	while (word[++j])
+	process = malloc(sizeof(char *) * 2);
+	if (!process)
+		exit(EXIT_FAILURE);		//	call error function
+	i = 0;
+	while (i < dollar->i_dollar[idx])
+		i++;
+	if (i)
 	{
-		new_str[i] = word[j];
-		++i;
-	}
-	j = i_dollar[word_i] + ft_count_char_to_end(str, word_i, '$', END_VAR_ENV);	//	faut la taille du mot et non fonction
-	printf("%d - %lu\n", j, ft_strlen(str));
-	while (++j < (int)ft_strlen(str))
-	{
-		new_str[i] = str[j];
-		++i;
-	}
-	new_str[i] = '\0';
 
-	printf("[%s]\n", new_str);
-	printf("==========================================\n");
-	printf("[%d]i_dollar[word_i]\n", i_dollar[word_i]);
-	printf("[%lu]str = %s\n", ft_strlen(str), str);
-	printf("[%lu]word = %s\n", ft_strlen(word), word);
-	printf("total = %d\n", len_total);
-	printf("ft_c_to_e = %d\n", ft_count_char_to_end(str, word_i, '$', END_VAR_ENV));
-	printf("==========================================\n");
-	return (new_str);
+		process[0] = malloc(sizeof(char) * i + 1);
+		if (!process[0])
+			exit(EXIT_FAILURE);		//	call error function
+		i = -1;
+		while (++i < dollar->i_dollar[idx])
+			process[0][i] = dollar->str[i];
+		process[0][i] = '\0';
+		return (process);
+	}
+	process[0] = NULL;
+	return (process);
 }
 
-
-
-// static char	*ft_process_str(char *str, char *word, int word_i, int *i_dollar)
-// {
-// 	char	*new_str;
-// 	int		i;
-// 	int		j;
-
-// 	new_str = malloc(sizeof(char) * \
-// 		ft_len_new_str(str, word, word_i, i_dollar));
-// 	if (!new_str)
-// 		exit(EXIT_FAILURE);		//	call error function
-// 	i = -1;
-// 	j = 0;
-// 	while (++i < i_dollar[word_i])
-// 	{
-// 		new_str[i] = str[i];
-// 		++j;
-// 	}
-// 	j = ft_fill_word(word, new_str, j);
-// 	i += ft_count_char_to_end(str, i_dollar[word_i], '$', END_VAR_ENV);
-// 	while (str && str[++i])
-// 	{
-// 		new_str[j] = str[i];
-// 		++j;
-// 	}
-// 	new_str[j] = '\0';
-// 	printf("word = [%s]\n", word);
-// 	printf("original = [%s]\n", str);
-// 	printf("process = [%s]\n", new_str);
-// 	printf("===============================\n");
-// 	ft_free((void **)&str);
-// 	return (new_str);
-// }
-
-static void	ft_free_all_dollar_process(char **words, int *i_dol, int j)
+static int	ft_init_len(t_dollar *dollar, char **process, int idx)
 {
-	while (--j >= 0)
-		ft_free((void **)&words[j]);
-	ft_free((void **)&words);
-	ft_free((void **)&i_dol);
+	if (process[0])
+		return (ft_strlen(dollar->str) - ft_strlen(process[0]) - \
+			ft_strlen(dollar->words[idx]) - 1);
+	else
+		return (ft_strlen(dollar->str) - ft_strlen(dollar->words[idx]) - 1);
+}
+
+static char	**ft_create_p1(t_dollar *dollar, char **process, int idx)
+{
+	int	len;
+	int	i;
+	int	j;
+
+	len = ft_init_len(dollar, process, idx);
+	if (process[0])
+		i = ft_strlen(process[0]) + ft_strlen(dollar->words[idx]);
+	else
+		i = ft_strlen(dollar->words[idx]);
+	if (len)
+	{
+		process[1] = malloc(sizeof(char) * len + 1);
+		if (!process[1])
+			exit(EXIT_FAILURE);		//	call error function
+		j = 0;
+		while (dollar->str[++i])
+		{
+			process[1][j] = dollar->str[i];
+			++j;
+		}
+		process[1][j] = '\0';
+		return (process);
+	}
+	process[1] = NULL;
+	return (process);
+}
+
+static void	ft_process_str(t_dollar *dollar, char *word, int index)
+{
+	char	**process;
+
+	process = NULL;
+	process = ft_create_p0(dollar, process, index);
+	process = ft_create_p1(dollar, process, index);
+	ft_join_p_word(dollar, process, word);
+	// printf("{\n\t[index nº%d]\n\ti_dollar = %d\n\tprocess[0] = %s\n\tprocess[1] = %s\n\t%s\n}\n", index, dollar->i_dollar[index], process[0], process[1], dollar->str);
+	// printf("{\n\ti = %d\n\tstr = %s\n\tindex du dollar a traiter = %d\n\tmot a remplacer = %s\n\ttaille du mot = %lu\n\tbon mot = %s\n}\n", i, dollar->str, dollar->i_dollar[i], dollar->words[i], ft_strlen(dollar->words[i]), word);
+	// printf("[%lu]\n", ft_strlen(dollar->str) - ft_strlen(dollar->words[i]) - 1 + ft_strlen(word));
 }
 
 char	*ft_dollar_to_env(t_data *data, t_dollar *dollar)
 {
 	char	*tmp;
 	int		i;
-	int		j;
 
 	i = -1;
 	while (dollar->i_dollar[++i] >= 0)
 		;
 	i = (dollar->i_dollar[i] * -1) + 1;
-	j = i;
 	while (--i >= 0)
 	{
 		tmp = ft_get_value_env(data, dollar->words[i]);
 		if (tmp)
-		{
-			/*
-				faire une fonction qui prend le mot et tmp
-				free les mots si aucun tmp a été trouvé
-			*/
-			// dollar->str = ft_process_str(dollar->str, dollar->words[i], i, dollar->i_dollar);
-			// dollar->words[i] = NULL;
-		}
+			ft_process_str(dollar, tmp, i);
 	}
-	ft_free_all_dollar_process(dollar->words, dollar->i_dollar, j);
+	ft_free((void **)&dollar->i_dollar);
+	i = -1;
+	while (dollar->words[++i])
+		ft_free((void **)&dollar->words[i]);
+	ft_free((void **)&dollar->words);
 	return (dollar->str);
 }
