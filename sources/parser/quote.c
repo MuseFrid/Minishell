@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:31:25 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/08 22:54:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/08 22:56:38 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_str_without_quote(t_dollar *dollar, int len)
 		}
 	}
 	new_str[i] = '\0';
-	printf("%s\n", new_str);
+	ft_free((void **)&dollar->str);
+	dollar->str = new_str;
 }
 
