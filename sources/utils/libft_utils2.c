@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 23:45:16 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/11 15:45:33 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/10 13:13:23 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,28 @@ char	*ft_strdup(const char *str)
 		i++;
 	}
 	new[i] = 0;
+	return (new);
+}
+
+char	*ft_strndup(const char *str, int n)
+{
+	char	*new;
+	int		i;
+	int		len;
+
+	i = 0;
+	len = ft_strlen(str);
+	if (len > n)
+		len = n;
+	new = (char *)malloc(sizeof(char) * len + 1);
+	if (!new)
+		return (NULL);
+	while (str[i] && i < len)
+	{
+		new[i] = str[i];
+		i++;
+	}
+	new[len] = 0;
 	return (new);
 }
 

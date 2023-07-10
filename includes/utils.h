@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/27 15:57:18 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:26:40 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *str);
 int		ft_atoi(const char *str);
+char	*ft_strndup(const char *str, int n);
 
 //		sources/utils/path_user_dollar.c
 char	*ft_path_and_username(t_data *data);

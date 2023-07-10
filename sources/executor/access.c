@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:51:48 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 15:22:30 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/10 11:23:05 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static int absolute_path(int *i, const char *cmd, char **str)
 	*i = 0;
 
 	*str = NULL;
+	if (!cmd)
+		return (0);
 	while (cmd[*i])
 	{
 		if (cmd[*i] == '/')
