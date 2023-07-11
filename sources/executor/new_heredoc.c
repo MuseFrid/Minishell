@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/10 18:19:56 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:55:21 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,70 @@ char	*heredoc_expand(t_data data, char *str)
 	return (str);
 }
 
+void	redesign_word(char **word, int *i, char type, int *bool_quotes)
+{
+	char	*tmp;
+	char	*redesign;
+	char	*tmp2;
+	int		j;
+
+	if (*bool_quotes == 0)
+		*bool_quotes = 1;
+	tmp = ft_strndup((*word), *i);
+	dprintf(2, "ha\n");
+	dprintf(2, "tmp : %s\n", tmp);
+	if (!tmp)
+		exit(18);
+	j = *i + 1;
+	while ((*word)[j] && (*word)[j] != type)
+		j++;
+	redesign = ft_strndup(((*word) + *i + 1), (j - *i - 1));
+	if (!redesign)
+		exit(18);
+	tmp2 = ft_strjoin(tmp, redesign);
+	free(tmp);
+	free(redesign);
+	if (!tmp2)
+		exit(18);
+	*i = ft_strlen(tmp2);
+	dprintf(2, "value i : %d\n", *i);
+	tmp = ft_strjoin(tmp2, ((*word) + j + 1));
+	free(tmp2);
+	ft_free((void **)&(*word));
+	if (!tmp)
+		exit(18);
+	*word = tmp;
+	printf("word = %s\n", *word);
+}
+
+int	fix_word(char **word)
+{
+	int	bool_quotes;
+	int	i;
+
+	i = 0;
+	bool_quotes = 0;
+	while ((*word) && (*word)[i])
+	{
+		if ((*word)[i] == '\'')
+			redesign_word(word, &i, '\'', &bool_quotes);
+		if ((*word)[i] == '"')
+			redesign_word(word, &i, '"', &bool_quotes);
+		else
+			++i;
+	}
+	return (bool_quotes);
+}
+
 void	heredoc_open(int fd, char *word, t_data *data)
 {
 	int		dup_fd;
 	char	*str;
+	int		bool_quotes;
 	
 	str = NULL;
 	dup_fd = dup(0);
+	bool_quotes = fix_word(&word);
 	if (dup_fd == -1)
 		exit(41); //error fonction
 	while (1)
@@ -100,7 +157,7 @@ void	heredoc_open(int fd, char *word, t_data *data)
 		str = readline("> ");
 		if (str && !ft_strcmp_strict(str, word))
 			break ;
-		if (word)//quotes ???
+		if (!bool_quotes)//quotes ???
 			str = heredoc_expand(*data, str);
 		if (str)
 			write(fd, str, ft_strlen(str));
