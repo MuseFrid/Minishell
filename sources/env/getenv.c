@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 12:51:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/17 18:45:23 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/15 20:57:24 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ static void	ft_key_value(t_env *new, char **envp, int i)
 	}
 	new->key = malloc(sizeof(char) * equal_index + 1);
 	if (!new->key)
-		exit(EXIT_FAILURE);		//	need to put the error function !
+		kill_mini("key_value");
 	new->key[equal_index] = '\0';
 	new->value = malloc(sizeof(char) * (j - equal_index) + 1);
 	if (!new->value)
-		exit(EXIT_FAILURE);		//	need to put the error function !
+		kill_mini("key_value");
 	new->value[j - equal_index] = '\0';
 	ft_fill_key_value(new, envp, i, equal_index);
 }
@@ -90,13 +90,16 @@ void	ft_getenv(t_data *data, char **envp)
 	int		i;
 
 	if (!envp || !envp[0])
+	{
 		ft_run_without_env(data);
+		return ;
+	}
 	i = -1;
 	while (envp && envp[++i])
 	{
 		new = malloc(sizeof(t_env));
 		if (!new)
-			exit(EXIT_FAILURE);		//	need to put the error function !
+			kill_mini("getenv");
 		ft_add_value(data, new, envp, i);
 	}
 }

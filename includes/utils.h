@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/10 13:26:40 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/15 20:49:57 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_free(void **value);
 
 //		sources/utils/ga_error.c
 int		ga_error(char *error_msg);
+void	kill_mini(char *error_msg);
 
 //		sources/utils/libft_utils.c
 size_t	ft_strlen(const char *str);
