@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 17:14:56 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/15 19:51:46 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,21 @@ int	main(int argc, char **argv, char **envp)
 	char	*str;
 	t_data	data;
 
+	(void) argv;
 	if (argc != 1)
 		exit(EXIT_FAILURE);
-	(void)argv;
-	ft_handler_signal();
+	ft_handler_signal(0);
 	ft_init_struct(&data, envp);
 	while (1)
 	{
+		data.heredoc->open_file = NULL;
 		str = ft_prompt(&data);
 		data.cmds = parser(lexer(NULL, str), &data);
 		if (data.cmds)
 			ft_if_cmds(&data, str);
 		lst_clear_cmds(data.cmds);
+		if (data.heredoc->open_file)
+			unlink(data.heredoc->open_file);
 		ft_free((void **)&str);
 	}
 	exit(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/11 16:55:21 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/15 19:18:15 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,17 +155,24 @@ void	heredoc_open(int fd, char *word, t_data *data)
 	while (1)
 	{
 		str = readline("> ");
-		if (str && !ft_strcmp_strict(str, word))
-			break ;
-		if (!bool_quotes)//quotes ???
+		if (!str || (str && !ft_strcmp_strict(str, word)))
+        {
+			if (close(0) != -1 && !str)
+				printf("warning: here-document at line %d delimited by end-of-file (wanted `%s')\n",
+				   data->heredoc->nbr_l, word);
+			errno = 0;
+            break ;
+        }
+		if (!bool_quotes)
 			str = heredoc_expand(*data, str);
 		if (str)
 			write(fd, str, ft_strlen(str));
 		write(fd, "\n", 1);
 		ft_free((void **)&str);
 	}
+	if (str)
+		close(0);
 	ft_free((void **)&str);
-	close(0);
 	if (dup2(dup_fd, 0) == -1)
 		exit(42);
 	close(dup_fd);
@@ -197,7 +204,6 @@ char	*create_tmp_file(int *fd, int i, char *name)
 
 int	heredoc_handler(t_arg *snake, t_data *data)
 {
-	char	*name;
 	int		i;
 	int		fd;
 
@@ -207,15 +213,22 @@ int	heredoc_handler(t_arg *snake, t_data *data)
 	{
 		if (snake->is_token == D_LOWER)
 		{
-			name = create_tmp_file(&fd, i, name);
-			if (!name)
+			data->heredoc->open_file = create_tmp_file(&fd, i, data->heredoc->open_file);
+			if (!data->heredoc->open_file)
 				return (-3);
+			ft_handler_signal(1);
 			heredoc_open(fd, snake->word, data);
+			ft_handler_signal(0);
 			i++;
 		}
 		snake = snake->next;
 	}
-	close(fd);
-	fd = open(name, O_RDWR, 0644);
+	if (fd != -2)
+	{
+		close(fd);
+		fd = open(data->heredoc->open_file, O_RDWR, 0644);
+		if (fd == -1)
+			exit (1);
+	}
 	return (fd);
 }

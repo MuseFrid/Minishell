@@ -12,6 +12,12 @@ typedef struct s_fd
 	int	out;
 }	t_fd;
 
+typedef struct s_heredoc
+{
+	int		nbr_l;
+	char	*open_file;
+}	t_heredoc;
+
 int		ft_create_child(char **cmds, t_env *env, t_fd *fd);
 void	ft_run_all_cmds(t_data *data);
 void 	redirection_hub(t_arg *redirection, t_data *data, int fd[2]);

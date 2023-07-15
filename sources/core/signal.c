@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:53:30 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/16 13:35:30 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/15 19:53:58 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,29 @@ static void	ft_sig_handling(int sig)
 	}
 }
 
-void	ft_handler_signal(void)
+static void	ft_sig_heredoc(int sig)
 {
-	struct sigaction	sa_sig;
+	write(1, "\n", 1);
+	close(0);
+	(void) sig;
+}
 
-	sa_sig.sa_flags = SA_RESTART;
-	sa_sig.sa_handler = &ft_sig_handling;
+void    ft_handler_signal(int is_heredoc)
+{
+    struct sigaction    sa_sig;
 
-	sigaction(SIGINT, &sa_sig, NULL);	//	CTRL-C
-	signal(SIGQUIT, SIG_IGN);			//	CTRL-BACKSLASH
-	signal(SIGTSTP, SIG_IGN);			//	CTRL-Z
+    if (is_heredoc)
+    {
+        sa_sig.sa_handler = &ft_sig_heredoc;
+        sigaction(SIGINT, &sa_sig, NULL);
+    }
+    else
+    {
+        sa_sig.sa_flags = SA_RESTART;
+        sa_sig.sa_handler = &ft_sig_handling;
+
+        sigaction(SIGINT, &sa_sig, NULL);
+        signal(SIGQUIT, SIG_IGN);
+        signal(SIGTSTP, SIG_IGN);
+    }
 }

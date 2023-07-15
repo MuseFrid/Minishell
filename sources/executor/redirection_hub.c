@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:05:18 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/26 17:11:18 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:38:38 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,10 @@ void	open_infile(t_data *data, int *which, int pick, char *file_to_open)
 		data->err_return_val = 1;
 }
 
-int	printf_redirection(t_arg *redirection)
-{
-	while (redirection)
-	{
-		printf("from redirection : %s\n", redirection->word);
-		redirection = redirection->next;
-	}
-	return (0);
-}
-
 void	redirection_hub(t_arg *redirection, t_data *data, int fd[2])
 {
 	int	which;
 
-	printf_redirection(redirection);
 	fd[IN] = heredoc_handler(redirection, data);
 	fd[OUT] = -2;
 	which = -2;
