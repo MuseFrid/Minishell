@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:05:18 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/15 18:38:38 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:36:54 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	redirection_hub(t_arg *redirection, t_data *data, int fd[2])
 	which = -2;
 	while (redirection && data->err_return_val == 0)
 	{
-		if (redirection->is_token == D_GREATER || redirection->is_token == GREATER)
+		if (redirection->is_token == D_GREATER
+			|| redirection->is_token == GREATER)
 			create_outfile(data, fd, redirection->is_token, redirection->word);
 		else
 			open_infile(data, &which, redirection->is_token, redirection->word);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_user_dollar.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:15:00 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/28 12:58:49 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:37:41 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*ft_catch_pwd_env(t_data *data)
 	res = getcwd(NULL, 0);
 	home = NULL;
 	if (!res)
-		return (NULL);	//	call error function
+		kill_mini("Minishell : promt_name");
 	home = ft_get_value_env(data, "HOME");
 	if (!home)
 		return (res);
@@ -93,15 +93,15 @@ char	*ft_path_and_username(t_data *data)
 	len_total = ft_strlen(user) + ft_strlen(pwd) + 3;
 	res = malloc(sizeof(char) * len_total + 1);
 	if (!user || !pwd || !res)
-		return (NULL);		//	Need to put the error function
+		kill_mini("Minishell : promt_name");
 	ft_join_pwd_user_dollar(user, pwd, res);
 	final = ft_strjoin(res, RESET);
 	free(res);
 	if (!final)
-		exit(1);
+		kill_mini("Minishell : promt_name");
 	res = ft_strjoin(BOLDYELLOW, final);
 	free(final);
 	if (!res)
-		exit(1);
+		kill_mini("Minishell : promt_name");
 	return (res);
 }

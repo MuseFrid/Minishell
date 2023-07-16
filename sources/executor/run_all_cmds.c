@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/29 15:46:23 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:35:07 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ char	*merge_keyvalue(t_env *env)
 char	**redesign_env(t_env *env)
 {
 	char	**new_env;
-
 	t_env	*size;
-	int	i;
+	int		i;
 
 	i = 0;
 	size = env;
@@ -101,12 +100,6 @@ int	ft_create_child(char **cmds, t_env *env, t_fd *fd)
 	if (fd->out != -2)
 		close(fd->out);
 	fd->in = fd->pipe[0];
-	/*fd->redirection[0] = -2;
-	fd->redirection[1] = -2;
-	fd->pipe[0] = -2;
-	fd->pipe[1] = -2;
-	fd->out = -2;*/
-	//wait(NULL);
 	return (pid);
 }
 
@@ -156,12 +149,6 @@ void	ft_run_all_cmds(t_data *data)
 	while (snake)
 	{
 		ft_init_fd(&fd);
-	/*printf("%d\n", fd.redirection[0]);
-	printf("%d\n", fd.redirection[1]);
-	printf("%d\n", fd.pipe[0]);
-	printf("%d\n", fd.pipe[1]);
-	printf("%d\n", fd.in);
-	printf("%d\n", fd.out);*/
 		if (snake->next)
 		{
 			if (pipe(fd.pipe) == -1)

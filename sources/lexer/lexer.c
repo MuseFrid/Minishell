@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/05/31 14:38:12 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:53:24 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	quote(char *str, int *i, int *j, char to_find)
+static void	quote(char *str, int *i, int *j, char to_find)
 {
 	while (1)
 	{
@@ -22,8 +22,7 @@ int	quote(char *str, int *i, int *j, char to_find)
 			break ;
 	}
 	if (!str[*i])
-		return (ga_error(UNCLOSED_QUOTE));
-	return (SUCCESS);
+		kill_mini(UNCLOSED_QUOTE);
 }
 
 static void	touch_i(int *i, int pick)
@@ -79,8 +78,7 @@ t_arg	*lexer(t_arg *arg, char *str)
 		while (str[i] != ' ' && str[i])
 		{
 			if (str[i] == '\'' || str[i] == '\"')
-				if (quote(str, &i, &j, str[i]))
-					exit(1);
+				quote(str, &i, &j, str[i]);
 			if (is_token(str, &i, 0))
 				break ;
 			i++;
@@ -89,6 +87,8 @@ t_arg	*lexer(t_arg *arg, char *str)
 		if (j > 0)
 		{
 			new_word = ft_substr(str, i - j, j);
+			if (!new_word)
+				kill_mini("Minishell : lexer");
 			new = lst_new_arg(new_word, NOT_A_TOKEN);
 			lst_add_arg(&arg, new);
 		}

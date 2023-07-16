@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   underscore.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 02:03:35 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/11 16:39:43 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:49:01 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_env_underscore(t_data *data)
 
 	current = data->env;
 	if (!current)
-		exit(EXIT_FAILURE);		//	need to put the error function
+		kill_mini("Minishell : env_underscore");
 	arg = ft_catch_last_arg(data->cmds->tab);
 	if (!arg)
 		return ;

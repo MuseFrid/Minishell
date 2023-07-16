@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/15 19:55:41 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:29:13 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	cmp_delimiter(char c)
 {
-	static char delimiter[] = END_VAR_ENV;
+	static char	delimiter[] = END_VAR_ENV;
 	int			i;
 
 	i = 0;
@@ -51,8 +51,8 @@ int	ft_isdigit(char c)
 
 char	*heredoc_expand(t_data data, char *str)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*env_value;
 	char	*start;
 	char	*tmp;
@@ -65,7 +65,8 @@ char	*heredoc_expand(t_data data, char *str)
 		if (str[i] != '$')
 			break ;
 		j = (i + 1);
-		while ((str[j] && !cmp_delimiter(str[j])) && !(j - 1 == i && ft_isdigit(str[j])))
+		while ((str[j] && !cmp_delimiter(str[j]))
+			&& !(j - 1 == i && ft_isdigit(str[j])))
 			j++;
 		if (!(j - 1 == i && ft_isdigit(str[j])))
 			env_value = find_env_variable(str, i, j, data);

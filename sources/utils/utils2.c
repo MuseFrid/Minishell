@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/15 20:57:32 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:03:50 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_get_value_env(t_data *data, char *key)
 
 	current = data->env;
 	if (!current || !key)
-		return (NULL);		// call the error function
+		kill_mini("get_value_env");
 	while (current)
 	{
 		if (ft_strcmp_strict(current->key, key) == 0)
