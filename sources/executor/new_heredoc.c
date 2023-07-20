@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/16 19:29:13 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:59:42 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ char	*find_env_variable(char *str, int i, int j, t_data data)
 {
 	while (data.env)
 	{
-		if (!ft_strncmp((str + i + 1), data.env->key, (j - i - 1)))
+		if ((j - i - 1) == (int)ft_strlen(data.env->key) && !ft_strncmp((str + i + 1), data.env->key, (j - i - 1)))
 		{
-			printf("j - i = %d / str + i + 1 = %s\n", j - i, str + i + 1);
-			printf("seems to work\n");
+		//	printf("j - i = %d / str + i + 1 = %s\n", j - i, str + i + 1);
+		//	printf("seems to work\n");
 			return (data.env->value);
 		}
 		data.env = data.env->next;
@@ -68,10 +68,15 @@ char	*heredoc_expand(t_data data, char *str)
 		while ((str[j] && !cmp_delimiter(str[j]))
 			&& !(j - 1 == i && ft_isdigit(str[j])))
 			j++;
-		if (!(j - 1 == i && ft_isdigit(str[j])))
+		if (str[j] && str[j] == '?')
+			env_value = ft_itoa(ret_val);
+		else if (!(j - 1 == i && ft_isdigit(str[j])))
 			env_value = find_env_variable(str, i, j, data);
 		else if (++j)
 			env_value = ft_strdup("");
+		if (!env_value)
+			exit(10);
+		printf("env_value :\"%s\"\n", env_value);
 		tmp = ft_strndup(str, i);
 		start = ft_strjoin(tmp, env_value);
 		free(tmp);
@@ -97,30 +102,26 @@ void	redesign_word(char **word, int *i, char type, int *bool_quotes)
 	if (*bool_quotes == 0)
 		*bool_quotes = 1;
 	tmp = ft_strndup((*word), *i);
-	dprintf(2, "ha\n");
-	dprintf(2, "tmp : %s\n", tmp);
 	if (!tmp)
-		exit(18);
+		kill_mini("Minishell : execution");
 	j = *i + 1;
 	while ((*word)[j] && (*word)[j] != type)
 		j++;
 	redesign = ft_strndup(((*word) + *i + 1), (j - *i - 1));
 	if (!redesign)
-		exit(18);
+		kill_mini("Minishell : execution");
 	tmp2 = ft_strjoin(tmp, redesign);
 	free(tmp);
 	free(redesign);
 	if (!tmp2)
-		exit(18);
+		kill_mini("Minishell : execution");
 	*i = ft_strlen(tmp2);
-	dprintf(2, "value i : %d\n", *i);
 	tmp = ft_strjoin(tmp2, ((*word) + j + 1));
 	free(tmp2);
 	ft_free((void **)&(*word));
 	if (!tmp)
-		exit(18);
+		kill_mini("Minishell : execution");
 	*word = tmp;
-	printf("word = %s\n", *word);
 }
 
 int	fix_word(char **word)
@@ -134,7 +135,7 @@ int	fix_word(char **word)
 	{
 		if ((*word)[i] == '\'')
 			redesign_word(word, &i, '\'', &bool_quotes);
-		if ((*word)[i] == '"')
+		else if ((*word)[i] == '"')
 			redesign_word(word, &i, '"', &bool_quotes);
 		else
 			++i;

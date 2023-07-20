@@ -6,7 +6,7 @@
 /*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/10 17:59:44 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:55:51 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PARSER_H
 //# define DOLLAR 3
 //# define DOUBLE_QUOTES 2
-# define END_VAR_ENV ":;,&|<>(){}[]\"'!^$#@*?%+=/\\`~"
+# define END_VAR_ENV ":;,&|<>(){}[]\"'!^$#@*%+=/\\`~"
 
 enum e_parsing
 {

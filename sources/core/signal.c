@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:53:30 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/16 19:32:57 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/19 17:01:53 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ void	ft_handler_signal(int is_heredoc)
 		sigaction(SIGINT, &sa_sig, NULL);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGTSTP, SIG_IGN);
+		ret_val = 130;
 	}
 }

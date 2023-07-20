@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/16 19:35:07 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:57:05 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ void	ft_executer_child(char **cmds, t_env *env, t_fd *fd)
 	if (fd->out != -2)
 		if (dup2(fd->out, 1) == -1)
 			exit(1);
+	if (!(*cmds))
+		exit(0);
 	final_env = redesign_env(env);
 	path = parse(final_env, cmds[0]);
 	if (!path)
 	{
-		perror(NULL);
+		perror("path not find");
 		exit (1);
 	}
 	execve(path, cmds, final_env);
