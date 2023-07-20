@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/08 13:31:22 by aabda            ###   ########.fr        #
+#    Updated: 2023/07/15 12:59:02 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ UTILS_LIST = utils.c ga_error.c \
 	env_new_node.c env_concat_value.c \
 	utils2.c path_user_dollar.c \
 	path_user_dollar2.c  free.c \
-	libft_utils.c libft_utils2.c \
+	libft_utils.c libft_utils2.c libft_utils3.c \
 	utils3.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:31:25 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/08 22:56:38 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/09 16:23:53 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ static void	copy_quoted_string(t_dollar *dollar, char *new_str, int *i, int *j)
 	check = dollar->str[*j];
 	while (dollar->str[++(*j)] != check)
 	{
+		printf("%s%c%s", GREEN, dollar->str[*j], RESET);
 		new_str[*i] = dollar->str[*j];
 		++(*i);
 	}
+		printf("%s%c%s", RED, dollar->str[*j], RESET);
 	++(*j);
 }
 
@@ -36,13 +38,13 @@ void	ft_str_without_quote(t_dollar *dollar, int len)
 		exit(EXIT_FAILURE);		//	call the error function
 	i = 0;
 	j = 0;
-
 	while (j < len)
 	{
 		if (dollar->str[j] == '\'' || dollar->str[j] == '"')
 			copy_quoted_string(dollar, new_str, &i, &j);
 		else
 		{
+			printf("%s%c%s", MAGENTA, dollar->str[j], RESET);
 			new_str[i] = dollar->str[j];
 			++i;
 			++j;
@@ -51,5 +53,6 @@ void	ft_str_without_quote(t_dollar *dollar, int len)
 	new_str[i] = '\0';
 	ft_free((void **)&dollar->str);
 	dollar->str = new_str;
+	printf("\n");
 }
 

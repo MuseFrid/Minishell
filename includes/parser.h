@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/08 22:42:57 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/13 12:05:10 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //# define DOLLAR 3
 //# define DOUBLE_QUOTES 2
 
-# define END_VAR_ENV ":;,&|<>(){}[]\"'!^$#@*?%+=/\\`"
+# define END_VAR_ENV ":;&|<>(){}[]\"'!^$#@*?%+=/\\`~"
 
 enum e_parsing
 {
@@ -43,6 +43,7 @@ typedef struct s_bool
 typedef struct s_dollar
 {
 	char	*str;
+	char	*is_quote;
 	char	**words;
 	int		*i_dollar;
 	int		quote[2];
@@ -57,9 +58,9 @@ void			lst_new_cmds(t_simple_cmds **new);
 char			*parsing_strjoin(char const *s1, char const *s2);
 void			print_parser(t_simple_cmds *cmds);
 void			print_tab(t_simple_cmds *cmds);
-char			*ft_dollar_handling(t_data *data, t_dollar *dollar);
-char			*ft_replace_dollar_by_env(t_data *data, t_dollar *dollar);
-char			*ft_dollar_to_env(t_data *data, t_dollar *dollar);
+char			*ft_dollar_handling(t_data *data, t_dollar *dollar, t_arg *pre_cmd);
+char			*ft_replace_dollar_by_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd);
+char			*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd);
 void			ft_join_p_word(t_dollar *dollar, char **process, char *word);
 void			ft_str_without_quote(t_dollar *dollar, int len);
 

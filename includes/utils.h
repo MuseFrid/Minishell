@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/20 23:51:23 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/15 13:06:48 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *str);
 int		ft_atoi(const char *str);
+void	*ft_memset(void *b, int c, size_t len);
+
+//		sources/utils/libft_utils3.c
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+int		ft_isalnum(int c);
 
 //		sources/utils/path_user_dollar.c
 char	*ft_path_and_username(t_data *data);

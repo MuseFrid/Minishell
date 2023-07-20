@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 02:03:35 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/04 23:58:30 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/13 11:21:45 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*ft_catch_last_arg(char **args)
 {
 	int		i;
 
-	if (!args)
+	if (!args || !args[0])
 		return (NULL);
 	i = 0;
 	while (args[i])
@@ -31,7 +31,7 @@ void	ft_env_underscore(t_data *data)
 
 	current = data->env;
 	arg = ft_catch_last_arg(data->cmds->tab);
-	if (!current || !arg)
+	if (!current)
 		exit(EXIT_FAILURE);		//	need to put the error function
 	while (current)
 	{

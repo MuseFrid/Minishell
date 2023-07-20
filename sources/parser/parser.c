@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/19 15:53:12 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/09 16:42:03 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,6 @@ t_simple_cmds	*parser(t_arg *arg, t_data *data)
 		lst_add_back_cmds(&cmds, new);
 	}
 	(*data).cmds = cmds;
-	exit(EXIT_SUCCESS);
+	// exit(EXIT_SUCCESS);
 	return (cmds);
 }

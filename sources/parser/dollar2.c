@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:30:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/28 21:58:53 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/13 12:04:52 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ static char	**ft_catch_dollar_word(t_dollar *dollar)
 	return (dollar->words);
 }
 
-char	*ft_replace_dollar_by_env(t_data *data, t_dollar *dollar)
+char	*ft_replace_dollar_by_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 {
 	if (!dollar->i_dollar)
 		return (dollar->str);
 	dollar->words = ft_catch_dollar_word(dollar);
-	dollar->str = ft_dollar_to_env(data, dollar);
+	dollar->str = ft_dollar_to_env(data, dollar, pre_cmd);
 	return (dollar->str);
 }
