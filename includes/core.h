@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/18 19:57:17 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/15 20:57:30 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ typedef struct s_data
 	int						err_return_val;
 	struct s_env			*env;
 	struct s_simple_cmds	*cmds;
+	struct s_heredoc		*heredoc;
 }	t_data;
-
+int	ret_val;
 char	*ft_prompt(t_data *data);
-void	ft_handler_signal(void);
+void	ft_handler_signal(int is_heredoc);
 
 #endif

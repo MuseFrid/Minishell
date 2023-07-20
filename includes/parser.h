@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/13 12:05:10 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/20 16:30:13 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define PARSER_H
 //# define DOLLAR 3
 //# define DOUBLE_QUOTES 2
-
-# define END_VAR_ENV ":;&|<>(){}[]\"'!^$#@*?%+=/\\`~"
+# define END_VAR_ENV ":;,&|<>(){}[]\"'!^$#@*%+=/\\`~"
 
 enum e_parsing
 {
@@ -28,6 +27,7 @@ typedef struct s_simple_cmds
 {
 	char					**tab;
 	int						(*builtin)(struct s_data *);
+	int						pid;
 	t_arg					*redirections;
 	t_arg					*test_red;
 	struct s_simple_cmds	*next;

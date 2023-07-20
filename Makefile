@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/15 12:59:02 by aabda            ###   ########.fr        #
+#    Updated: 2023/07/20 16:35:44 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SOURCES_LIST = $(LEXER) $(PARSER) \
 CORE = $(addprefix $(CORE_D), $(CORE_LIST))
 CORE_D = core/
 CORE_LIST = minishell.c signal.c \
-	prompt.c
+			prompt.c
 
 BUILTINS = $(addprefix $(BUILTINS_D), $(BUILTINS_LIST))
 BUILTINS_D = builtins/
@@ -46,13 +46,13 @@ BUILTINS_LIST = ft_cd.c ft_echo.c \
 
 UTILS = $(addprefix $(UTILS_D), $(UTILS_LIST))
 UTILS_D = utils/
-UTILS_LIST = utils.c ga_error.c \
+UTILS_LIST = ga_error.c \
 	builtins.c env.c \
 	env_new_node.c env_concat_value.c \
-	utils2.c path_user_dollar.c \
-	path_user_dollar2.c  free.c \
+	path_user_dollar.c path_user_dollar2.c \
 	libft_utils.c libft_utils2.c libft_utils3.c \
-	utils3.c
+	utils.c utils2.c utils3.c \
+	ft_split.c kill_mini.c free.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/
@@ -73,7 +73,9 @@ ENV_LIST = getenv.c env_-i.c \
 
 EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
 EXECUTOR_D=executor/
-EXECUTOR_LIST= heredoc_handler.c redirection_hub.c
+EXECUTOR_LIST= new_heredoc.c redirection_hub.c \
+			   run_all_cmds.c access.c \
+			   wait_child.c
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"

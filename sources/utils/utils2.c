@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/20 23:50:10 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/20 16:30:39 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_get_value_env(t_data *data, char *key)
 
 	current = data->env;
 	if (!current || !key)
-		return (NULL);		// call the error function
+		kill_mini("get_value_env");
 	while (current)
 	{
 		if (ft_strcmp_strict(current->key, key) == 0)

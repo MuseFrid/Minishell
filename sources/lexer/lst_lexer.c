@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:33:43 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/30 19:40:33 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:29:45 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_arg	*lst_new_arg(char *new_word, int token)
 
 	new = malloc(sizeof(t_arg));
 	if (!new)
-		exit(1);
+		kill_mini("Minishell : lst_new_arg");
 	new->word = new_word;
 	new->is_token = token;
 	new->next = NULL;

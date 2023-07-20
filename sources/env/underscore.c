@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 02:03:35 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/13 11:21:45 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/20 16:33:18 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ void	ft_env_underscore(t_data *data)
 	char	*arg;
 
 	current = data->env;
-	arg = ft_catch_last_arg(data->cmds->tab);
 	if (!current)
-		exit(EXIT_FAILURE);		//	need to put the error function
+		kill_mini("Minishell : env_underscore");
+	arg = ft_catch_last_arg(data->cmds->tab);
+	if (!arg)
+		return ;
 	while (current)
 	{
 		if (ft_strcmp_strict(current->key, "_") == 0)

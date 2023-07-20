@@ -6,14 +6,15 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/15 13:06:48 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/20 16:32:10 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-//		sources/utils/access.c
+//		sources/utils/ft_split.c
+char	**ft_split(char const *s, char c);
 
 //		sources/utils/builtins.c
 int		ft_check_builtins(t_data *data);
@@ -37,6 +38,7 @@ void	ft_free(void **value);
 
 //		sources/utils/ga_error.c
 int		ga_error(char *error_msg);
+void	kill_mini(char *error_msg);
 
 //		sources/utils/libft_utils.c
 size_t	ft_strlen(const char *str);
@@ -49,6 +51,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *str);
 int		ft_atoi(const char *str);
 void	*ft_memset(void *b, int c, size_t len);
+char	*ft_strndup(const char *str, int n);
 
 //		sources/utils/libft_utils3.c
 int		ft_isalpha(int c);
