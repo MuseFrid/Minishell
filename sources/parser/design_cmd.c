@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/15 18:57:11 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/20 18:25:21 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	ft_parse_word(t_data *data, t_arg *pre_cmd)
 	dollar->str = ft_dollar_handling(data, dollar, pre_cmd);
 	// len = ft_len_without_quote(dollar->str);
 	// ft_str_without_quote(dollar, len);
-	printf("%s%s%s\n", BOLDBLUE, dollar->str, RESET);
+	printf("[design_cmd] dollar->str = %s%s%s\n", BOLDBLUE, dollar->str, RESET);
 	exit(EXIT_FAILURE);
 }
 
