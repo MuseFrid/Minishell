@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/21 18:32:15 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/23 00:17:45 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,80 +69,80 @@ static void	ft_process_str(t_dollar *dollar, t_arg *pre_cmd, char *word, int ind
 	printf("=====================================\n");
 }
 
-static void	ft_create_node(t_arg *pre_cmd, char *word, int count)
+static void	ft_create_node(t_arg *pre_cmd, t_arg *last, char *word, int count)
 {
 	t_arg	*new;
 	t_arg	*tmp;
-	t_arg	*tmp2;
-	t_arg	*last;
 
 	tmp = pre_cmd;
-	tmp2 = pre_cmd;
-	last = NULL;
-	if (count != 1)
+	while (tmp->next != last)
+		tmp = tmp->next;
+	if (count == 1)
+		tmp->word = word;
+	else
 	{
 		new = lst_new_arg(word, 0);
-		last = tmp->next;
 		tmp->next = new;
 		new->next = last;
 	}
-	else
-		tmp->word = word;
-	printf("%d - %s\n", count, word);
-	while (tmp2)
-	{
-		printf("%sCurrent = [%p]\t[%s]\tNext = [%p]%s\n", BOLDMAGENTA, tmp2, tmp2->word, tmp2->next, RESET);
-		tmp2 = tmp2->next;
-	}
+
 }
 
-static void	ft_catch_word(t_dollar *dollar, t_arg *pre_cmd, int start, int end)
+static void	ft_create_word(t_dollar *dollar, t_arg *pre_cmd, t_arg *last, int len_word[2])
 {
 	char		*word;
 	int			i;
 	static int	count = 0;
 
-	word = malloc(sizeof(char) * (end - start + 1));
+	if (dollar->str == pre_cmd->word)
+		count = 0;
+	word = malloc(sizeof(char) * (len_word[1] - len_word[0] + 1));
 	if (!word)
 		exit(EXIT_FAILURE);		//	call error function
 	i = 0;
-	while (start < end)
+	while (len_word[0] < len_word[1])
 	{
-		word[i] = dollar->str[start];
-		++start;
+		word[i] = dollar->str[len_word[0]];
+		++len_word[0];
 		++i;
 	}
+	len_word[0] = -1;
+	len_word[1] = 0;
 	word[i] = '\0';
 	++count;
-	ft_create_node(pre_cmd, word, count);
+	ft_create_node(pre_cmd, last, word, count);
 }
 
 static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar)
 {
-	int	start;
-	int	end;
-	int	i;
+	t_arg	*tmp2;
+	t_arg	*last;
+	int		len_word[2];
+	int		i;
 
-	start = -1;
-	end = 0;
+	tmp2 = pre_cmd;
+	last = pre_cmd->next;
+	len_word[0] = -1;
+	len_word[1] = 0;
 	i = -1;
 	while (++i < (int)ft_strlen(dollar->str))
 	{
 		while (dollar->str[i] && dollar->str[i] == ' ')
 			++i;
-		if (start == -1 && dollar->str[i] != ' ')
-			start = i;
+		if (len_word[0] == -1 && dollar->str[i] != ' ')
+			len_word[0] = i;
 		while (dollar->str[i] && dollar->str[i] != ' ')
 		{
 			++i;
-			end = i;
+			len_word[1] = i;
 		}
-		if (start != -1 && end)
-		{
-			ft_catch_word(dollar, pre_cmd, start, end);
-			start = -1;
-			end = 0;
-		}
+		if (len_word[0] != -1 && len_word[1])
+			ft_create_word(dollar, pre_cmd, last, len_word);
+	}
+	while (tmp2)
+	{
+		printf("%sCurrent = [%p]\t[%s]\tNext = [%p]%s\n", BOLDMAGENTA, tmp2, tmp2->word, tmp2->next, RESET);
+		tmp2 = tmp2->next;
 	}
 }
 
