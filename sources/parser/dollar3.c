@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/23 00:17:45 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/23 19:50:44 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	ft_word_str(char *str, char *word, int *i)
 	}
 }
 
-static void	ft_expand_str(t_dollar *dollar, char *word, int index)
+static void	ft_expand_str(t_dollar *dollar, t_arg *pre_cmd, char *word, int index)
 {
 	char	*str;
 	int		len;
@@ -58,15 +58,7 @@ static void	ft_expand_str(t_dollar *dollar, char *word, int index)
 	str[i] = '\0';
 	ft_free((void **)&dollar->str);
 	dollar->str = str;
-}
-
-static void	ft_process_str(t_dollar *dollar, t_arg *pre_cmd, char *word, int index)
-{
-	printf("=====================================\n");
-	printf("[ft_process_str] = %s\ndollar->str = [%s]\ndollar->words[index] = %s\npre_cmd->word = [%s]\nword = [%s]%s\n", BOLDGREEN, dollar->str, dollar->words[index], pre_cmd->word, word, RESET);
-	ft_expand_str(dollar, word, index);
 	pre_cmd->word = dollar->str;
-	printf("=====================================\n");
 }
 
 static void	ft_create_node(t_arg *pre_cmd, t_arg *last, char *word, int count)
@@ -127,12 +119,17 @@ static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar)
 	i = -1;
 	while (++i < (int)ft_strlen(dollar->str))
 	{
-		while (dollar->str[i] && dollar->str[i] == ' ')
-			++i;
+		if (dollar->str[i] && dollar->str[i] == ' ')
+			continue ;
 		if (len_word[0] == -1 && dollar->str[i] != ' ')
 			len_word[0] = i;
-		while (dollar->str[i] && dollar->str[i] != ' ')
+		while (len_word[0] != -1 && dollar->str[i] && dollar->str[i] != ' ')
 		{
+			if (dollar->str[i] == '"')
+			{
+				while (dollar->str[++i] != '"')
+					;
+			}
 			++i;
 			len_word[1] = i;
 		}
@@ -159,7 +156,7 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 	{
 		tmp = ft_get_value_env(data, dollar->words[i]);
 		if (tmp)
-			ft_process_str(dollar, pre_cmd, tmp, i);
+			ft_expand_str(dollar, pre_cmd, tmp, i);
 	}
 	ft_parse_for_create_node(pre_cmd, dollar);
 	ft_free((void **)&dollar->i_dollar);
