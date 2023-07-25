@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 23:50:15 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/22 21:59:53 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 16:17:18 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static int	ft_init_count_char_to_end(int *i, int index)
 {
 	if (!index)
-		i[0] = -1;
+		i[0] = 0;
 	else
-		i[0] = index - 1;
-	return (*i);
+		i[0] = index;
+	return (*i - 1);
 }
 
 int	ft_count_char_to_end(char *str, int index, char start, char *end)
