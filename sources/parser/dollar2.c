@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:30:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 16:55:51 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 17:35:50 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,23 @@ static void	ft_create_words(t_dollar *dollar)
 	{
 		word_len = ft_count_char_to_end(dollar->str, \
 			dollar->i_dollar[i], '$', END_VAR_ENV);
-		dollar->words[i] = malloc(sizeof(char) * (word_len + 1));
-		if (!dollar->words[i])
-			exit(EXIT_FAILURE);		//	call the error function
-		j = dollar->i_dollar[i];
-		k = 0;
-		while (dollar->str && dollar->str[++j] \
-			&& !ft_check_end_var(dollar->str[j]))
+		if (word_len == -42)
+			dollar->words[i] = ft_strdup("?");
+		else
 		{
-			dollar->words[i][k] = dollar->str[j];
-			++k;
+			dollar->words[i] = malloc(sizeof(char) * (word_len + 1));
+			if (!dollar->words[i])
+				exit(EXIT_FAILURE);		//	call the error function
+			j = dollar->i_dollar[i];
+			k = 0;
+			while (dollar->str && dollar->str[++j] \
+				&& !ft_check_end_var(dollar->str[j]))
+			{
+				dollar->words[i][k] = dollar->str[j];
+				++k;
+			}
+			dollar->words[i][k] = '\0';
 		}
-		dollar->words[i][k] = '\0';
 	}
 }
 

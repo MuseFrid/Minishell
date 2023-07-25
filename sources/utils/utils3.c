@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 23:50:15 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 16:17:18 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 17:33:49 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	ft_count_char_to_end(char *str, int index, char start, char *end)
 	i[0] = ft_init_count_char_to_end(i, index);
 	len = -1;
 	check = 0;
+	if (str[index] == '$' && str[index + 1] == '?')
+		return (-42);
 	while (str && str[++i[0]])
 	{
 		if (str[i[0]] == start && !check)

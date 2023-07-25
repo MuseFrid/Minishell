@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 16:55:06 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 17:44:14 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,16 +147,29 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 {
 	char	*tmp;
 	int		i;
+	int		check;
 
 	i = -1;
+	check = 0;
 	while (dollar->i_dollar[++i] >= 0)
 		;
 	i = (dollar->i_dollar[i] * -1);
 	while (--i >= 0)
 	{
-		tmp = ft_get_value_env(data, dollar->words[i]);
+		if (ft_strcmp_strict(dollar->words[i], "?") == 0)
+		{
+			tmp = ft_strdup(ft_itoa(ret_val));
+			check = 1;
+		}
+		else
+			tmp = ft_get_value_env(data, dollar->words[i]);
 		if (tmp)
 			ft_expand_str(dollar, pre_cmd, tmp, i);
+		if (check)
+		{
+			ft_free((void **)&dollar->words[i]);
+			check = 0;
+		}
 	}
 	ft_parse_for_create_node(pre_cmd, dollar);
 	ft_free((void **)&dollar->i_dollar);
