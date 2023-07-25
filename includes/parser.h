@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/20 16:30:13 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/21 17:41:37 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_simple_cmds
 	char					**tab;
 	int						(*builtin)(struct s_data *);
 	int						pid;
+	int						end;
 	t_arg					*redirections;
 	t_arg					*test_red;
 	struct s_simple_cmds	*next;

@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/20 16:35:44 by aabda            ###   ########.fr        #
+#    Updated: 2023/07/25 14:17:53 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = minishell
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
-LDFLAGS = -L/opt/homebrew/opt/readline/lib
-CPPFLAGS = -I/opt/homebrew/opt/readline/include
+LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
+CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf
@@ -52,7 +52,8 @@ UTILS_LIST = ga_error.c \
 	path_user_dollar.c path_user_dollar2.c \
 	libft_utils.c libft_utils2.c libft_utils3.c \
 	utils.c utils2.c utils3.c \
-	ft_split.c kill_mini.c free.c
+	ft_split.c kill_mini.c free.c \
+	fix_word.c
 
 LEXER = $(addprefix $(LEXER_D), $(LEXER_LIST))
 LEXER_D = lexer/

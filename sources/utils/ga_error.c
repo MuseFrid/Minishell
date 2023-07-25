@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:26:35 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/04/24 14:39:38 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:20:16 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,12 @@ int	ga_error(char *error_msg)
 	write (2, error_msg, ft_strlen(error_msg));
 	write (2, RESET, ft_strlen(RESET));
 	return (FAIL);
+}
+
+void	cmds_is_finish(t_simple_cmds *cmds)
+{
+	if (cmds->end == 0)
+		perror("Minishell");
+	cmds->end = 1;
+	ret_val = 1;
 }

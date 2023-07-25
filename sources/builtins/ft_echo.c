@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/14 04:22:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/21 15:22:41 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_logic(char **value, int i)
 {
 	if (value[1] && ft_strncmp(value[1], "-n", 2) == 0)
 	{
-		i++;
+		++i;
 		while (value[++i])
 			ft_check(value, i);
 		return ;

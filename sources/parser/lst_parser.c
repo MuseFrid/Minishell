@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 13:34:01 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/21 17:42:03 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	lst_add_back_cmds(t_simple_cmds **head, t_simple_cmds *new)
 	{
 		while (snake->next)
 			snake = snake->next;
+		new->prev = snake;
 		snake->next = new;
 	}
 	else
@@ -49,7 +50,9 @@ void	lst_new_cmds(t_simple_cmds **new)
 	(*new)->tab = NULL;
 	(*new)->builtin = NULL;
 	(*new)->pid = -2;
+	(*new)->end = 0;
 	(*new)->redirections = NULL;
 	(*new)->test_red = NULL;
 	(*new)->next = NULL;
+	(*new)->prev = NULL;
 }

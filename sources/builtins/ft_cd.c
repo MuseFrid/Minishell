@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/16 19:33:18 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:22:03 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_cd(t_data *data)
 	pwd = data->env;
 	old_pwd = data->env;
 	cd = data->cmds->tab[1];
-	if (!cd)
+	if (!cd || !ft_strcmp_strict(cd, "~") || !ft_strcmp_strict(cd, "~/"))
 		cd = ft_get_home(data);
 	current_path = getcwd(NULL, 0);
 	if (!pwd || !old_pwd || !current_path)

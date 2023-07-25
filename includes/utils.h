@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/20 16:32:10 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 14:17:09 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_free(void **value);
 
 //		sources/utils/ga_error.c
 int		ga_error(char *error_msg);
+void	cmds_is_finish(t_simple_cmds *cmds);
 void	kill_mini(char *error_msg);
 
 //		sources/utils/libft_utils.c
@@ -77,5 +78,9 @@ char	*ft_strldup(const char *str, int len);
 
 //		sources/utils/utils3.c
 int		ft_count_char_to_end(char *str, int index, char start, char *end);
+
+//		sources/utils/fix_word.c
+void	redesign_word(char **word, int *i, char type, int *bool_quotes);
+int		fix_word(char **word);
 
 #endif

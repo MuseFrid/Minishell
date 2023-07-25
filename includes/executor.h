@@ -18,10 +18,10 @@ typedef struct s_heredoc
 	char	*open_file;
 }	t_heredoc;
 
-int		ft_create_child(char **cmds, t_env *env, t_fd *fd);
+int		ft_create_child(t_simple_cmds *cmds, t_env *env, t_fd *fd, t_data *data);
 void	ft_run_all_cmds(t_data *data);
-void 	redirection_hub(t_arg *redirection, t_data *data, int fd[2]);
-int		heredoc_handler(t_arg *snake, t_data *data);
+void 	redirection_hub(t_arg *redirection, t_simple_cmds *cmds, t_data *data, int fd[2]);
+int		heredoc_handler(t_arg *snake, t_data *data, t_simple_cmds *cmds);
 char	*parse(char **envp, const char *cmd);
 void	wait_child(t_data *data);
 

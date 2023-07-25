@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/20 16:36:59 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 14:17:30 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ char	*find_env_variable(char *str, int i, int j, t_data data)
 {
 	while (data.env)
 	{
-		if ((j - i - 1) == (int)ft_strlen(data.env->key) && !ft_strncmp((str + i + 1), data.env->key, (j - i - 1)))
+		if ((j - i - 1) == (int)ft_strlen(data.env->key)
+				&& !ft_strncmp((str + i + 1), data.env->key, (j - i - 1)))
 		{
 		//	printf("j - i = %d / str + i + 1 = %s\n", j - i, str + i + 1);
 		//	printf("seems to work\n");
@@ -85,58 +86,7 @@ char	*heredoc_expand(t_data data, char *str)
 	return (str);
 }
 
-void	redesign_word(char **word, int *i, char type, int *bool_quotes)
-{
-	char	*tmp;
-	char	*redesign;
-	char	*tmp2;
-	int		j;
-
-	if (*bool_quotes == 0)
-		*bool_quotes = 1;
-	tmp = ft_strndup((*word), *i);
-	if (!tmp)
-		kill_mini("Minishell : execution");
-	j = *i + 1;
-	while ((*word)[j] && (*word)[j] != type)
-		j++;
-	redesign = ft_strndup(((*word) + *i + 1), (j - *i - 1));
-	if (!redesign)
-		kill_mini("Minishell : execution");
-	tmp2 = ft_strjoin(tmp, redesign);
-	free(tmp);
-	free(redesign);
-	if (!tmp2)
-		kill_mini("Minishell : execution");
-	*i = ft_strlen(tmp2);
-	tmp = ft_strjoin(tmp2, ((*word) + j + 1));
-	free(tmp2);
-	ft_free((void **)&(*word));
-	if (!tmp)
-		kill_mini("Minishell : execution");
-	*word = tmp;
-}
-
-int	fix_word(char **word)
-{
-	int	bool_quotes;
-	int	i;
-
-	i = 0;
-	bool_quotes = 0;
-	while ((*word) && (*word)[i])
-	{
-		if ((*word)[i] == '\'')
-			redesign_word(word, &i, '\'', &bool_quotes);
-		else if ((*word)[i] == '"')
-			redesign_word(word, &i, '"', &bool_quotes);
-		else
-			++i;
-	}
-	return (bool_quotes);
-}
-
-void	heredoc_open(int fd, char *word, t_data *data)
+void	heredoc_open(int fd, char *word, t_data *data, t_simple_cmds *cmds)
 {
 	int		dup_fd;
 	char	*str;
@@ -152,7 +102,9 @@ void	heredoc_open(int fd, char *word, t_data *data)
 		str = readline("> ");
 		if (!str || (str && !ft_strcmp_strict(str, word)))
         {
-			if (close(0) != -1 && !str)
+			if (close(0) == -1 && !str)
+				cmds->end = 1;
+			else if (!str)
 				printf("warning: here-document at line %d delimited by end-of-file (wanted `%s')\n",
 				   data->heredoc->nbr_l, word);
 			errno = 0;
@@ -165,15 +117,13 @@ void	heredoc_open(int fd, char *word, t_data *data)
 		write(fd, "\n", 1);
 		ft_free((void **)&str);
 	}
-	if (str)
-		close(0);
 	ft_free((void **)&str);
 	if (dup2(dup_fd, 0) == -1)
 		exit(42);
 	close(dup_fd);
 }
 
-char	*create_tmp_file(int *fd, int i, char *name)
+char	*create_tmp_file(int *fd, int i, char *name, t_simple_cmds *cmds)
 {
 	char	*new_name;
 
@@ -186,33 +136,36 @@ char	*create_tmp_file(int *fd, int i, char *name)
 	}
 	name = ft_itoa(i);
 	if (!name)
-		return (NULL);
+		exit(1);
 	new_name = ft_strjoin("/tmp/.tmp", name);
 	ft_free((void **)&name);
 	if (!new_name)
-		return (NULL);
+		exit(1);
 	*fd = open(new_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (*fd == -1)
+	{
 		ft_free((void **)&new_name);
+		cmds_is_finish(cmds);
+	}
 	return (new_name);
 }
 
-int	heredoc_handler(t_arg *snake, t_data *data)
+int	heredoc_handler(t_arg *snake, t_data *data, t_simple_cmds *cmds)
 {
 	int		i;
 	int		fd;
 
 	i = 0;
 	fd = -2;
-	while (snake)
+	while (snake && cmds->end == 0)
 	{
 		if (snake->is_token == D_LOWER)
 		{
-			data->heredoc->open_file = create_tmp_file(&fd, i, data->heredoc->open_file);
+			data->heredoc->open_file = create_tmp_file(&fd, i, data->heredoc->open_file, cmds);
 			if (!data->heredoc->open_file)
 				return (-3);
 			ft_handler_signal(1);
-			heredoc_open(fd, snake->word, data);
+			heredoc_open(fd, snake->word, data, cmds);
 			ft_handler_signal(0);
 			i++;
 		}
@@ -223,7 +176,10 @@ int	heredoc_handler(t_arg *snake, t_data *data)
 		close(fd);
 		fd = open(data->heredoc->open_file, O_RDWR, 0644);
 		if (fd == -1)
-			exit (1);
+		{
+			cmds->end = 1;
+			return (-2);
+		}
 	}
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/19 16:57:05 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/25 14:09:47 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,32 +60,37 @@ char	**redesign_env(t_env *env)
 	return (new_env);
 }
 
-void	ft_executer_child(char **cmds, t_env *env, t_fd *fd)
+void	ft_executer_child(t_simple_cmds *cmds, t_env *env, t_fd *fd, t_data *data)
 {
 	char	**final_env;
 	char	*path;
 
+	close(fd->pipe[0]);
 	if (fd->in != -2)
 		if (dup2(fd->in, 0) == -1)
 			exit(1);
 	if (fd->out != -2)
 		if (dup2(fd->out, 1) == -1)
 			exit(1);
-	if (!(*cmds))
+	if (!(cmds->tab[0]))
 		exit(0);
+	if (cmds->builtin)
+		exit(cmds->builtin(data));
 	final_env = redesign_env(env);
-	path = parse(final_env, cmds[0]);
+	path = parse(final_env, cmds->tab[0]);
 	if (!path)
 	{
-		perror("path not find");
-		exit (1);
+		write(2, "Minishell: ", 11);
+		write(2, cmds->tab[0], ft_strlen(cmds->tab[0]));
+		write(2, ": command not found\n", 20);
+		exit (127);
 	}
-	execve(path, cmds, final_env);
+	execve(path, cmds->tab, final_env);
 	perror("execve");
 	exit(1);
 }
 
-int	ft_create_child(char **cmds, t_env *env, t_fd *fd)
+int	ft_create_child(t_simple_cmds *cmds, t_env *env, t_fd *fd, t_data *data)
 {
 	int	pid;
 
@@ -96,7 +101,7 @@ int	ft_create_child(char **cmds, t_env *env, t_fd *fd)
 		exit(1);
 	}
 	if (pid == 0)
-		ft_executer_child(cmds, env, fd);
+		ft_executer_child(cmds, env, fd, data);
 	if (fd->in != -2)
 		close(fd->in);
 	if (fd->out != -2)
@@ -117,7 +122,7 @@ void	ft_final_fd(t_fd *fd)
 	}
 	if (fd->redirection[IN] != -2)
 	{
-		if (fd->in != 2)
+		if (fd->in != -2)
 			close(fd->in);
 		fd->in = fd->redirection[IN];
 	}
@@ -133,11 +138,12 @@ void	usebuiltin(t_data *data, t_fd fd)
 	if (fd.out != -2)
 		if (dup2(fd.out, 1) == -1)
 			exit (18);
-	data->cmds->builtin(data);
+	ret_val = data->cmds->builtin(data);
 	if (fd.out != -2)
 		close(fd.out);
 	close (1);
-	dup2(new_stdout, 1);
+	if (dup2(new_stdout, 1) == -1)
+		exit (1);
 	close(new_stdout);
 }
 
@@ -159,12 +165,19 @@ void	ft_run_all_cmds(t_data *data)
 				exit(1);
 			}
 		}
-		redirection_hub(snake->redirections, data, fd.redirection);
+		redirection_hub(snake->redirections, snake, data, fd.redirection);
 		ft_final_fd(&fd);
-		if (snake->builtin && snake->next == NULL)
+		if (snake->end == 1)
+		{
+			if (fd.out != -2)
+				close(fd.out);
+			if (fd.in != -2)
+				close(fd.in);
+		}
+		else if (snake->builtin && snake->next == NULL && snake->prev == NULL)
 			usebuiltin(data, fd);
 		else
-			snake->pid = ft_create_child(snake->tab, data->env, &fd);
+			snake->pid = ft_create_child(snake, data->env, &fd, data);
 		snake = snake->next;
 	}
 }

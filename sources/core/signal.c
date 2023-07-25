@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 18:53:30 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/19 17:01:53 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:36:59 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	ft_sig_handling(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		ret_val = 130;
 	}
 }
 
@@ -27,6 +28,7 @@ static void	ft_sig_heredoc(int sig)
 {
 	write(1, "\n", 1);
 	close(0);
+	ret_val = 130;
 	(void) sig;
 }
 
@@ -46,6 +48,5 @@ void	ft_handler_signal(int is_heredoc)
 		sigaction(SIGINT, &sa_sig, NULL);
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGTSTP, SIG_IGN);
-		ret_val = 130;
 	}
 }
