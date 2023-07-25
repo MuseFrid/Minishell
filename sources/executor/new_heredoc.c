@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 14:17:30 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:44:24 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ char	*heredoc_expand(t_data data, char *str)
 			env_value = ft_strdup("");
 		if (!env_value)
 			exit(10);
-		printf("env_value :\"%s\"\n", env_value);
 		tmp = ft_strndup(str, i);
 		start = ft_strjoin(tmp, env_value);
 		free(tmp);

@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 17:34:47 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:13:30 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	lst_new_cmds(t_simple_cmds **new)
 	(*new)->pid = -2;
 	(*new)->end = 0;
 	(*new)->redirections = NULL;
-	(*new)->test_red = NULL;
 	(*new)->next = NULL;
 	(*new)->prev = NULL;
 }

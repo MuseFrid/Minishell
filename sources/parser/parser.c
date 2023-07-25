@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 17:55:55 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:13:06 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,6 @@ t_arg	*grab_redirections(t_arg **arg, t_simple_cmds *new)
 	return (pre_cmd);
 }
 
-void	print_parser(t_simple_cmds *cmds)
-{
-	t_simple_cmds	*tmp;
-	tmp = cmds;
-	while (tmp)
-	{
-		while (tmp->test_red)
-		{
-			printf("pre_cmd : %s\n", tmp->test_red->word);
-			tmp->test_red = tmp->test_red->next;
-		}
-		while (tmp->redirections)
-		{
-			printf("redirections : %s token : %d\n", tmp->redirections->word, tmp->redirections->is_token);
-			tmp->redirections = tmp->redirections->next;
-		}
-		tmp = tmp->next;
-	}
-}
-
 t_simple_cmds	*parser(t_arg *arg, t_data *data)
 {
 	t_simple_cmds	*cmds;
@@ -98,6 +78,7 @@ t_simple_cmds	*parser(t_arg *arg, t_data *data)
 		pre_cmd = grab_redirections(&arg, new);
 		design_cmd(pre_cmd, new, data, new->redirections);
 		lst_add_back_cmds(&cmds, new);
+		lst_clear_arg(pre_cmd);
 	}
 	(*data).cmds = cmds;
 	return (cmds);

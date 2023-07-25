@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 14:14:22 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 14:27:01 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:43:11 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	fix_word(char **word)
 	{
 		if ((*word)[i] == '\'')
 			redesign_word(word, &i, '\'', &bool_quotes);
-		else if ((*word)[i] == '"')
-			redesign_word(word, &i, '"', &bool_quotes);
+		else if ((*word)[i] == '\"')
+			redesign_word(word, &i, '\"', &bool_quotes);
 		else
 			++i;
 	}

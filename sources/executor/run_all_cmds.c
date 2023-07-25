@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 17:19:07 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:46:26 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ void	ft_run_all_cmds(t_data *data)
 		}
 		redirection_hub(snake->redirections, snake, data, fd.redirection);
 		ft_final_fd(&fd);
+		//dprintf(2, "snake->end = %d\n", snake->end);
 		if (snake->end == 1)
 		{
 			if (fd.out != -2)
