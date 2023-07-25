@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:23:13 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/23 15:18:12 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 16:26:48 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_count_nbr_index(t_dollar *dollar)
 	while (dollar->str && dollar->str[++i])
 	{
 		ft_check_quote(dollar->str[i], dollar->quote, &check);
-		if (check && dollar->str[i] == '$')
+		if (check && dollar->str[i] == '$' && dollar->str[i + 1])
 			++count;
 	}
 	// dollar->is_quote = malloc(sizeof(char) * (count + 1));
@@ -90,7 +90,7 @@ static int	*ft_catch_dollar_index(t_dollar *dollar)
 		while (dollar->str && dollar->str[++i[0]])
 		{
 			ft_check_quote(dollar->str[i[0]], dollar->quote, &check);
-			if (check && dollar->str[i[0]] == '$')
+			if (check && dollar->str[i[0]] == '$' && dollar->str[i[0] + 1])
 			{
 				dollar->i_dollar[i[1]] = i[0];
 				// if (check == 2)
