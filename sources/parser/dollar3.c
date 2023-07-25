@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/23 19:50:44 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 12:33:32 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,12 @@ static void	ft_create_word(t_dollar *dollar, t_arg *pre_cmd, t_arg *last, int le
 
 static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar)
 {
-	t_arg	*tmp2;
+	// t_arg	*tmp2;
 	t_arg	*last;
 	int		len_word[2];
 	int		i;
 
-	tmp2 = pre_cmd;
+	// tmp2 = pre_cmd;
 	last = pre_cmd->next;
 	len_word[0] = -1;
 	len_word[1] = 0;
@@ -136,11 +136,11 @@ static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar)
 		if (len_word[0] != -1 && len_word[1])
 			ft_create_word(dollar, pre_cmd, last, len_word);
 	}
-	while (tmp2)
-	{
-		printf("%sCurrent = [%p]\t[%s]\tNext = [%p]%s\n", BOLDMAGENTA, tmp2, tmp2->word, tmp2->next, RESET);
-		tmp2 = tmp2->next;
-	}
+	// while (tmp2)
+	// {
+	// 	printf("%sCurrent = [%p]\t[%s]\tNext = [%p]%s\n", BOLDMAGENTA, tmp2, tmp2->word, tmp2->next, RESET);
+	// 	tmp2 = tmp2->next;
+	// }
 }
 
 char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
