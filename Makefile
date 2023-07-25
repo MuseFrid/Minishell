@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/25 16:30:28 by aabda            ###   ########.fr        #
+#    Updated: 2023/07/25 17:48:24 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
 PARSER_D = parser/
 PARSER_LIST = parser.c lst_parser.c \
 	parsing_strjoin.c design_cmd.c \
-	dollar.c dollar2.c dollar3.c dollar4.c \
+	dollar.c dollar2.c dollar3.c \
 	quote.c
 
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
