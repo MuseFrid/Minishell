@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 12:33:32 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 16:55:06 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 	i = -1;
 	while (dollar->i_dollar[++i] >= 0)
 		;
-	i = (dollar->i_dollar[i] * -1) + 1;
+	i = (dollar->i_dollar[i] * -1);
 	while (--i >= 0)
 	{
 		tmp = ft_get_value_env(data, dollar->words[i]);

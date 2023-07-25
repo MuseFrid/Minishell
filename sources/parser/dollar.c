@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:23:13 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 16:26:48 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 16:50:19 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ static int	*ft_catch_dollar_index(t_dollar *dollar)
 				++i[1];
 			}
 		}
-		printf("\n");
 		return (dollar->i_dollar);
 	}
 	return (NULL);
