@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/20 16:30:13 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 15:13:31 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define PARSER_H
 //# define DOLLAR 3
 //# define DOUBLE_QUOTES 2
-# define END_VAR_ENV ":;,&|<>(){}[]\"'!^$#@*%+=/\\`~"
+
+# define END_VAR_ENV ":;&|<>(){}[]\"'!^$#@*?%+=/\\`~ "
 
 enum e_parsing
 {
@@ -43,7 +44,7 @@ typedef struct s_bool
 typedef struct s_dollar
 {
 	char	*str;
-	char	*is_quote;
+	// char	*is_quote;
 	char	**words;
 	int		*i_dollar;
 	int		quote[2];
