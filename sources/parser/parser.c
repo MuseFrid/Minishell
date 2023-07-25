@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/20 16:39:04 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 16:40:10 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ t_simple_cmds	*parser(t_arg *arg, t_data *data)
 		lst_new_cmds(&new);
 		pre_cmd = grab_redirections(&arg, new);
 		// new->test_red = pre_cmd;
+		design_cmd(pre_cmd, new, data);
 		new->tab = double_tab_to_keep_going(pre_cmd);
-		// design_cmd(pre_cmd, new, data);
 		lst_add_back_cmds(&cmds, new);
 	}
 	(*data).cmds = cmds;
