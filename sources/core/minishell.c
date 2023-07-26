@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/22 18:21:34 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:47:51 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 		lst_clear_cmds(data.cmds);
 		if (data.heredoc->open_file)
 			unlink(data.heredoc->open_file);
-		printf("ret_val: %d\n", ret_val);
+	//	printf("ret_val: %d\n", ret_val);
 		ft_free((void **)&str);
 	}
 	exit(EXIT_SUCCESS);

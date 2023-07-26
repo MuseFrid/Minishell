@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 16:40:10 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/26 12:56:11 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,73 +62,6 @@ t_arg	*grab_redirections(t_arg **arg, t_simple_cmds *new)
 	return (pre_cmd);
 }
 
-void	print_parser(t_simple_cmds *cmds)
-{
-	t_simple_cmds	*tmp;
-	tmp = cmds;
-	while (tmp)
-	{
-		while (tmp->test_red)
-		{
-			printf("pre_cmd : %s\n", tmp->test_red->word);
-			tmp->test_red = tmp->test_red->next;
-		}
-		while (tmp->redirections)
-		{
-			printf("redirections : %s token : %d\n", tmp->redirections->word, tmp->redirections->is_token);
-			tmp->redirections = tmp->redirections->next;
-		}
-		tmp = tmp->next;
-	}
-}
-
-int	lst_size_arg(t_arg *pre_cmd)
-{
-	int	i;
-
-	i = 0;
-	if (pre_cmd)
-	{
-		while (pre_cmd && ++i)
-			pre_cmd = pre_cmd->next;
-	}
-	return (i);
-}
-
-//to remove
-char **double_tab_to_keep_going(t_arg *pre_cmd)
-{
-	int	size;
-	char	**tab;
-	int	i;
-
-	i = 0;
-	size = lst_size_arg(pre_cmd);
-	tab = malloc(sizeof(char *) * (size + 1));
-	if (!tab)
-		return (NULL);
-	tab[size] = NULL;
-	while (pre_cmd)
-	{
-		tab[i++] = ft_strdup(pre_cmd->word);
-		pre_cmd = pre_cmd->next;
-	}
-	return (tab);
-}
-
-void	print_tab(t_simple_cmds *cmds)
-{
-	int	i;
-
-	while (cmds)
-	{
-		i = 0;
-		while (cmds->tab && cmds->tab[i])
-			printf("%s\n", cmds->tab[i++]);
-		cmds = cmds->next;
-	}
-}
-
 t_simple_cmds	*parser(t_arg *arg, t_data *data)
 {
 	t_simple_cmds	*cmds;
@@ -143,12 +76,10 @@ t_simple_cmds	*parser(t_arg *arg, t_data *data)
 		pre_cmd = NULL;
 		lst_new_cmds(&new);
 		pre_cmd = grab_redirections(&arg, new);
-		// new->test_red = pre_cmd;
-		design_cmd(pre_cmd, new, data);
-		new->tab = double_tab_to_keep_going(pre_cmd);
+		design_cmd(pre_cmd, new, data, new->redirections);
 		lst_add_back_cmds(&cmds, new);
+		lst_clear_arg(pre_cmd);
 	}
 	(*data).cmds = cmds;
-	// exit(EXIT_SUCCESS);
 	return (cmds);
 }

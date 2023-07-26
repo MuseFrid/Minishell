@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 15:16:03 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/25 18:26:19 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_simple_cmds
 	int						pid;
 	int						end;
 	t_arg					*redirections;
-	t_arg					*test_red;
 	struct s_simple_cmds	*next;
 	struct s_simple_cmds	*prev;
 }	t_simple_cmds;
@@ -51,10 +50,11 @@ typedef struct s_dollar
 	int		quote[2];
 }	t_dollar;
 
-void			design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data);
+void			design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data, t_arg *redirections);
 t_simple_cmds	*parser(t_arg *arg, t_data *data);
 void			lst_add_back_cmds(t_simple_cmds **head, t_simple_cmds *new);
 void			lst_clear_cmds(t_simple_cmds *head);
+int				lst_size_arg(t_arg *pre_cmd);
 void			lst_unlink_arg(t_arg *arg);
 void			lst_new_cmds(t_simple_cmds **new);
 char			*parsing_strjoin(char const *s1, char const *s2);

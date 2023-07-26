@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/21 17:42:03 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:13:30 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,19 @@ void	lst_new_cmds(t_simple_cmds **new)
 	(*new)->pid = -2;
 	(*new)->end = 0;
 	(*new)->redirections = NULL;
-	(*new)->test_red = NULL;
 	(*new)->next = NULL;
 	(*new)->prev = NULL;
+}
+
+int	lst_size_arg(t_arg *pre_cmd)
+{
+	int	i;
+
+	i = 0;
+	if (pre_cmd)
+	{
+		while (pre_cmd && ++i)
+			pre_cmd = pre_cmd->next;
+	}
+	return (i);
 }

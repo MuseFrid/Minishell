@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:05:18 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/22 16:08:36 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 12:21:35 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	create_outfile(t_simple_cmds *cmds, int fd[2], int pick, char *file_to_open
 
 void	open_infile(t_simple_cmds *cmds, int *which, int pick, char *file_to_open)
 {
-	if (*which != -2 && *which != 3)
+	if (*which != -2 && *which != -3)
 		close(*which);
 	if (pick == D_LOWER)
 		*which = -3;
