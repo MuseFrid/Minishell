@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 12:54:58 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/26 13:02:54 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,9 @@ static void	ft_parse_word(t_data *data, t_arg *pre_cmd)
 	dollar = malloc(sizeof(t_dollar));
 	if (!dollar)
 		exit(EXIT_FAILURE);		//	call the error function
-	if (pre_cmd->word[0] == '$' && pre_cmd->word[1] == '?')
-	{
-		free(pre_cmd->word);
-		pre_cmd->word = ft_itoa(ret_val);
-		return ;
-	}
 	dollar->str = pre_cmd->word;
 	dollar->str = ft_dollar_handling(data, dollar, pre_cmd);
+	fix_word(&pre_cmd->word);
 	printf("[design_cmd] dollar->str = %s%s%s\n", BOLDBLUE, pre_cmd->word, RESET);
 	// len = ft_len_without_quote(dollar->str);
 	// ft_str_without_quote(dollar, len);
@@ -110,8 +105,10 @@ void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data, t_arg *redirec
 		ft_parse_word(data, pre_cmd);
 		pre_cmd = pre_cmd->next;
 	}
-	exit(EXIT_SUCCESS);
-	(void) data;
-	(void) new;
-	(void) pre_cmd;
+	new->tab = convert_to_tab(head_cmd);
+    while (redirections)
+    {
+        ft_parse_word(data, redirections);
+        redirections = redirections->next;
+    }
 }
