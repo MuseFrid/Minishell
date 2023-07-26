@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_hub.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:05:18 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 12:21:35 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 13:17:32 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	create_outfile(t_simple_cmds *cmds, int fd[2], int pick, char *file_to_open)
+void    create_outfile(t_simple_cmds *cmds, int fd[2], int pick, char *file_to_open)
 {
 	if (fd[OUT] != -2)
 		close(fd[OUT]);
@@ -21,10 +21,13 @@ void	create_outfile(t_simple_cmds *cmds, int fd[2], int pick, char *file_to_open
 	else
 		fd[OUT] = open(file_to_open, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd[OUT] == -1)
+	{
 		cmds_is_finish(cmds);
+		fd[OUT] = -2;
+	}
 }
 
-void	open_infile(t_simple_cmds *cmds, int *which, int pick, char *file_to_open)
+void    open_infile(t_simple_cmds *cmds, int *which, int pick, char *file_to_open)
 {
 	if (*which != -2 && *which != -3)
 		close(*which);
@@ -33,7 +36,10 @@ void	open_infile(t_simple_cmds *cmds, int *which, int pick, char *file_to_open)
 	if (pick == LOWER)
 		*which = open(file_to_open, O_RDONLY);
 	if (*which == -1)
+	{
 		cmds_is_finish(cmds);
+		*which = -2;
+	}
 }
 
 void	redirection_hub(t_arg *redirection, t_simple_cmds *cmds, t_data *data, int fd[2])

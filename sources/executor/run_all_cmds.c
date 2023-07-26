@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_all_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 12:38:10 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 13:24:46 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	ft_executer_child(t_simple_cmds *cmds, t_env *env, t_fd *fd, t_data *data)
 	if (!(cmds->tab[0]))
 		exit(0);
 	if (cmds->builtin)
+	{
+		data->cmds = cmds;
 		exit(cmds->builtin(data));
+	}
 	final_env = redesign_env(env);
 	path = parse(final_env, cmds->tab[0]);
 	if (!path)
