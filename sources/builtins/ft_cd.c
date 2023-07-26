@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 15:08:42 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:59:06 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*ft_get_home(t_data *data)
 
 static void	ft_error_msg(char *c_path)
 {
-	write(2, "cd: ", 4);
+	write(2, "Minishell: cd: ", 15);
 	perror(c_path);
 //	printf("cd: %s: No such file or directory\n", c_path);
 }

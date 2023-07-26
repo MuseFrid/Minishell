@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 18:44:24 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:28:39 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	heredoc_open(int fd, char *word, t_data *data, t_simple_cmds *cmds)
 	int		bool_quotes;
 	
 	str = NULL;
-	dup_fd = dup(0);
+	dup_fd = dup(0);// mon reuf
 	bool_quotes = fix_word(&word);
 	if (dup_fd == -1)
 		exit(41); //error fonction
@@ -105,7 +105,7 @@ void	heredoc_open(int fd, char *word, t_data *data, t_simple_cmds *cmds)
 				cmds->end = 1;
 			else if (!str)
 				printf("warning: here-document at line %d delimited by end-of-file (wanted `%s')\n",
-				   data->heredoc->nbr_l, word);
+				   data->heredoc->nbr_l, word);//aie aie aie
 			errno = 0;
             break ;
         }

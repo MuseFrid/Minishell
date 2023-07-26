@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:51:48 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 18:29:21 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:01:46 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ static char	*access_path(char **which_path)
 		}
 		i++;
 	}
+	write(2, "Minishell: ", 11);
+	write(2, which_path[i], ft_strlen(which_path[i]));
+	write(2, ": command not found\n", 20);
 	free_access(which_path, NULL);
 	return (NULL);
 }
@@ -72,8 +75,14 @@ static int	absolute_path(int *i, const char *cmd, char **str)
 	{
 		if (cmd[*i] == '/')
 		{
-			if (access(cmd, F_OK | X_OK) == 0)
-				*str = (char *)cmd;
+			if (access(cmd, F_OK | X_OK) == -1)
+			{
+				perror("Minishell: ");
+				if (errno == 13)
+					exit(126);
+				return (1);
+			}
+			*str = (char *)cmd;
 			*i = 0;
 			return (1);
 		}
@@ -90,6 +99,7 @@ char	*parse(char **envp, const char *cmd)
 	char	*new_cmd;
 	char	*save;
 
+	new_cmd = NULL;
 	if (absolute_path(&i, cmd, &new_cmd))
 		return (new_cmd);
 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
