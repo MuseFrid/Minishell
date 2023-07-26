@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 02:03:35 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/20 16:33:18 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/26 13:31:56 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*ft_catch_last_arg(char **args)
 	return (args[i - 1]);
 }
 
-void	ft_env_underscore(t_data *data)
+void	ft_env_underscore(t_data *data, t_simple_cmds *cmds)
 {
 	t_env	*current;
 	char	*arg;
@@ -32,7 +32,7 @@ void	ft_env_underscore(t_data *data)
 	current = data->env;
 	if (!current)
 		kill_mini("Minishell : env_underscore");
-	arg = ft_catch_last_arg(data->cmds->tab);
+	arg = ft_catch_last_arg(cmds->tab);
 	if (!arg)
 		return ;
 	while (current)

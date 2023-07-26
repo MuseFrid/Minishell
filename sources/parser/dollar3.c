@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/26 13:39:48 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/26 23:19:51 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,9 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 	{
 		if (ft_strcmp_strict(dollar->words[i], "?") == 0)
 		{
-			tmp = ft_strdup(ft_itoa(ret_val));
+			tmp = ft_itoa(ret_val);
 			if (!tmp)
-				exit(EXIT_FAILURE);
+				exit(1);// error function
 			check = 1;
 		}
 		else

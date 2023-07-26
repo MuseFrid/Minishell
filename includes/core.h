@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/15 20:57:30 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:01:08 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ typedef struct s_data
 }	t_data;
 int	ret_val;
 char	*ft_prompt(t_data *data);
-void	ft_handler_signal(int is_heredoc);
+void	ft_handler_signal(int pick);
 
 #endif

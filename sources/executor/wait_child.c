@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 13:41:36 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/28 17:29:09 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:17:41 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	wait_child(t_data *data)
 		}
 		snake = snake->next;
 	}
+	ft_handler_signal(0);
 }

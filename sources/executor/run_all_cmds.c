@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 13:24:46 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/26 23:19:03 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,11 @@ void	ft_executer_child(t_simple_cmds *cmds, t_env *env, t_fd *fd, t_data *data)
 	path = parse(final_env, cmds->tab[0]);
 	if (!path)
 	{
-		write(2, "Minishell: ", 11);
-		write(2, cmds->tab[0], ft_strlen(cmds->tab[0]));
-		write(2, ": command not found\n", 20);
+	//	if (cmds->end == 1)
+	//		exit(1);
+	//	write(2, "Minishell: ", 11);
+	//	write(2, cmds->tab[0], ft_strlen(cmds->tab[0]));
+	//	write(2, ": command not found\n", 20);
 		exit (127);
 	}
 	execve(path, cmds->tab, final_env);
@@ -102,6 +104,7 @@ int	ft_create_child(t_simple_cmds *cmds, t_env *env, t_fd *fd, t_data *data)
 		kill_mini("fork");
 	if (pid == 0)
 		ft_executer_child(cmds, env, fd, data);
+	ft_handler_signal(2);
 	if (fd->in != -2)
 		close(fd->in);
 	if (fd->out != -2)
@@ -160,6 +163,7 @@ void	ft_run_all_cmds(t_data *data)
 	snake = data->cmds;
 	while (snake)
 	{
+		ft_env_underscore(data, snake);
 		ft_init_fd(&fd);
 		if (snake->next)
 		{
@@ -171,7 +175,6 @@ void	ft_run_all_cmds(t_data *data)
 		}
 		redirection_hub(snake->redirections, snake, data, fd.redirection);
 		ft_final_fd(&fd);
-		//dprintf(2, "snake->end = %d\n", snake->end);
 		if (snake->end == 1)
 		{
 			if (fd.out != -2)
