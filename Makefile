@@ -6,14 +6,14 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/26 12:55:47 by aabda            ###   ########.fr        #
+#    Updated: 2023/07/28 01:27:21 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
 CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
 LIBRARIES = -lreadline
@@ -63,7 +63,7 @@ LEXER_LIST = lst_lexer.c \
 PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
 PARSER_D = parser/
 PARSER_LIST = parser.c lst_parser.c \
-	parsing_strjoin.c design_cmd.c \
+	design_cmd.c \
 	dollar.c dollar2.c dollar3.c \
 	quote.c
 

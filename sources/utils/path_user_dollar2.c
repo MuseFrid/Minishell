@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_user_dollar2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 00:53:23 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/16 19:38:10 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:54:08 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_catch_home_by_dir(char *str)
 	}
 	res = malloc(sizeof(char) * i + 1);
 	if (!res)
-		exit(EXIT_FAILURE);		// call error function
+		kill_mini("Minishell");
 	len_home = i;
 	i = -1;
 	while (++i < len_home)
@@ -82,7 +82,7 @@ char	*ft_catch_user_env(t_data *data)
 {
 	char	*res;
 
-	res = ft_get_value_env(data, "USER");
+	res = ft_strdup(ft_get_value_env(data, "USER"));
 	if (!res)
 	{
 		res = ft_get_username_by_dir(res);
@@ -90,8 +90,6 @@ char	*ft_catch_user_env(t_data *data)
 		{
 			res = \
 				ft_strdup("You are so sus why you want to crash our Minishell");
-			if (!res)
-				kill_mini("Minishell : promt_name");
 		}
 	}
 	return (res);

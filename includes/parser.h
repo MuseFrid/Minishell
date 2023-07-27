@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 18:26:19 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:11:48 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,9 @@ typedef struct s_simple_cmds
 	struct s_simple_cmds	*prev;
 }	t_simple_cmds;
 
-typedef struct s_bool
-{
-	int	simple_q;
-	int	double_q;
-}	t_bool;
-
 typedef struct s_dollar
 {
 	char	*str;
-	// char	*is_quote;
 	char	**words;
 	int		*i_dollar;
 	int		quote[2];

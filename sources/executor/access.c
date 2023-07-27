@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:51:48 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 17:01:46 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:09:33 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ static char	*access_path(char **which_path)
 		}
 		i++;
 	}
-	write(2, "Minishell: ", 11);
-	write(2, which_path[i], ft_strlen(which_path[i]));
-	write(2, ": command not found\n", 20);
 	free_access(which_path, NULL);
 	return (NULL);
 }

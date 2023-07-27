@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/26 19:45:36 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:50:48 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_expand_str(t_dollar *dollar, t_arg *pre_cmd, char *word, int inde
 		+ ft_strlen(word);
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
-		exit(EXIT_FAILURE);		//	call error function
+		kill_mini("Minishell");
 	i = 0;
 	ft_start_str(dollar, str, &i, index);
 	ft_word_str(str, word, &i);
@@ -59,6 +59,7 @@ static void	ft_expand_str(t_dollar *dollar, t_arg *pre_cmd, char *word, int inde
 	ft_free((void **)&dollar->str);
 	dollar->str = str;
 	pre_cmd->word = dollar->str;
+	free(word);
 }
 
 static void	ft_create_node(t_arg *pre_cmd, t_arg *last, char *word, int count)
@@ -159,12 +160,10 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 		if (ft_strcmp_strict(dollar->words[i], "?") == 0)
 		{
 			tmp = ft_itoa(ret_val);
-			if (!tmp)
-				exit(1);// error function
 			check = 1;
 		}
 		else
-			tmp = ft_get_value_env(data, dollar->words[i]);
+			tmp = ft_strdup(ft_get_value_env(data, dollar->words[i]));
 		if (tmp)
 			ft_expand_str(dollar, pre_cmd, tmp, i);
 		if (check)

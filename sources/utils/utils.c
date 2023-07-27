@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:41:32 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/15 20:56:31 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:18:50 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ static void	ft_fill_shlvl_no_env(t_env **current, t_env **b_last)
 		kill_mini("ft_fill_shlvl");
 	(*current)->index = (*b_last)->index + 1;
 	(*current)->key = ft_strdup("SHLVL");
-	if (!(*current)->key)
-		kill_mini("ft_fill_shlvl");
 	(*current)->value = ft_strdup("1");
-	if (!(*current)->value)
-		kill_mini("ft_fill_shlvl");
 	(*current)->next = NULL;
 	(*current)->prev = *b_last;
 	(*b_last)->next = *current;
@@ -42,9 +38,7 @@ static void	ft_fill_shlvl(t_env *current, t_env *b_last)
 		if (val == INT_MAX)
 			current->value = ft_strdup("0");
 		else
-			current->value = ft_strdup(ft_itoa(val + 1));
-		if (!current->value)
-			kill_mini("ft_fill_shlvl");
+			current->value = ft_itoa(val + 1);
 	}
 }
 

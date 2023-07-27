@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_all_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 19:47:29 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:41:02 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@ char	*merge_keyvalue(t_env *env)
 	char	*final_str;
 
 	str = ft_strjoin(env->key, "=");
-	if (!str)
-		exit(1);
 	final_str = ft_strjoin(str, env->value);
 	free(str);
-	if (!final_str)
-		exit(1);
 	return (final_str);
 }
 

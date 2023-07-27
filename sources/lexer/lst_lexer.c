@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_lexer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:33:43 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/16 15:29:45 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:21:57 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ void	lst_add_arg(t_arg **arg, t_arg *new)
 		*arg = new;
 }
 
-void	lst_clear_arg(t_arg *arg)
+void	*lst_clear_arg(t_arg *arg)
 {
 	t_arg	*to_free;
 
-	if (arg)
-		return ;
+	if (!arg)
+		return (NULL);
 	while (arg)
 	{
 		to_free = arg;
@@ -61,6 +61,7 @@ void	lst_clear_arg(t_arg *arg)
 		free(to_free->word);
 		free(to_free);
 	}
+	return (NULL);
 }
 
 /*void	set_previous(t_arg *arg)

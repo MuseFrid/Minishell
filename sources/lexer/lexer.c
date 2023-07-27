@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/20 16:33:37 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/27 19:08:49 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	quote(char *str, int *i, int *j, char to_find)
+static int	quote(char *str, int *i, int *j, char to_find)
 {
 	while (1)
 	{
@@ -22,7 +22,8 @@ static void	quote(char *str, int *i, int *j, char to_find)
 			break ;
 	}
 	if (!str[*i])
-		kill_mini(UNCLOSED_QUOTE);
+		return (write(2, UNCLOSED_QUOTE, ft_strlen(UNCLOSED_QUOTE)));
+	return (0);
 }
 
 static void	touch_i(int *i, int pick)
@@ -78,7 +79,8 @@ t_arg	*lexer(t_arg *arg, char *str)
 		while (str[i] != ' ' && str[i])
 		{
 			if (str[i] == '\'' || str[i] == '\"')
-				quote(str, &i, &j, str[i]);
+				if (quote(str, &i, &j, str[i]))
+					return (lst_clear_arg(arg));
 			if (is_token(str, &i, 0))
 				break ;
 			i++;
@@ -100,21 +102,5 @@ t_arg	*lexer(t_arg *arg, char *str)
 		if (!str[i])
 			break ;
 	}
-	//test
-	new = arg;
-// 	printf("%slexer part :%s\n", GREEN, RESET);
-// //	while (new->next)
-// //		new = new->next;
-// 	while (new)
-// 	{
-// 		if (new->word)
-// 			printf("%s\n", new->word);
-// 		else
-// 			printf("%d\n", new->is_token);
-// 		new = new->next;
-// 		//new = new->previous;
-// 	}
-// 	printf("%sEnd lexer part.%s\n\n", GREEN, RESET);
-	//
 	return (arg);
 }

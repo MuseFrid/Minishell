@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 13:31:25 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/09 16:23:53 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/27 20:51:02 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_str_without_quote(t_dollar *dollar, int len)
 
 	new_str = malloc(sizeof(char) * len + 1);
 	if (!new_str)
-		exit(EXIT_FAILURE);		//	call the error function
+		kill_mini("Minishell");
 	i = 0;
 	j = 0;
 	while (j < len)

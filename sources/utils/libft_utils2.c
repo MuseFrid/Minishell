@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 23:45:16 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/20 16:34:46 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 00:46:09 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*ft_strdup(const char *str)
 	int		i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	new = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!new)
-		return (NULL);
+		kill_mini("Minishell");
 	while (str[i])
 	{
 		new[i] = str[i];
@@ -42,7 +44,7 @@ char	*ft_strndup(const char *str, int n)
 		len = n;
 	new = (char *)malloc(sizeof(char) * len + 1);
 	if (!new)
-		return (NULL);
+		kill_mini("Minishell");
 	while (str[i] && i < len)
 	{
 		new[i] = str[i];

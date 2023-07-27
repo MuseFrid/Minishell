@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_user_dollar.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:15:00 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/16 19:37:41 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 01:25:58 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,26 @@ static char	*ft_cmp_res(char *res, char *home_str, char *str)
 {
 	if (!home_str)
 		home_str = ft_catch_home_by_dir(home_str);
+	if (!home_str)
+		return (res);
 	if ((ft_strlen(str) - ft_strlen(home_str) == 0))
 	{
 		res = malloc(sizeof(char) * 3);
+		if (!res)
+			kill_mini("Minishell");
 		res[0] = '~';
 		res[1] = '/';
 		res[2] = '\0';
-		return (res);
 	}
 	else
 	{
 		res = malloc(sizeof(char) * ft_strlen(str) - ft_strlen(home_str) + 2);
+		if (!res)
+			kill_mini("Minishell");
 		ft_create_pwd_str(home_str, str, res);
-		return (res);
 	}
-	return (NULL);
+	free(home_str);
+	return (res);
 }
 
 static char	*ft_catch_home(t_data *data, char *str)
@@ -57,10 +62,15 @@ static char	*ft_catch_home(t_data *data, char *str)
 	char	*res;
 
 	res = NULL;
-	home = ft_get_value_env(data, "HOME");
+	home = ft_strdup(ft_get_value_env(data, "HOME"));
 	if (!home)
+	{
+		free(str);
 		return (NULL);
-	return (ft_cmp_res(res, home, str));
+	}
+	res = ft_cmp_res(res, home, str);
+	free(str);
+	return (res);
 }
 
 static char	*ft_catch_pwd_env(t_data *data)
@@ -68,15 +78,16 @@ static char	*ft_catch_pwd_env(t_data *data)
 	char	*res;
 	char	*home;
 
-	res = getcwd(NULL, 0);
 	home = NULL;
+	res = getcwd(NULL, 0);
 	if (!res)
 		kill_mini("Minishell : promt_name");
-	home = ft_get_value_env(data, "HOME");
+	home = ft_strdup(ft_get_value_env(data, "HOME"));
 	if (!home)
 		return (res);
 	if (ft_strlen(home) < ft_strlen(res))
 		res = ft_catch_home(data, res);
+	free(home);
 	return (res);
 }
 
@@ -95,13 +106,11 @@ char	*ft_path_and_username(t_data *data)
 	if (!user || !pwd || !res)
 		kill_mini("Minishell : promt_name");
 	ft_join_pwd_user_dollar(user, pwd, res);
+	free(pwd);
+	free(user);
 	final = ft_strjoin(res, RESET);
 	free(res);
-	if (!final)
-		kill_mini("Minishell : promt_name");
 	res = ft_strjoin(BOLDYELLOW, final);
 	free(final);
-	if (!res)
-		kill_mini("Minishell : promt_name");
 	return (res);
 }

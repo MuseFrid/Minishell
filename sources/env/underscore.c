@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   underscore.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 02:03:35 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/26 13:31:56 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:09:59 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_env_underscore(t_data *data, t_simple_cmds *cmds)
 		if (ft_strcmp_strict(current->key, "_") == 0)
 		{
 			ft_free((void **)&current->value);
-			current->value = arg;
+			current->value = ft_strdup(arg);
 			break ;
 		}
 		current = current->next;

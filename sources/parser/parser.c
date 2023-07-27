@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 17:08:22 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:14:56 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,18 @@ int	its_token(t_arg **arg, t_simple_cmds **cmds)
 
 	tmp = NULL;
 	if (!(*arg && (*arg)->next))
-		return (printf("%sno arguments but care about |%s\n", RED, RESET));//no arguments but care about |
+		return (write(2, "Error\nno arguments after token |\n", 33));
 	if ((*arg)->next->is_token)
-		return (printf("%sunexpected token%s\n", RED, RESET));
+		return (write(2, "Error\nunexpected token\n", 23));
 	tmp = (*arg)->next->next;
-	(*arg)->word = ft_strdup((*arg)->next->word);//index to change
-	//destroy_one_nod((*arg)->next);//no more need because content already dup
+	(*arg)->word = ft_strdup((*arg)->next->word);
 	lst_unlink_arg((*arg));
 	lst_add_arg(&(*cmds)->redirections, (*arg));
 	(*arg) = tmp;
-	//destroy_nod(arg, 2, i);
-	//cmds->redirections = arg;
 	return (0);
 }
 
-t_arg	*grab_redirections(t_arg **arg, t_simple_cmds *new)
+t_arg	*grab_redirections(t_arg **arg, t_simple_cmds *new, int *bool_quit)
 {
 	t_arg	*tmp;
 	t_arg	*pre_cmd;
@@ -43,13 +40,23 @@ t_arg	*grab_redirections(t_arg **arg, t_simple_cmds *new)
 	{
 		if ((*arg)->is_token == PIPE)
 		{
-			*arg = (*arg)->next;
+			tmp = (*arg)->next;
+			(*arg)->next = NULL;
+			lst_clear_arg(*arg);
+			*arg = tmp;
 			return (pre_cmd);
 		}
 		if ((*arg)->is_token)
 		{
 			if (its_token(arg, &new))
-				exit(1); // free everything error fonction
+			{
+				*bool_quit = 1;
+				if (new->redirections)
+					lst_clear_arg(new->redirections);
+				free(new);
+				lst_clear_arg(*arg);
+				return (lst_clear_arg(pre_cmd));
+			}
 		}
 		else
 		{
@@ -67,7 +74,9 @@ t_simple_cmds	*parser(t_arg *arg, t_data *data)
 	t_simple_cmds	*cmds;
 	t_simple_cmds	*new;
 	t_arg			*pre_cmd;
+	int				bool_quit;
 
+	bool_quit = 0;
 	pre_cmd = NULL;
 	cmds = NULL;
 	while (arg)
@@ -75,7 +84,12 @@ t_simple_cmds	*parser(t_arg *arg, t_data *data)
 		new = NULL;
 		pre_cmd = NULL;
 		lst_new_cmds(&new);
-		pre_cmd = grab_redirections(&arg, new);
+		pre_cmd = grab_redirections(&arg, new, &bool_quit);
+		if (bool_quit)
+		{
+			lst_clear_cmds(cmds);
+			return (NULL);
+		}
 		design_cmd(pre_cmd, new, data, new->redirections);
 		lst_add_back_cmds(&cmds, new);
 		lst_clear_arg(pre_cmd);

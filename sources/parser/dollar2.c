@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:30:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 17:35:50 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 00:14:48 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,12 @@ static void	ft_create_words(t_dollar *dollar)
 		{
 			dollar->words[i] = malloc(sizeof(char) * (word_len + 1));
 			if (!dollar->words[i])
-				exit(EXIT_FAILURE);		//	call the error function
+				kill_mini("Minishell");
 			j = dollar->i_dollar[i];
 			k = 0;
 			while (dollar->str && dollar->str[++j] \
 				&& !ft_check_end_var(dollar->str[j]))
-			{
-				dollar->words[i][k] = dollar->str[j];
-				++k;
-			}
+				dollar->words[i][k++] = dollar->str[j];
 			dollar->words[i][k] = '\0';
 		}
 	}
@@ -69,7 +66,7 @@ static char	**ft_catch_dollar_word(t_dollar *dollar)
 		++i;
 	dollar->words = malloc(sizeof(char *) * ((dollar->i_dollar[i] * -1) + 1));
 	if (!dollar->words)
-		exit(EXIT_FAILURE);		//	call the error function
+		kill_mini("Minishell");
 	dollar->words[dollar->i_dollar[i] * -1] = NULL;
 	ft_create_words(dollar);
 	return (dollar->words);

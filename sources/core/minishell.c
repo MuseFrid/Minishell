@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 16:38:22 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:28:21 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ int	main(int argc, char **argv, char **envp)
 			ft_if_cmds(&data, str);
 		lst_clear_cmds(data.cmds);
 		if (data.heredoc->open_file)
+		{
 			unlink(data.heredoc->open_file);
+			ft_free((void **)&data.heredoc->open_file);
+		}
 	//	printf("ret_val: %d\n", ret_val);
 		ft_free((void **)&str);
 	}

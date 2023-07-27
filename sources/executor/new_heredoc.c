@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 16:28:39 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 00:51:31 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*find_env_variable(char *str, int i, int j, t_data data)
 		{
 		//	printf("j - i = %d / str + i + 1 = %s\n", j - i, str + i + 1);
 		//	printf("seems to work\n");
-			return (data.env->value);
+			return (ft_strdup(data.env->value));
 		}
 		data.env = data.env->next;
 	}
@@ -69,15 +69,11 @@ char	*heredoc_expand(t_data data, char *str)
 		else if (++j)
 			env_value = ft_strdup("");
 		if (!env_value)
-			exit(10);
+			kill_mini("Minishell");
 		tmp = ft_strndup(str, i);
 		start = ft_strjoin(tmp, env_value);
 		free(tmp);
-		if (!start)
-			exit (10);
 		tmp = ft_strjoin(start, (str + j));
-		if (!tmp)
-			exit (10);
 		free(str);
 		str = tmp;
 		i = 0;
@@ -134,12 +130,8 @@ char	*create_tmp_file(int *fd, int i, char *name, t_simple_cmds *cmds)
 		ft_free((void **) &name);
 	}
 	name = ft_itoa(i);
-	if (!name)
-		exit(1);
 	new_name = ft_strjoin("/tmp/.tmp", name);
 	ft_free((void **)&name);
-	if (!new_name)
-		exit(1);
 	*fd = open(new_name, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (*fd == -1)
 	{
