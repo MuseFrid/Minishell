@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 04:31:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 13:48:02 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 18:02:12 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ static int	ft_check_key_is_valid(char *key)
 	if (!key || !key[0])
 		return (1);
 	i = 1;
-	if (!key || !key[0])
-		return (1);
-	if ((key[0] < 'a' && key[0] > 'z') || (key[0] < 'A' && key[0] > 'Z'))
+	if ((key[0] < 'a' && key[0] > 'z') || (key[0] < 'A' && key[0] > 'Z')
+		|| (key[0] >= '0' && key[0] <= '9'))
 		return (1);
 	while (key && key[i])
 	{
