@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:30:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 13:49:23 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 18:24:25 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ static void	ft_create_words(t_dollar *dollar, int i)
 		if (word_len == -42)
 		{
 			dollar->words[i] = ft_strdup("?");
+			if (!dollar->words[i])
+				exit(EXIT_FAILURE);
+		}
+		else if (word_len == -43)
+		{
+			dollar->words[i] = ft_strdup("$");
 			if (!dollar->words[i])
 				exit(EXIT_FAILURE);
 		}

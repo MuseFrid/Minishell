@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 13:49:33 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 18:56:43 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar, int i)
 		while (len_word[0] != -1 && dollar->str[i] && dollar->str[i] != ' ')
 		{
 			if (dollar->str[i] == '"')
-				while (dollar->str[++i] != '"')
+				while (dollar->str[i] && dollar->str[++i] != '"')
 					;
 			++i;
 			len_word[1] = i;
@@ -131,6 +131,8 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 			tmp = ft_itoa(ret_val);
 			check = 1;
 		}
+		else if (ft_strcmp_strict(dollar->words[i], "$") == 0)
+			tmp = ft_strdup("$");
 		else
 			tmp = ft_strdup(ft_get_value_env(data, dollar->words[i]));
 		ft_expand_str(dollar, pre_cmd, tmp, i);
