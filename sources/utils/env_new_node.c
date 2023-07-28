@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_new_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:57:53 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:34:40 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 09:38:11 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ static void	ft_fill_values(t_data *data, t_env *new, char *value)
 	t_env	*last;
 
 	last = ft_last_elem_env(data);
-	if (!last)
-		exit(EXIT_FAILURE);		//	need to put the error function
 	new = malloc(sizeof(t_env));
 	if (!new)
-		exit(EXIT_FAILURE);		//	need to put the good error handling malloc fail !
+		kill_mini("Minishell");
 	new->index = last->index + 1;
 	ft_key_value(new, value);
 	new->next = NULL;

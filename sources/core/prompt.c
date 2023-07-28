@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:45:18 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 00:25:57 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 03:31:19 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_prompt(t_data *data)
 	str = readline(path_and_username);
 	free(path_and_username);
 	if (!str)
-		ft_exit(data);
+		exit(ret_val);
 	errno = 0;
 	return (str);
 }

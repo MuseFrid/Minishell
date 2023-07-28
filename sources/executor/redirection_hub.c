@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_hub.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:05:18 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 19:32:53 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 09:50:58 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	create_outfile(t_simple_cmds *cmds, int fd[2], int pick, char *file_to_open)
+void	create_outfile(t_simple_cmds *cmds,
+	int fd[2], int pick, char *file_to_open)
 {
 	if (fd[OUT] != -2)
 		close(fd[OUT]);
@@ -27,7 +28,8 @@ void	create_outfile(t_simple_cmds *cmds, int fd[2], int pick, char *file_to_open
 	}
 }
 
-void	open_infile(t_simple_cmds *cmds, int *which, int pick, char *file_to_open)
+void	open_infile(t_simple_cmds *cmds,
+	int *which, int pick, char *file_to_open)
 {
 	if (*which != -2 && *which != -3)
 		close(*which);
@@ -42,7 +44,8 @@ void	open_infile(t_simple_cmds *cmds, int *which, int pick, char *file_to_open)
 	}
 }
 
-void	redirection_hub(t_arg *redirection, t_simple_cmds *cmds, t_data *data, int fd[2])
+void	redirection_hub(t_arg *redirection,
+	t_simple_cmds *cmds, t_data *data, int fd[2])
 {
 	int	which;
 

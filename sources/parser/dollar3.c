@@ -6,34 +6,14 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 00:50:48 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:13:20 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_start_str(t_dollar *dollar, char *str, int *i, int index)
-{
-	while (*i < dollar->i_dollar[index])
-	{
-		str[*i] = dollar->str[*i];
-		++(*i);
-	}
-}
-
-static void	ft_word_str(char *str, char *word, int *i)
-{
-	int	j;
-
-	j = -1;
-	while (word && word[++j])
-	{
-		str[*i] = word[j];
-		++(*i);
-	}
-}
-
-static void	ft_expand_str(t_dollar *dollar, t_arg *pre_cmd, char *word, int index)
+static void	ft_expand_str(t_dollar *dollar,
+	t_arg *pre_cmd, char *word, int index)
 {
 	char	*str;
 	int		len;
@@ -78,10 +58,10 @@ static void	ft_create_node(t_arg *pre_cmd, t_arg *last, char *word, int count)
 		tmp->next = new;
 		new->next = last;
 	}
-
 }
 
-static void	ft_create_word(t_dollar *dollar, t_arg *pre_cmd, t_arg *last, int len_word[2])
+static void	ft_create_word(t_dollar *dollar,
+	t_arg *pre_cmd, t_arg *last, int len_word[2])
 {
 	char		*word;
 	int			i;
@@ -91,7 +71,7 @@ static void	ft_create_word(t_dollar *dollar, t_arg *pre_cmd, t_arg *last, int le
 		count = 0;
 	word = malloc(sizeof(char) * (len_word[1] - len_word[0] + 1));
 	if (!word)
-		exit(EXIT_FAILURE);		//	call error function
+		kill_mini("Minishell");
 	i = 0;
 	while (len_word[0] < len_word[1])
 	{
@@ -106,18 +86,14 @@ static void	ft_create_word(t_dollar *dollar, t_arg *pre_cmd, t_arg *last, int le
 	ft_create_node(pre_cmd, last, word, count);
 }
 
-static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar)
+static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar, int i)
 {
-	// t_arg	*tmp2;
 	t_arg	*last;
 	int		len_word[2];
-	int		i;
 
-	// tmp2 = pre_cmd;
 	last = pre_cmd->next;
 	len_word[0] = -1;
 	len_word[1] = 0;
-	i = -1;
 	while (++i < (int)ft_strlen(dollar->str))
 	{
 		if (dollar->str[i] && dollar->str[i] == ' ')
@@ -127,21 +103,14 @@ static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar)
 		while (len_word[0] != -1 && dollar->str[i] && dollar->str[i] != ' ')
 		{
 			if (dollar->str[i] == '"')
-			{
 				while (dollar->str[++i] != '"')
 					;
-			}
 			++i;
 			len_word[1] = i;
 		}
 		if (len_word[0] != -1 && len_word[1])
 			ft_create_word(dollar, pre_cmd, last, len_word);
 	}
-	// while (tmp2)
-	// {
-	// 	printf("%sCurrent = [%p]\t[%s]\tNext = [%p]%s\n", BOLDMAGENTA, tmp2, tmp2->word, tmp2->next, RESET);
-	// 	tmp2 = tmp2->next;
-	// }
 }
 
 char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
@@ -164,19 +133,10 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 		}
 		else
 			tmp = ft_strdup(ft_get_value_env(data, dollar->words[i]));
-		if (tmp)
-			ft_expand_str(dollar, pre_cmd, tmp, i);
-		if (check)
-		{
+		ft_expand_str(dollar, pre_cmd, tmp, i);
+		if (check && check--)
 			ft_free((void **)&dollar->words[i]);
-			check = 0;
-		}
 	}
-	ft_parse_for_create_node(pre_cmd, dollar);
-	ft_free((void **)&dollar->i_dollar);
-	i = -1;
-	while (dollar->words[++i])
-		ft_free((void **)&dollar->words[i]);
-	ft_free((void **)&dollar->words);
-	return (dollar->str);
+	ft_parse_for_create_node(pre_cmd, dollar, -1);
+	return (free_dollar_struct(dollar));
 }

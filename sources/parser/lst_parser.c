@@ -6,13 +6,13 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 01:39:33 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:38:50 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lst_clear_cmds(t_simple_cmds *head)
+void	*lst_clear_cmds(t_simple_cmds *head)
 {
 	t_simple_cmds	*tmp;
 	int				i;
@@ -32,6 +32,7 @@ void	lst_clear_cmds(t_simple_cmds *head)
 		free(tmp);
 		i = 0;
 	}
+	return (NULL);
 }
 
 void	lst_add_back_cmds(t_simple_cmds **head, t_simple_cmds *new)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:24:14 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/11 21:16:39 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 09:39:20 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_catch_value_env(char *value)
 		return (NULL);
 	str = malloc(sizeof(char) * (i - equal_index + 1));
 	if (!str)
-		return (NULL);	// need to call the error function !
+		kill_mini("Minishell");
 	j = 0;
 	while (++equal_index < i)
 	{
@@ -60,7 +60,7 @@ char	*ft_catch_key_env(char *value)
 	}
 	key = malloc(sizeof(char) * equal_index + 1);
 	if (!key)
-		return (NULL);		//	need to call the error function !
+		kill_mini("Minishell");
 	i = -1;
 	while (++i < equal_index)
 		key[i] = value[i];
@@ -82,10 +82,8 @@ void	ft_replace_value_env(t_env *current, char *value)
 t_env	*ft_last_elem_env(t_data *data)
 {
 	t_env	*current;
-	
+
 	current = data->env;
-	if (!current)
-		return (NULL);		//	Need to put error function
 	while (current->next)
 		current = current->next;
 	return (current);

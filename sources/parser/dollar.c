@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:23:13 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/27 14:24:27 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:10:20 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	ft_check_quote(char c, int quote[2], int *check)
 	ft_check_gate(quote, check);
 }
 
-
 static int	ft_count_nbr_index(t_dollar *dollar)
 {
 	int	i;
@@ -57,11 +56,6 @@ static int	ft_count_nbr_index(t_dollar *dollar)
 		if (check && dollar->str[i] == '$' && dollar->str[i + 1])
 			++count;
 	}
-	// dollar->is_quote = malloc(sizeof(char) * (count + 1));
-	// if (!dollar->is_quote)
-	// 	exit(EXIT_FAILURE);
-	// ft_memset(dollar->is_quote, '0', count);
-	// dollar->is_quote[count] = '\0';
 	dollar->quote[0] = 0;
 	dollar->quote[1] = 0;
 	return (count);
@@ -88,9 +82,6 @@ static int	*ft_catch_dollar_index(t_dollar *dollar)
 			if (check && dollar->str[i[0]] == '$' && dollar->str[i[0] + 1])
 			{
 				dollar->i_dollar[i[1]] = i[0];
-				// if (check == 2)
-				// 	dollar->is_quote[i[1]] = '1';
-				// printf("%c", dollar->is_quote[i[1]]);
 				++i[1];
 			}
 		}

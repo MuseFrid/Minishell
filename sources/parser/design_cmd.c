@@ -6,17 +6,17 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 01:12:15 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:04:12 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **convert_to_tab(t_arg *pre_cmd)
+char	**convert_to_tab(t_arg *pre_cmd)
 {
-	int	size;
+	int		size;
 	char	**tab;
-	int	i;
+	int		i;
 
 	i = 0;
 	size = lst_size_arg(pre_cmd);
@@ -56,7 +56,7 @@ void	check_empty_str(t_arg **head_cmd)
 	previous = NULL;
 	while (snake)
 	{
-		if (snake->word[0] ==  '\0')
+		if (snake->word[0] == '\0')
 		{
 			if (!previous)
 				*head_cmd = snake->next;
@@ -71,21 +71,25 @@ void	check_empty_str(t_arg **head_cmd)
 	}
 }
 
-void	design_cmd(t_arg *pre_cmd, t_simple_cmds *new, t_data *data, t_arg *redirections)
+void	design_cmd(t_arg *pre_cmd,
+	t_simple_cmds *new, t_data *data, t_arg *redirections)
 {
 	t_arg	*head_cmd;
 
 	head_cmd = pre_cmd;
 	while (pre_cmd)
 	{
+		ft_tilde_expander(new, pre_cmd);
+		if (!pre_cmd->word)
+			return ;
 		ft_parse_word(data, pre_cmd);
 		pre_cmd = pre_cmd->next;
 	}
-	//check_empty_str(&head_cmd);
+	check_empty_str(&head_cmd);
 	new->tab = convert_to_tab(head_cmd);
-    while (redirections)
-    {
-        ft_parse_word(data, redirections);
-        redirections = redirections->next;
-    }
+	while (redirections)
+	{
+		ft_parse_word(data, redirections);
+		redirections = redirections->next;
+	}
 }

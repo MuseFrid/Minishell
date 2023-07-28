@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:35:11 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/27 19:07:18 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 12:14:01 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_arg
 }	t_arg;
 
 int		is_token(char *str, int *i, int able_touch_i);
-t_arg	*lexer(t_arg *arg, char *str);
+t_arg	*lexer(t_arg *arg, char *str, int i);
 t_arg	*lst_new_arg(char *new_word, int token);
 void	lst_add_arg(t_arg **arg, t_arg *new);
 void	*lst_clear_arg(t_arg *arg);

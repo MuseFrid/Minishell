@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ga_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:26:35 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 17:23:19 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 09:46:15 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@ int	ga_error(char *error_msg)
 	write (2, error_msg, ft_strlen(error_msg));
 	write (2, RESET, ft_strlen(RESET));
 	return (FAIL);
+}
+
+int	write_error(char *prt1, char *prt2, char *prt3, char *prt4)
+{
+	if (prt1)
+		write(2, prt1, ft_strlen(prt1));
+	if (prt2)
+		write(2, prt2, ft_strlen(prt2));
+	if (prt3)
+		write(2, prt3, ft_strlen(prt3));
+	if (prt4)
+		write(2, prt4, ft_strlen(prt4));
+	return (1);
 }
 
 void	cmds_is_finish(t_simple_cmds *cmds)

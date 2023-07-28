@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/27 19:08:49 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:57:39 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,34 +63,42 @@ int	is_token(char *str, int *i, int able_touch_i)
 	return (pick);
 }
 
-t_arg	*lexer(t_arg *arg, char *str)
+static int	begining_lexer(char *str, int *i, int *j, t_arg *arg)
 {
-	int		i;
+	while (str[*i] == ' ')
+		++(*i);
+	while (str[*i] != ' ' && str[*i])
+	{
+		if (str[*i] == '\'' || str[*i] == '\"')
+		{
+			if (quote(str, i, j, str[*i]))
+			{
+				lst_clear_arg(arg);
+				return (1);
+			}
+		}
+		if (is_token(str, i, 0))
+			break ;
+		++(*i);
+		++(*j);
+	}
+	return (0);
+}
+
+t_arg	*lexer(t_arg *arg, char *str, int i)
+{
 	int		j;
 	char	*new_word;
 	t_arg	*new;
 
-	i = 0;
 	while (1)
 	{
 		j = 0;
-		while (str[i] == ' ')
-			i++;
-		while (str[i] != ' ' && str[i])
-		{
-			if (str[i] == '\'' || str[i] == '\"')
-				if (quote(str, &i, &j, str[i]))
-					return (lst_clear_arg(arg));
-			if (is_token(str, &i, 0))
-				break ;
-			i++;
-			j++;
-		}
+		if (begining_lexer(str, &i, &j, arg))
+			return (NULL);
 		if (j > 0)
 		{
 			new_word = ft_substr(str, i - j, j);
-			if (!new_word)
-				kill_mini("Minishell : lexer");
 			new = lst_new_arg(new_word, NOT_A_TOKEN);
 			lst_add_arg(&arg, new);
 		}

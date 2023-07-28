@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
+#    By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/28 01:27:21 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/07/28 12:22:50 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,8 +64,8 @@ PARSER = $(addprefix $(PARSER_D), $(PARSER_LIST))
 PARSER_D = parser/
 PARSER_LIST = parser.c lst_parser.c \
 	design_cmd.c \
-	dollar.c dollar2.c dollar3.c \
-	quote.c
+	dollar.c dollar2.c dollar3.c dollar4.c \
+	quote.c tilde_expander.c
 
 ENV= $(addprefix $(ENV_D), $(ENV_LIST))
 ENV_D = env/
@@ -76,7 +76,7 @@ EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
 EXECUTOR_D=executor/
 EXECUTOR_LIST= new_heredoc.c redirection_hub.c \
 			   run_all_cmds.c access.c \
-			   wait_child.c
+			   wait_child.c child_related.c init_and_end_fd.c
 
 #"what is in new directory" = $(addprefix "directory", $("list"))
 #"new list .c" = "new (.c)"
