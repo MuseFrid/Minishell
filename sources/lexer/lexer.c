@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/20 16:33:37 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 11:57:39 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	quote(char *str, int *i, int *j, char to_find)
+static int	quote(char *str, int *i, int *j, char to_find)
 {
 	while (1)
 	{
@@ -22,7 +22,8 @@ static void	quote(char *str, int *i, int *j, char to_find)
 			break ;
 	}
 	if (!str[*i])
-		kill_mini(UNCLOSED_QUOTE);
+		return (write(2, UNCLOSED_QUOTE, ft_strlen(UNCLOSED_QUOTE)));
+	return (0);
 }
 
 static void	touch_i(int *i, int pick)
@@ -62,33 +63,42 @@ int	is_token(char *str, int *i, int able_touch_i)
 	return (pick);
 }
 
-t_arg	*lexer(t_arg *arg, char *str)
+static int	begining_lexer(char *str, int *i, int *j, t_arg *arg)
 {
-	int		i;
+	while (str[*i] == ' ')
+		++(*i);
+	while (str[*i] != ' ' && str[*i])
+	{
+		if (str[*i] == '\'' || str[*i] == '\"')
+		{
+			if (quote(str, i, j, str[*i]))
+			{
+				lst_clear_arg(arg);
+				return (1);
+			}
+		}
+		if (is_token(str, i, 0))
+			break ;
+		++(*i);
+		++(*j);
+	}
+	return (0);
+}
+
+t_arg	*lexer(t_arg *arg, char *str, int i)
+{
 	int		j;
 	char	*new_word;
 	t_arg	*new;
 
-	i = 0;
 	while (1)
 	{
 		j = 0;
-		while (str[i] == ' ')
-			i++;
-		while (str[i] != ' ' && str[i])
-		{
-			if (str[i] == '\'' || str[i] == '\"')
-				quote(str, &i, &j, str[i]);
-			if (is_token(str, &i, 0))
-				break ;
-			i++;
-			j++;
-		}
+		if (begining_lexer(str, &i, &j, arg))
+			return (NULL);
 		if (j > 0)
 		{
 			new_word = ft_substr(str, i - j, j);
-			if (!new_word)
-				kill_mini("Minishell : lexer");
 			new = lst_new_arg(new_word, NOT_A_TOKEN);
 			lst_add_arg(&arg, new);
 		}
@@ -100,21 +110,5 @@ t_arg	*lexer(t_arg *arg, char *str)
 		if (!str[i])
 			break ;
 	}
-	//test
-	new = arg;
-// 	printf("%slexer part :%s\n", GREEN, RESET);
-// //	while (new->next)
-// //		new = new->next;
-// 	while (new)
-// 	{
-// 		if (new->word)
-// 			printf("%s\n", new->word);
-// 		else
-// 			printf("%d\n", new->is_token);
-// 		new = new->next;
-// 		//new = new->previous;
-// 	}
-// 	printf("%sEnd lexer part.%s\n\n", GREEN, RESET);
-	//
 	return (arg);
 }

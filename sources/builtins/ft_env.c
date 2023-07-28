@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 21:39:36 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/04 23:58:22 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 07:53:16 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	ft_env_sorted(t_data *data)
 	nbr_var_env = ft_count_var_env(data);
 	env_sorted = malloc(sizeof(char *) * (nbr_var_env + 1));
 	if (!env_sorted)
-		exit(EXIT_FAILURE);		//	need to put error function
+		kill_mini("Minishell");
 	env_sorted = ft_fill_array(data, env_sorted, nbr_var_env);
 	ft_bubble_sort(env_sorted, nbr_var_env);
 	i = 0;

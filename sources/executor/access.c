@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   access.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:51:48 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/26 17:01:46 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:58:22 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ static char	*access_path(char **which_path)
 		}
 		i++;
 	}
-	write(2, "Minishell: ", 11);
-	write(2, which_path[i], ft_strlen(which_path[i]));
-	write(2, ": command not found\n", 20);
 	free_access(which_path, NULL);
 	return (NULL);
 }
@@ -78,8 +75,7 @@ static int	absolute_path(int *i, const char *cmd, char **str)
 			if (access(cmd, F_OK | X_OK) == -1)
 			{
 				perror("Minishell: ");
-				if (errno == 13)
-					exit(126);
+				exit(126);
 				return (1);
 			}
 			*str = (char *)cmd;
@@ -104,17 +100,17 @@ char	*parse(char **envp, const char *cmd)
 		return (new_cmd);
 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
+	if (!envp[i])
+		return (NULL);
 	which_path = ft_split(envp[i], ':');
-	if (!which_path)
-		return (NULL);
-	if (parse_extention(&new_cmd, which_path, cmd) == NULL)
-		return (NULL);
+	parse_extention(&new_cmd, which_path, cmd);
 	i = -1;
 	while (which_path[++i])
 	{
 		save = ft_strjoin(which_path[i], new_cmd);
 		if (!save)
 			return (free_access(which_path, new_cmd));
+		free(which_path[i]);
 		which_path[i] = save;
 	}
 	free(new_cmd);

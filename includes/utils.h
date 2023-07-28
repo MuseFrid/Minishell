@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 14:17:09 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 09:46:40 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_free(void **value);
 
 //		sources/utils/ga_error.c
 int		ga_error(char *error_msg);
+int 	write_error(char *prt1, char *prt2, char *prt3, char *prt4);
 void	cmds_is_finish(t_simple_cmds *cmds);
 void	kill_mini(char *error_msg);
 

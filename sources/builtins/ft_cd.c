@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/26 15:59:06 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 09:49:24 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static char	*ft_get_home(t_data *data)
 
 	current = data->env;
 	res = NULL;
-	if (!current)
-		return (NULL);		// call the error function
 	while (current)
 	{
 		if (ft_strcmp_strict(current->key, "HOME") == 0)
@@ -56,7 +54,6 @@ static void	ft_error_msg(char *c_path)
 {
 	write(2, "Minishell: cd: ", 15);
 	perror(c_path);
-//	printf("cd: %s: No such file or directory\n", c_path);
 }
 
 static int	ft_check_val_err(t_env *pwd, t_env *old_pwd, char *cd, char *c_path)
@@ -76,7 +73,7 @@ static int	ft_check_val_err(t_env *pwd, t_env *old_pwd, char *cd, char *c_path)
 	if (chdir(cd) == -1)
 	{
 		ft_error_msg(cd);
-		return (1);		//	call the error function
+		return (1);
 	}
 	if (ft_add_value(pwd, old_pwd, c_path) != 0)
 		return (1);		//	call the error function
@@ -92,11 +89,19 @@ int	ft_cd(t_data *data)
 
 	pwd = data->env;
 	old_pwd = data->env;
+	if (data->cmds->tab[1])
+	{
+		if (data->cmds->tab[2])
+		{
+			write(2, "Minishell: cd: too many arguments\n", 34);
+			return (1);
+		}
+	}
 	cd = data->cmds->tab[1];
-	if (!cd || !ft_strcmp_strict(cd, "~") || !ft_strcmp_strict(cd, "~/"))
+	if (!cd)
 		cd = ft_get_home(data);
 	current_path = getcwd(NULL, 0);
-	if (!pwd || !old_pwd || !current_path)
-		return (1);		//	call the error function
+	if (!current_path)
+		return (1);
 	return (ft_check_val_err(pwd, old_pwd, cd, current_path));
 }

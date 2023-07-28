@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 11:36:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/06/27 15:57:59 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:30:39 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*ft_splitndup(const char *s, int j, int i)
 	i = 0;
 	new = (char *)malloc(sizeof(char) * j + 1);
 	if (!new)
-		return (NULL);
+		kill_mini("Minishell");
 	while (i < j)
 	{
 		new[i] = str[i];
@@ -82,12 +82,10 @@ char	**ft_split(char const *s, char c)
 
 	j = 0;
 	k = 0;
-	if (!s)
-		return (NULL);
 	i = ft_string_loc(s, c);
 	finaltab = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!finaltab)
-		return (NULL);
+		kill_mini("Minishell");
 	finaltab[i] = NULL;
 	l = i;
 	while (j < l)
@@ -98,24 +96,6 @@ char	**ft_split(char const *s, char c)
 			return (freeland(finaltab, j));
 		j++;
 	}
+	free((void *)s);
 	return (finaltab);
 }
-
-/*#include <stdio.h>
-
-int main()
-{
-    int 	i;
-    char	**split;
-	char	*str = "      split       this for   me  !       ";
-	char 	lol = ' ';
-
-    split = ft_split(str, lol);
-    i = 0;
-    while(split[i])
-    {
-        printf("%s \n",split[i]);
-        i++;
-    }
-	return (0);
-}*/

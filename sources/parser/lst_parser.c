@@ -3,25 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   lst_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/25 18:13:30 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 11:38:50 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lst_clear_cmds(t_simple_cmds *head)
+void	*lst_clear_cmds(t_simple_cmds *head)
 {
 	t_simple_cmds	*tmp;
+	int				i;
 
+	i = 0;
 	while (head)
 	{
+		if (head->tab)
+		{
+			while (head->tab[i])
+				free(head->tab[i++]);
+			free(head->tab);
+		}
+		lst_clear_arg(head->redirections);
 		tmp = head;
 		head = head->next;
 		free(tmp);
+		i = 0;
 	}
+	return (NULL);
 }
 
 void	lst_add_back_cmds(t_simple_cmds **head, t_simple_cmds *new)
@@ -46,7 +57,7 @@ void	lst_new_cmds(t_simple_cmds **new)
 {
 	*new = malloc(sizeof(t_simple_cmds));
 	if (!new)
-		exit(1);
+		kill_mini("Minishell");
 	(*new)->tab = NULL;
 	(*new)->builtin = NULL;
 	(*new)->pid = -2;

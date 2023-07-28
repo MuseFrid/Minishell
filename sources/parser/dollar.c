@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 13:23:13 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 16:50:19 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 10:10:20 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-	quote[0] = simple quote
-	quote[1] = double quote
-*/
 
 static void	ft_check_gate(int quote[2], int *check)
 {
@@ -44,7 +39,6 @@ static void	ft_check_quote(char c, int quote[2], int *check)
 	ft_check_gate(quote, check);
 }
 
-
 static int	ft_count_nbr_index(t_dollar *dollar)
 {
 	int	i;
@@ -62,11 +56,6 @@ static int	ft_count_nbr_index(t_dollar *dollar)
 		if (check && dollar->str[i] == '$' && dollar->str[i + 1])
 			++count;
 	}
-	// dollar->is_quote = malloc(sizeof(char) * (count + 1));
-	// if (!dollar->is_quote)
-	// 	exit(EXIT_FAILURE);
-	// ft_memset(dollar->is_quote, '0', count);
-	// dollar->is_quote[count] = '\0';
 	dollar->quote[0] = 0;
 	dollar->quote[1] = 0;
 	return (count);
@@ -83,7 +72,7 @@ static int	*ft_catch_dollar_index(t_dollar *dollar)
 	{
 		dollar->i_dollar = malloc(sizeof(int) * (count + 1));
 		if (!dollar->i_dollar)
-			exit(EXIT_FAILURE);		//	call error function
+			kill_mini("Minishell");
 		dollar->i_dollar[count] = count * -1;
 		i[0] = -1;
 		i[1] = 0;
@@ -93,9 +82,6 @@ static int	*ft_catch_dollar_index(t_dollar *dollar)
 			if (check && dollar->str[i[0]] == '$' && dollar->str[i[0] + 1])
 			{
 				dollar->i_dollar[i[1]] = i[0];
-				// if (check == 2)
-				// 	dollar->is_quote[i[1]] = '1';
-				// printf("%c", dollar->is_quote[i[1]]);
 				++i[1];
 			}
 		}

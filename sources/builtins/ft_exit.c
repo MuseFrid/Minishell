@@ -3,19 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 22:18:03 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/04 19:13:45 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 09:47:59 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	exit_error_msg(char *error_msg)
+{
+	write_error("Minishell: exit: ",
+		error_msg, ": numeric argument required\n", NULL);
+	exit(2);
+}
+
 int	ft_exit(t_data *data)
 {
-	(void)data;
+	char	**tab;
+	int		i;
+
+	i = 0;
 	printf("exit\n");
-	exit(EXIT_SUCCESS);
+	tab = data->cmds->tab;
+	if (tab[1])
+	{
+		if (tab[2])
+			return (write_error("Minishell: exit: too many arguments\n",
+					NULL, NULL, NULL));
+		while (tab[1][i] && tab[1][i] == ' ')
+			++i;
+		if (tab[1][i] && (tab[1][i] == '+' || tab[1][i] == '-'))
+			++i;
+		while (tab[1][i])
+			if (!ft_isdigit(tab[1][i++]))
+				exit_error_msg(tab[1]);
+		i = ft_atoi(tab[1]);
+		if (errno == -1)
+			exit_error_msg(tab[1]);
+		exit(i);
+	}
+	exit(ret_val);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 23:45:16 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/20 16:34:46 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 07:27:54 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*ft_strdup(const char *str)
 	int		i;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	new = (char *)malloc(sizeof(char) * ft_strlen(str) + 1);
 	if (!new)
-		return (NULL);
+		kill_mini("Minishell");
 	while (str[i])
 	{
 		new[i] = str[i];
@@ -42,7 +44,7 @@ char	*ft_strndup(const char *str, int n)
 		len = n;
 	new = (char *)malloc(sizeof(char) * len + 1);
 	if (!new)
-		return (NULL);
+		kill_mini("Minishell");
 	while (str[i] && i < len)
 	{
 		new[i] = str[i];
@@ -67,7 +69,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ft_strdup((char *) s + start));
 	new = (char *)malloc(sizeof(char) * (len + 1));
 	if (!new)
-		return (NULL);
+		kill_mini("Minishell");
 	if (start >= i)
 		return (new);
 	i = 0;
@@ -79,31 +81,30 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 int	ft_atoi(const char *str)
 {
-	size_t		i;
-	int			sign;
-	long int	result;
+	long long int	i;
+	long long int	num;
+	long long int	save;
+	int				sign;
 
 	i = 0;
 	sign = 1;
-	result = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+	num = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 		i++;
-	if (str[i] == '+' || str[i] == '-')
+	if (str[i] == 43 || str[i] == 45)
+		if (str[i++] == 45)
+			sign *= -1;
+	while (str[i] && ft_isdigit(str[i]))
 	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + str[i] - '0';
-		i++;
-		if (result * sign < INT_MIN)
-			return (0);
-		if (result * sign > INT_MAX)
+		save = num;
+		num = (num * 10) + (str[i++] - 48);
+		if ((sign == -1 && (-num) > 2147483648 && --errno)
+			|| (sign == 1 && save > num && --errno))
 			return (-1);
 	}
-	return (result * sign);
+	if (sign == -1)
+		return (-num);
+	return (num);
 }
 
 void	*ft_memset(void *b, int c, size_t len)

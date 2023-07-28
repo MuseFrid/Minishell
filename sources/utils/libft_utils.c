@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 23:41:01 by aabda             #+#    #+#             */
-/*   Updated: 2023/06/04 23:46:27 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 00:50:36 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_itoa(int n)
 		return (ft_strdup("0"));
 	str = (char *)malloc(sizeof(char) * (count + 1));
 	if (!str)
-		return (NULL);
+		kill_mini("Minishell");
 	if (sign < 0)
 		str[0] = 45;
 	str[count] = 0;
@@ -97,7 +97,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	j = ft_strlen(s2);
 	strfinal = (char *)malloc(sizeof(char) * (i + j + 1));
 	if (!strfinal)
-		return (NULL);
+		kill_mini("Minishell");
 	i = 0;
 	while (s1[i])
 	{

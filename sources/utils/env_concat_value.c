@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_concat_value.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 23:09:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/05/27 19:45:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 08:21:36 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_create(t_data *data, t_env *new, char *value)
 
 	new = malloc(sizeof(t_env));
 	if (!new)
-		exit(EXIT_FAILURE);		//	need to call the error function
+		kill_mini("Minishell");
 	current = data->env;
 	while (current->next)
 		current = current->next;
@@ -43,7 +43,7 @@ static void	ft_logic(t_env *current, char *value, int equal_index)
 		ft_strlen(current->value);
 	str = malloc(sizeof(char *) * len_total + 1);
 	if (!str)
-		exit(EXIT_FAILURE);		//	need to call the error function
+		kill_mini("Minishell");
 	i = -1;
 	while (current->value[++i])
 		str[i] = current->value[i];

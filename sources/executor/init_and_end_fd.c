@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wait_child.c                                       :+:      :+:    :+:   */
+/*   init_and_end_fd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 13:41:36 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 12:15:16 by gduchesn         ###   ########.fr       */
+/*   Created: 2023/07/28 12:22:16 by gduchesn          #+#    #+#             */
+/*   Updated: 2023/07/28 12:26:58 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	wait_child(t_data *data)
+void	ft_init_fd(t_fd *fd)
 {
-	int				stat;
-	t_simple_cmds	*snake;
+	fd->pipe[0] = -2;
+	fd->pipe[1] = -2;
+	fd->redirection[0] = -2;
+	fd->redirection[1] = -2;
+	fd->out = -2;
+}
 
-	snake = data->cmds;
-	while (snake)
+void	ft_final_fd(t_fd *fd)
+{
+	if (fd->pipe[1] != -2)
+		fd->out = fd->pipe[1];
+	if (fd->redirection[OUT] != -2)
 	{
-		if (snake->pid != -2)
-		{
-			waitpid(snake->pid, &stat, 0);
-			if (WIFSIGNALED(stat))
-				ret_val = WTERMSIG(stat);
-			else if (WIFEXITED(stat))
-				ret_val = WEXITSTATUS(stat);
-		}
-		snake = snake->next;
+		if (fd->pipe[1] != -2)
+			close(fd->pipe[1]);
+		fd->out = fd->redirection[OUT];
 	}
-	ft_handler_signal(0);
+	if (fd->redirection[IN] != -2)
+	{
+		if (fd->in != -2)
+			close(fd->in);
+		fd->in = fd->redirection[IN];
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 04:31:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/26 23:18:20 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 13:48:02 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_check_key_is_valid(char *key)
 	return (0);
 }
 
-static	int	ft_node(t_data *data, t_env *new, char *val)
+static int	ft_node(t_data *data, t_env *new, char *val)
 {
 	t_env	*tmp;
 	int		replace;
@@ -44,12 +44,8 @@ static	int	ft_node(t_data *data, t_env *new, char *val)
 	replace = 0;
 	key = ft_catch_key_env(val);
 	if (ft_check_key_is_valid(key) != 0)
-	{
-		write(2, "Minishell: export: `", 20);
-		write(2, val, ft_strlen(val));
-		write(2, "\': not a valid identifier\n", 26);
-		return (1);
-	}
+		return (write_error("Minishell: export: `",
+				val, "\': not a valid identifier\n", NULL));
 	while (tmp)
 	{
 		if (ft_strcmp_strict(tmp->key, key) == 0 && val[ft_strlen(key)] != '+')
@@ -73,8 +69,6 @@ int	ft_export(t_data *data)
 	int		i;
 
 	value = data->cmds->tab;
-	if (!value)
-		return (1);		//	need to put the good error handling if the linked list doesn't exist !
 	new = NULL;
 	i = 0;
 	while (value[++i])
