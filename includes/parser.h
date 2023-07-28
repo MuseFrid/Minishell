@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 12:13:10 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/28 19:54:29 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ char			*free_dollar_struct(t_dollar *dollar);
 void			ft_word_str(char *str, char *word, int *i);
 void			ft_start_str(t_dollar *dollar, char *str, int *i, int index);
 void			ft_tilde_expander(t_simple_cmds *cmds, t_arg *pre_cmd);
+char			*ft_escape_first_digit(t_dollar *dollar, int index);
 
 #endif

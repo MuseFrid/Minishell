@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:10:25 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 18:43:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:54:05 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,19 @@ void	ft_word_str(char *str, char *word, int *i)
 		str[*i] = word[j];
 		++(*i);
 	}
+}
+
+char	*ft_escape_first_digit(t_dollar *dollar, int index)
+{
+	char	*str;
+	int		i;
+
+	str = malloc(sizeof(char) * ft_strlen(dollar->words[index]));
+	if (!str)
+		exit(EXIT_FAILURE);		//	call error function
+	i = 0;
+	while (dollar->words[index] && dollar->words[index][++i])
+		str[i - 1] = dollar->words[index][i];
+	str[i - 1] = '\0';
+	return (str);
 }
