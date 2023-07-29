@@ -6,42 +6,48 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/26 12:18:27 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 23:55:01 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_check(char **value, int i)
+static void	ft_logic(char **args)
 {
-	if (value[i + 1])
-		printf("%s ", value[i]);
-	else
-		printf("%s", value[i]);
-}
+	int	i;
+	int	j;
+	int	check;
 
-static void	ft_logic(char **value, int i)
-{
-	if (value[1] && ft_strncmp(value[1], "-n", 2) == 0)
+	i = 1;
+	check = 0;
+	while (args && args[i] && args[i][0] == '-')
 	{
+		j = 0;
+		while (args[i][++j] && args[i][j] == 'n')
+			;
+		if (args[i][j] && args[i][j] != 'n')
+			break ;
+		check = 1;
 		++i;
-		while (value[++i])
-			ft_check(value, i);
-		return ;
 	}
-	else
-		while (value[++i])
-			ft_check(value, i);
-	printf("\n");
+	while (args && args[i])
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		++i;
+	}
+	if (!check)
+		printf("\n");
 }
 
 int	ft_echo(t_data *data)
 {
 	char	**value;
-	int		i;
 
 	value = data->cmds->tab;
-	i = 0;
-	ft_logic(value, i);
+	if (!value)
+		exit(EXIT_FAILURE);		//	call error function
+	ft_logic(value);
 	return (0);
 }
