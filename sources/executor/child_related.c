@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:16:53 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 12:31:39 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:23:07 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_executer_child(t_simple_cmds *cmds,
 	char	**final_env;
 	char	*path;
 
+	ft_handler_signal(3);
 	close(fd->pipe[0]);
 	if (fd->in != -2)
 		if (dup2(fd->in, 0) == -1)

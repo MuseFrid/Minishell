@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 12:13:20 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:34:42 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 	{
 		if (ft_strcmp_strict(dollar->words[i], "?") == 0)
 		{
-			tmp = ft_itoa(ret_val);
+			tmp = ft_itoa(g_ret_val);
 			check = 1;
 		}
 		else

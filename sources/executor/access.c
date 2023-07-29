@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:51:48 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 11:58:22 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 17:05:11 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,16 @@ static int	absolute_path(int *i, const char *cmd, char **str)
 		{
 			if (access(cmd, F_OK | X_OK) == -1)
 			{
-				perror("Minishell: ");
-				exit(126);
+				if (access(cmd, F_OK) == -1)
+				{
+					perror("Minishell: ");
+					exit(127);
+				}
+				if (access(cmd, X_OK) == -1)
+				{
+					perror("Minishell: ");
+					exit(126);
+				}
 				return (1);
 			}
 			*str = (char *)cmd;

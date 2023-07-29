@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:23:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 09:35:39 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:19:10 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_strldup(const char *str, int len)
 		size_str = len;
 	new = (char *)malloc(sizeof(char) * (size_str + 1));
 	if (!new)
-		exit(1);
+		kill_mini("Minishell");
 	while (i < len && str[i])
 	{
 		new[i] = str[i];

@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:26:35 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 09:46:15 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:34:42 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void	cmds_is_finish(t_simple_cmds *cmds)
 	if (cmds->end == 0)
 		perror("Minishell");
 	cmds->end = 1;
-	ret_val = 1;
+	g_ret_val = 1;
 }

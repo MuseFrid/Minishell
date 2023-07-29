@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 09:46:40 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:51:27 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ char	*ft_catch_value_env(char *value);
 void	free_all(t_data *data);
 void	free_env(t_env *env);
 void	ft_free(void **value);
+void	free_before_new_cmds(t_data *data, char *str);
 
 //		sources/utils/ga_error.c
 int		ga_error(char *error_msg);
-int 	write_error(char *prt1, char *prt2, char *prt3, char *prt4);
+int		write_error(char *prt1, char *prt2, char *prt3, char *prt4);
 void	cmds_is_finish(t_simple_cmds *cmds);
 void	kill_mini(char *error_msg);
 
