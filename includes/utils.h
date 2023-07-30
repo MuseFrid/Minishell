@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 09:46:40 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:58:28 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ char	*ft_path_and_username(t_data *data);
 
 //		sources/utils/path_user_dollar2.c
 void	ft_join_pwd_user_dollar(char *user, char *pwd, char *res);
-char	*ft_catch_user_env(t_data *data);
-char	*ft_catch_home_by_dir(char *str);
 
 //		sources/utils/utils.c
 void	ft_init_struct(t_data *data, char **envp);
