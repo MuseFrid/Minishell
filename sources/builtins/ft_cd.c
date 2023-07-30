@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 09:49:24 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:58:47 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static char	*ft_get_home(t_data *data)
 		}
 		current = current->next;
 	}
-	if (!res)
-		res = ft_catch_home_by_dir(res);
 	return (res);
 }
 
