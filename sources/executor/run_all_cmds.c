@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 13:48:59 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/30 19:13:26 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,16 @@ void	usebuiltin(t_data *data, t_fd fd)
 	if (fd.in != -2)
 		close(fd.in);
 	new_stdout = dup(1);
+	if (new_stdout == -1)
+		kill_mini("Minishell: dup1");
 	if (fd.out != -2)
 		bool_ex = dup2(fd.out, 1);
+	if (bool_ex == -1)
+		kill_mini("Minishell: dup2");
 	if (bool_ex != -1)
-		ret_val = data->cmds->builtin(data);
+		g_ret_val = data->cmds->builtin(data);
 	else
-		ret_val = 1;
+		g_ret_val = 1;
 	if (fd.out != -2)
 		close(fd.out);
 	close (1);
@@ -81,7 +85,7 @@ void	ft_run_all_cmds(t_data *data, t_simple_cmds *snake)
 		ft_init_fd(&fd);
 		if (snake->next)
 			if (pipe(fd.pipe) == -1)
-				kill_mini("Minishell: pipe");// ne pas sortir
+				kill_mini("Minishell: pipe");
 		redirection_hub(snake->redirections, snake, data, fd.redirection);
 		ft_final_fd(&fd);
 		if (snake->end == 1)

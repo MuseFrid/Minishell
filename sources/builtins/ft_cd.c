@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/30 18:58:47 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/30 19:13:03 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
 		old_pwd->value = current_path;
 		current_path = getcwd(NULL, 0);
 		if (!current_path)
-			return (1);		//	call the error function
+			kill_mini("Minishell");
 		ft_free((void **)&pwd->value);
 		pwd->value = current_path;
 	}
@@ -73,8 +73,7 @@ static int	ft_check_val_err(t_env *pwd, t_env *old_pwd, char *cd, char *c_path)
 		ft_error_msg(cd);
 		return (1);
 	}
-	if (ft_add_value(pwd, old_pwd, c_path) != 0)
-		return (1);		//	call the error function
+	ft_add_value(pwd, old_pwd, c_path);
 	return (0);
 }
 

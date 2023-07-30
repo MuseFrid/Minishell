@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 22:18:03 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 09:47:59 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:34:42 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_exit(t_data *data)
 	int		i;
 
 	i = 0;
+	unlink(HEREDOC_FILE);
+	errno = 0;
 	printf("exit\n");
 	tab = data->cmds->tab;
 	if (tab[1])
@@ -44,6 +46,6 @@ int	ft_exit(t_data *data)
 			exit_error_msg(tab[1]);
 		exit(i);
 	}
-	exit(ret_val);
+	exit(g_ret_val);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 05:13:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 10:05:17 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:34:42 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*get_env_fail(char *to_free, char *to_free2)
 	free(to_free);
 	free(to_free2);
 	write_error("Minishell: not able to expand ~\n", NULL, NULL, NULL);
-	ret_val = 1;
+	g_ret_val = 1;
 	return (NULL);
 }
 

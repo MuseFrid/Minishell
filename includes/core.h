@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   core.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:49:58 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/26 16:01:08 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:34:42 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 
 typedef struct s_data
 {
-	int						err_return_val;
+	int						nbr_l;
 	struct s_env			*env;
 	struct s_simple_cmds	*cmds;
-	struct s_heredoc		*heredoc;
 }	t_data;
-int	ret_val;
+int		g_ret_val;
 char	*ft_prompt(t_data *data);
 void	ft_handler_signal(int pick);
 
