@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:07:19 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/29 18:24:15 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:24:47 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,19 @@ void	free_before_new_cmds(t_data *data, char *str)
 	unlink(HEREDOC_FILE);
 	errno = 0;
 	ft_free((void **)&str);
+}
+
+char	*free_access(char **tab, char *cmd)
+{
+	int	i;
+
+	i = 0;
+	if (tab)
+	{
+		while (tab[i])
+			free(tab[i++]);
+		free(tab);
+	}
+	free(cmd);
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/30 19:12:50 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 16:24:56 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	free_all(t_data *data);
 void	free_env(t_env *env);
 void	ft_free(void **value);
 void	free_before_new_cmds(t_data *data, char *str);
+char	*free_access(char **tab, char *cmd);
 
 //		sources/utils/ga_error.c
 int		ga_error(char *error_msg);
