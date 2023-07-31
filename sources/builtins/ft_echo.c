@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/29 23:55:01 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/30 19:16:24 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	ft_echo(t_data *data)
 	char	**value;
 
 	value = data->cmds->tab;
-	if (!value)
-		exit(EXIT_FAILURE);		//	call error function
 	ft_logic(value);
 	return (0);
 }

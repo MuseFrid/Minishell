@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:30:21 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 18:24:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/30 20:37:47 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ static int	ft_check_end_var(char c)
 	return (0);
 }
 
-static void	ft_create_words(t_dollar *dollar, int i)
+static void	ft_create_words(t_dollar *dollar, int i, int k)
 {
 	int	j;
-	int	k;
 	int	word_len;
 
 	word_len = 0;
@@ -39,17 +38,9 @@ static void	ft_create_words(t_dollar *dollar, int i)
 		word_len = ft_count_char_to_end(dollar->str, \
 			dollar->i_dollar[i], '$', END_VAR_ENV);
 		if (word_len == -42)
-		{
 			dollar->words[i] = ft_strdup("?");
-			if (!dollar->words[i])
-				exit(EXIT_FAILURE);
-		}
 		else if (word_len == -43)
-		{
 			dollar->words[i] = ft_strdup("$");
-			if (!dollar->words[i])
-				exit(EXIT_FAILURE);
-		}
 		else
 		{
 			dollar->words[i] = malloc(sizeof(char) * (word_len + 1));
@@ -76,7 +67,7 @@ static char	**ft_catch_dollar_word(t_dollar *dollar)
 	if (!dollar->words)
 		kill_mini("Minishell");
 	dollar->words[dollar->i_dollar[i] * -1] = NULL;
-	ft_create_words(dollar, -1);
+	ft_create_words(dollar, -1, 0);
 	return (dollar->words);
 }
 

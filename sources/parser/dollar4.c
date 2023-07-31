@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:10:25 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 19:54:05 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/30 20:34:20 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_escape_first_digit(t_dollar *dollar, int index)
 
 	str = malloc(sizeof(char) * ft_strlen(dollar->words[index]));
 	if (!str)
-		exit(EXIT_FAILURE);		//	call error function
+		kill_mini("Minishell");
 	i = 0;
 	while (dollar->words[index] && dollar->words[index][++i])
 		str[i - 1] = dollar->words[index][i];

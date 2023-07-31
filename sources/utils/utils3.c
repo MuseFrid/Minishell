@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 23:50:15 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 18:19:45 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/30 21:02:25 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@ static int	ft_init_count_char_to_end(int *i, int index)
 	return (*i - 1);
 }
 
+static int	ft_check_hardcode(char *str, int index, int *check)
+{
+	*check = 0;
+	if (str[index] == '$')
+	{
+		if (str[index + 1] == '?')
+			*check = -42;
+		if (!str[index + 1] || str[index + 1] == ' ' || str[index + 1] == '"')
+			*check = -43;
+	}
+	return (*check);
+}
+
 int	ft_count_char_to_end(char *str, int index, char start, char *end)
 {
 	int	i[2];
@@ -29,11 +42,8 @@ int	ft_count_char_to_end(char *str, int index, char start, char *end)
 
 	i[0] = ft_init_count_char_to_end(i, index);
 	len = -1;
-	check = 0;
-	if (str[index] == '$' && str[index + 1] == '?')
-		return (-42);
-	if (str[index] == '$' && (!str[index + 1] || str[index + 1] == '"'))
-		return (-43);
+	if (ft_check_hardcode(str, index, &check) < 0)
+		return (check);
 	while (str && str[++i[0]])
 	{
 		if (str[i[0]] == start && !check)

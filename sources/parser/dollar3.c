@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/30 19:13:37 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/30 20:34:10 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 	{
 		if (ft_isdigit(dollar->words[i][0]))
 			tmp = ft_escape_first_digit(dollar, i);
-
 		else if (ft_strcmp_strict(dollar->words[i], "?") == 0)
 		{
 			tmp = ft_itoa(g_ret_val);
