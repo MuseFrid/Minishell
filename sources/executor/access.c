@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   access.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:51:48 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/29 17:05:11 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/31 15:52:07 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*free_access(char **tab, char *cmd)
-{
-	int	i;
-
-	i = 0;
-	if (tab)
-	{
-		while (tab[i])
-			free(tab[i++]);
-		free(tab);
-	}
-	free(cmd);
-	return (NULL);
-}
 
 static char	*access_path(char **which_path)
 {
@@ -62,6 +47,20 @@ static char	*parse_extention(char **new_cmd, char **which_path, const char *cmd)
 	return (*new_cmd);
 }
 
+static void	ft_check_access(const char *cmd)
+{
+	if (access(cmd, F_OK) == -1)
+	{
+		perror("Minishell: ");
+		exit(127);
+	}
+	if (access(cmd, X_OK) == -1)
+	{
+		perror("Minishell: ");
+		exit(126);
+	}
+}
+
 static int	absolute_path(int *i, const char *cmd, char **str)
 {
 	*i = 0;
@@ -74,16 +73,7 @@ static int	absolute_path(int *i, const char *cmd, char **str)
 		{
 			if (access(cmd, F_OK | X_OK) == -1)
 			{
-				if (access(cmd, F_OK) == -1)
-				{
-					perror("Minishell: ");
-					exit(127);
-				}
-				if (access(cmd, X_OK) == -1)
-				{
-					perror("Minishell: ");
-					exit(126);
-				}
+				ft_check_access(cmd);
 				return (1);
 			}
 			*str = (char *)cmd;

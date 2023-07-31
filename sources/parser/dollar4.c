@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:10:25 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/30 20:34:20 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:44:03 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ char	*ft_escape_first_digit(t_dollar *dollar, int index)
 		str[i - 1] = dollar->words[index][i];
 	str[i - 1] = '\0';
 	return (str);
+}
+
+int	ft_size_i_dollar(t_dollar *dollar)
+{
+	int	i;
+
+	i = -1;
+	while (dollar->i_dollar[++i] >= 0)
+		;
+	return (dollar->i_dollar[i] * -1);
 }

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/30 19:12:29 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:44:20 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ void			ft_word_str(char *str, char *word, int *i);
 void			ft_start_str(t_dollar *dollar, char *str, int *i, int index);
 void			ft_tilde_expander(t_simple_cmds *cmds, t_arg *pre_cmd);
 char			*ft_escape_first_digit(t_dollar *dollar, int index);
+int				ft_size_i_dollar(t_dollar *dollar);
 
 #endif

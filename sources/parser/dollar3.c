@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/30 20:34:10 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 15:43:45 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar, int i)
 		while (len_word[0] != -1 && dollar->str[i] && dollar->str[i] != ' ')
 		{
 			if (dollar->str[i] == '"')
-				while (dollar->str[i] && dollar->str[++i] != '"')
+				while (dollar->str[++i] && dollar->str[i] != '"')
 					;
 			++i;
 			len_word[1] = i;
@@ -119,11 +119,8 @@ char	*ft_dollar_to_env(t_data *data, t_dollar *dollar, t_arg *pre_cmd)
 	int		i;
 	int		check;
 
-	i = -1;
 	check = 0;
-	while (dollar->i_dollar[++i] >= 0)
-		;
-	i = (dollar->i_dollar[i] * -1);
+	i = ft_size_i_dollar(dollar);
 	while (--i >= 0)
 	{
 		if (ft_isdigit(dollar->words[i][0]))
