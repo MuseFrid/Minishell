@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 16:48:16 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:05:36 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,30 @@ void	check_empty_str(t_arg **head_cmd)
 				previous->next = snake->next;
 			free(snake->word);
 			ft_free((void **)&snake);
-			snake = previous;
+			if (!previous)
+				snake = *head_cmd;
+			else
+				snake = previous;
 		}
 		previous = snake;
-		snake = snake->next;
+		if (snake)
+			snake = snake->next;
 	}
 }
 
-void	design_cmd(t_arg *pre_cmd,
+void	design_cmd(t_arg **pre_cmd,
 	t_simple_cmds *new, t_data *data, t_arg *redirections)
 {
 	t_arg	*head_cmd;
 
-	head_cmd = pre_cmd;
-	while (pre_cmd)
+	head_cmd = *pre_cmd;
+	while (*pre_cmd)
 	{
-		ft_tilde_expander(new, pre_cmd);
-		if (!pre_cmd->word)
+		ft_tilde_expander(new, *pre_cmd);
+		if (!(*pre_cmd)->word)
 			return ;
-		ft_parse_word(data, pre_cmd);
-		pre_cmd = pre_cmd->next;
+		ft_parse_word(data, *pre_cmd);
+		*pre_cmd = (*pre_cmd)->next;
 	}
 	check_empty_str(&head_cmd);
 	new->tab = convert_to_tab(head_cmd);

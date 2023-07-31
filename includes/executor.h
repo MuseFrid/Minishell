@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:47:25 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/29 18:49:09 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:05:02 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,8 @@ char	**redesign_env(t_env *env);
 void	wait_child(t_data *data);
 void	ft_init_fd(t_fd *fd);
 void	ft_final_fd(t_fd *fd);
+int		cmp_delimiter(char c);
+char	*find_env_variable(char *str, int i, int j, t_data data);
+char	*heredoc_join(char *str, char *env_value, int i, int j);
 
 #endif

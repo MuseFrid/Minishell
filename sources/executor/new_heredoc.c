@@ -3,56 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   new_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/29 20:56:50 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:03:34 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	cmp_delimiter(char c)
-{
-	static char	delimiter[] = END_VAR_ENV;
-	int			i;
-
-	i = 0;
-	while (delimiter[i])
-	{
-		if (delimiter[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-char	*find_env_variable(char *str, int i, int j, t_data data)
-{
-	while (data.env)
-	{
-		if ((j - i - 1) == (int)ft_strlen(data.env->key)
-			&& !ft_strncmp((str + i + 1), data.env->key, (j - i - 1)))
-			return (ft_strdup(data.env->value));
-		data.env = data.env->next;
-	}
-	return (ft_strdup(""));
-}
-
-char	*heredoc_join(char *str, char *env_value, int i, int j)
-{
-	char	*tmp;
-	char	*start;
-		
-	tmp = ft_strndup(str, i);
-	start = ft_strjoin(tmp, env_value);
-	free(tmp);
-	free(env_value);
-	tmp = ft_strjoin(start, (str + j));
-	free(start);
-	free(str);
-	return (tmp);
-}
 
 char	*heredoc_expand(t_data data, char *str)
 {
@@ -83,13 +41,35 @@ char	*heredoc_expand(t_data data, char *str)
 	return (str);
 }
 
+static int	heredoc_readline(t_data *data,
+	t_simple_cmds *cmds, char *word, char *str)
+{
+	char	*tmp;
+
+	if (!str || (str && !ft_strcmp_strict(str, word)))
+	{
+		if (close(0) == -1 && !str)
+			cmds->end = 1;
+		else if (!str)
+		{
+			tmp = ft_itoa(data->nbr_l);
+			write_error("warning: here-document at line ", tmp,
+				" delimited by end-of-file (wanted `", word);
+			write(2, "')\n", 3);
+			free(tmp);
+		}
+		errno = 0;
+		return (1);
+	}
+	return (0);
+}
+
 void	heredoc_open(int fd, char *word, t_data *data, t_simple_cmds *cmds)
 {
 	int		dup_fd;
 	char	*str;
-	char	*tmp;
 	int		bool_quotes;
-	
+
 	str = NULL;
 	dup_fd = dup(0);
 	if (dup_fd == -1)
@@ -98,21 +78,8 @@ void	heredoc_open(int fd, char *word, t_data *data, t_simple_cmds *cmds)
 	while (1)
 	{
 		str = readline("> ");
-		if (!str || (str && !ft_strcmp_strict(str, word)))
-		{
-			if (close(0) == -1 && !str)
-				cmds->end = 1;
-			else if (!str)
-			{
-				tmp = ft_itoa(data->nbr_l);
-				write_error("warning: here-document at line ", tmp,
-					" delimited by end-of-file (wanted `", word);
-				write(2, "')\n", 3);
-				free(tmp);
-			}
-			errno = 0;
+		if (heredoc_readline(data, cmds, word, str))
 			break ;
-		}
 		if (!bool_quotes)
 			str = heredoc_expand(*data, str);
 		if (str)
@@ -159,10 +126,9 @@ int	heredoc_handler(t_arg *snake, t_data *data, t_simple_cmds *cmds)
 	{
 		close(fd);
 		fd = open(HEREDOC_FILE, O_RDWR, 0644);
-		if (fd == -1)
+		if (fd == -1 && ++(cmds->end))
 		{
 			kill_mini("Minishell: heredoc");
-			cmds->end = 1;
 			return (-2);
 		}
 	}

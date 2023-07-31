@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/30 19:12:21 by aabda            ###   ########.fr        #
+#    Updated: 2023/07/31 18:09:38 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = minishell
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
-LDFLAGS = -L/opt/homebrew/opt/readline/lib
-CPPFLAGS = -I/opt/homebrew/opt/readline/include
+LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
+CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf
@@ -74,7 +74,7 @@ ENV_LIST = getenv.c env_-i.c \
 
 EXECUTOR= $(addprefix $(EXECUTOR_D), $(EXECUTOR_LIST))
 EXECUTOR_D=executor/
-EXECUTOR_LIST= new_heredoc.c redirection_hub.c \
+EXECUTOR_LIST= new_heredoc.c new_heredoc2.c redirection_hub.c \
 			   run_all_cmds.c access.c \
 			   wait_child.c child_related.c init_and_end_fd.c
 

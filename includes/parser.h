@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 15:44:20 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 17:59:28 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_dollar
 	int		quote[2];
 }	t_dollar;
 
-void			design_cmd(t_arg *pre_cmd,
+void			design_cmd(t_arg **pre_cmd,
 					t_simple_cmds *new, t_data *data, t_arg *redirections);
 t_simple_cmds	*parser(t_arg *arg,
 					t_data *data, t_simple_cmds *cmds, t_arg *pre_cmd);
