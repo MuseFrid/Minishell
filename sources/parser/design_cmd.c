@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   design_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 18:05:36 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 18:44:08 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ void	design_cmd(t_arg **pre_cmd,
 	t_simple_cmds *new, t_data *data, t_arg *redirections)
 {
 	t_arg	*head_cmd;
+	t_arg	*tmp;
 
+	tmp = *pre_cmd;
 	head_cmd = *pre_cmd;
 	while (*pre_cmd)
 	{
@@ -96,4 +98,5 @@ void	design_cmd(t_arg **pre_cmd,
 		ft_parse_word(data, redirections);
 		redirections = redirections->next;
 	}
+	*pre_cmd = tmp;
 }

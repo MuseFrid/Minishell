@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/31 18:09:38 by aabda            ###   ########.fr        #
+#    Updated: 2023/07/31 18:46:08 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,9 +78,6 @@ EXECUTOR_LIST= new_heredoc.c new_heredoc2.c redirection_hub.c \
 			   run_all_cmds.c access.c \
 			   wait_child.c child_related.c init_and_end_fd.c
 
-#"what is in new directory" = $(addprefix "directory", $("list"))
-#"new list .c" = "new (.c)"
-
 OBJECTS = $(addprefix $(OBJECTS_MAIN_D), $(OBJECTS_LIST))
 OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_LIST))
 OBJECTS_MAIN_D = objects/
@@ -105,5 +102,3 @@ fclean: clean
 	$(REMOVE) $(NAME)
 
 re: fclean all
-
-#-fsanitize=address -g
