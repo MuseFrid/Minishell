@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_related.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:16:53 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/29 15:23:07 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/31 16:27:54 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_executer_child(t_simple_cmds *cmds,
 	if (fd->out != -2)
 		if (dup2(fd->out, 1) == -1)
 			kill_mini("Minishell");
-	if (!(cmds->tab[0]))
+	if (!(cmds->tab && cmds->tab[0]))
 		exit(0);
 	if (cmds->builtin)
 		exit(cmds->builtin(data));

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 21:58:19 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/31 15:43:45 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 17:49:02 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	ft_expand_str(t_dollar *dollar,
 
 	len = (ft_strlen(dollar->str) - (ft_strlen(dollar->words[index]) + 1)) \
 		+ ft_strlen(word);
+	if (ft_strcmp_strict(word, "$") == 0)
+		++len;
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		kill_mini("Minishell");
@@ -29,12 +31,10 @@ static void	ft_expand_str(t_dollar *dollar,
 	ft_start_str(dollar, str, &i, index);
 	ft_word_str(str, word, &i);
 	j = dollar->i_dollar[index] + (int)ft_strlen(dollar->words[index]) + 1;
+	if (!dollar->str[j])
+		--j;
 	while (i < len)
-	{
-		str[i] = dollar->str[j];
-		++i;
-		++j;
-	}
+		str[i++] = dollar->str[j++];
 	str[i] = '\0';
 	ft_free((void **)&dollar->str);
 	dollar->str = str;
@@ -105,7 +105,8 @@ static void	ft_parse_for_create_node(t_arg *pre_cmd, t_dollar *dollar, int i)
 			if (dollar->str[i] == '"')
 				while (dollar->str[++i] && dollar->str[i] != '"')
 					;
-			++i;
+			if (dollar->str[i])
+				++i;
 			len_word[1] = i;
 		}
 		if (len_word[0] != -1 && len_word[1])
