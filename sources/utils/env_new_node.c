@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_new_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 22:57:53 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 09:38:11 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:38:54 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ void	ft_new_node_env(t_data *data, t_env *new, char *val)
 {
 	int	i;
 	int	equal_index;
+	int	check;
 
 	i = -1;
 	equal_index = 0;
+	check = 0;
 	while (val[++i])
 	{
-		if (val[i] == '=')
+		if (!check && val[i] == '=')
 		{
 			if (val[i - 1] == '+')
 			{
@@ -56,6 +58,7 @@ void	ft_new_node_env(t_data *data, t_env *new, char *val)
 				break ;
 			}
 			ft_fill_values(data, new, val);
+			++check;
 		}
 	}
 }

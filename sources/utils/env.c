@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:24:14 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 09:39:20 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:29:58 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_catch_value_env(char *value)
 	equal_index = 0;
 	i = -1;
 	while (value[++i])
-		if (value[i] == '=')
+		if (!equal_index && value[i] == '=')
 			equal_index = i;
 	if (!equal_index)
 		return (NULL);
