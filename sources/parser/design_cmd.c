@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 18:44:08 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 04:25:07 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ static void	ft_parse_word(t_data *data, t_arg *pre_cmd)
 {
 	t_dollar	*dollar;
 
-	dollar = malloc(sizeof(t_dollar));
-	if (!dollar)
-		kill_mini("Minishell");
-	dollar->str = pre_cmd->word;
-	dollar->str = ft_dollar_handling(data, dollar, pre_cmd);
-	free(dollar->i_dollar);
-	free(dollar);
+	if (!(pre_cmd->is_token == 5))
+	{
+		dollar = malloc(sizeof(t_dollar));
+		if (!dollar)
+			kill_mini("Minishell");
+		dollar->str = pre_cmd->word;
+		dollar->str = ft_dollar_handling(data, dollar, pre_cmd);
+		free(dollar->i_dollar);
+		free(dollar);
+	}
 	fix_word(&pre_cmd->word);
 }
 
@@ -98,5 +101,7 @@ void	design_cmd(t_arg **pre_cmd,
 		ft_parse_word(data, redirections);
 		redirections = redirections->next;
 	}
+	if (!*pre_cmd)
+		return ;
 	*pre_cmd = tmp;
 }

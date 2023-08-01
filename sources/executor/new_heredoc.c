@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 18:50:42 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 18:03:34 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 01:59:53 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	heredoc_readline(t_data *data,
 
 	if (!str || (str && !ft_strcmp_strict(str, word)))
 	{
-		if (close(0) == -1 && !str)
+		if (!isatty(0) && !str)
 			cmds->end = 1;
 		else if (!str)
 		{

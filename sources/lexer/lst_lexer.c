@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:33:43 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/27 19:21:57 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:20:34 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,21 @@ void	lst_add_arg(t_arg **arg, t_arg *new)
 		*arg = new;
 }
 
-void	*lst_clear_arg(t_arg *arg)
+void	*lst_clear_arg(t_arg **arg)
 {
 	t_arg	*to_free;
 
-	if (!arg)
+	if (!(*arg))
 		return (NULL);
-	while (arg)
+	while (*arg)
 	{
-		to_free = arg;
-		arg = arg->next;
+		to_free = *arg;
+		*arg = (*arg)->next;
 		lst_unlink_arg(to_free);
 		free(to_free->word);
 		free(to_free);
 	}
+	*arg = NULL;
 	return (NULL);
 }
 

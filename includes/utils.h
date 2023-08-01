@@ -6,12 +6,15 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/08/01 05:40:54 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 06:33:49 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+
+//      sources/utils/ga_error.c
+int		ga_error(char *error_msg);
 
 //		sources/utils/ft_split.c
 char	**ft_split(char const *s, char c);

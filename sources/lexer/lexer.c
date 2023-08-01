@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 17:32:50 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 11:57:39 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:19:56 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	begining_lexer(char *str, int *i, int *j, t_arg *arg)
 		{
 			if (quote(str, i, j, str[*i]))
 			{
-				lst_clear_arg(arg);
+				lst_clear_arg(&arg);
 				return (1);
 			}
 		}

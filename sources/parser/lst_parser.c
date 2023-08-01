@@ -6,32 +6,33 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/28 11:38:50 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/07/31 20:23:05 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*lst_clear_cmds(t_simple_cmds *head)
+void	*lst_clear_cmds(t_simple_cmds **head)
 {
 	t_simple_cmds	*tmp;
 	int				i;
 
 	i = 0;
-	while (head)
+	while (*head)
 	{
-		if (head->tab)
+		if ((*head)->tab)
 		{
-			while (head->tab[i])
-				free(head->tab[i++]);
-			free(head->tab);
+			while ((*head)->tab[i])
+				free((*head)->tab[i++]);
+			free((*head)->tab);
 		}
-		lst_clear_arg(head->redirections);
-		tmp = head;
-		head = head->next;
+		lst_clear_arg(&((*head)->redirections));
+		tmp = *head;
+		*head = (*head)->next;
 		free(tmp);
 		i = 0;
 	}
+	*head = NULL;
 	return (NULL);
 }
 

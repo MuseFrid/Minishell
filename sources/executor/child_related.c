@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_related.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:16:53 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 16:27:54 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 01:40:34 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,17 @@ void	ft_executer_child(t_simple_cmds *cmds,
 	exit(1);
 }
 
-int	ft_create_child(t_simple_cmds *cmds, t_env *env, t_fd *fd, t_data *data)
+void	ft_create_child(t_simple_cmds *cmds, t_env *env, t_fd *fd, t_data *data)
 {
-	int	pid;
-
-	pid = fork();
-	if (pid == -1)
-		kill_mini("fork");
-	if (pid == 0)
+	cmds->pid = fork();
+	if (cmds->pid == -1)
+	{
+		perror("Minishell: fork: retry");
+		return ;
+	}
+	if (cmds->pid == 0)
 		ft_executer_child(cmds, env, fd, data);
 	ft_handler_signal(2);
-	if (fd->in != -2)
-		close(fd->in);
-	if (fd->out != -2)
-		close(fd->out);
+	close_parent_fd(*fd);
 	fd->in = fd->pipe[0];
-	return (pid);
 }

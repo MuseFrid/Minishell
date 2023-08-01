@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 18:47:25 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 18:05:02 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 01:39:40 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ typedef struct s_fd
 	int	out;
 }	t_fd;
 
-int		ft_create_child(t_simple_cmds *cmds,
+void	ft_create_child(t_simple_cmds *cmds,
 			t_env *env, t_fd *fd, t_data *data);
+void	close_parent_fd(t_fd fd);
 void	ft_executer_child(t_simple_cmds *cmds,
 			t_env *env, t_fd *fd, t_data *data);
 void	ft_run_all_cmds(t_data *data, t_simple_cmds *snake);
