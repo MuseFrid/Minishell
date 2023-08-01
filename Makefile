@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
+#    By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/08/01 10:21:38 by aabda            ###   ########.fr        #
+#    Updated: 2023/08/01 12:30:54 by gduchesn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = minishell
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
-LDFLAGS = -L/opt/homebrew/opt/readline/lib
-CPPFLAGS = -I/opt/homebrew/opt/readline/include
+LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
+CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf

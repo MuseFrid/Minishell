@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 14:23:16 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 20:23:05 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:26:22 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,12 @@ int	lst_size_arg(t_arg *pre_cmd)
 	i = 0;
 	if (pre_cmd)
 	{
-		while (pre_cmd && ++i)
+		while (pre_cmd)
+		{
+			if (pre_cmd->word[0])
+				++i;
 			pre_cmd = pre_cmd->next;
+		}
 	}
 	return (i);
 }

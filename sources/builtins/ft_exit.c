@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 22:18:03 by aabda             #+#    #+#             */
-/*   Updated: 2023/08/01 09:13:02 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:41:40 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_exit(t_data *data)
 	i = 0;
 	unlink(HEREDOC_FILE);
 	errno = 0;
-	if (data->cmds->pid == -2)
+	if (data->cmds->pid != -2)
 		printf("exit\n");
 	tab = data->cmds->tab;
 	if (tab[1])
@@ -47,10 +47,9 @@ int	ft_exit(t_data *data)
 		if (tab[1][i] && (tab[1][i] == '+' || tab[1][i] == '-'))
 			++i;
 		ft_check_digit(tab, &i);
-		i = ft_atoi(tab[1]);
+		g_ret_val = ft_atoi(tab[1]);
 		if (errno == -1)
 			exit_error_msg(tab[1]);
-		exit(i);
 	}
 	exit(g_ret_val);
 	return (0);

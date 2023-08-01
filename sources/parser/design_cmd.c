@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/08/01 07:17:34 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 12:36:26 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ char	**convert_to_tab(t_arg *pre_cmd)
 	tab[size] = NULL;
 	while (pre_cmd)
 	{
-		tab[i] = ft_strdup(pre_cmd->word);
-		++i;
+		if (pre_cmd->word[0])
+		{
+			tab[i] = ft_strdup(pre_cmd->word);
+			++i;
+		}
 		pre_cmd = pre_cmd->next;
 	}
 	return (tab);
@@ -50,41 +53,11 @@ static void	ft_parse_word(t_data *data, t_arg *pre_cmd)
 	fix_word(&pre_cmd->word);
 }
 
-void	check_empty_str(t_arg **head_cmd)
-{
-	t_arg	*snake;
-	t_arg	*previous;
-
-	snake = *head_cmd;
-	previous = NULL;
-	while (snake)
-	{
-		if (snake->word[0] == '\0')
-		{
-			if (!previous)
-				*head_cmd = snake->next;
-			else
-				previous->next = snake->next;
-			free(snake->word);
-			ft_free((void **)&snake);
-			if (!previous)
-				snake = *head_cmd;
-			else
-				snake = previous;
-		}
-		previous = snake;
-		if (snake)
-			snake = snake->next;
-	}
-}
-
 void	design_cmd(t_arg **pre_cmd,
 	t_simple_cmds *new, t_data *data, t_arg *redirections)
 {
 	t_arg	*head_cmd;
-	t_arg	*tmp;
 
-	tmp = *pre_cmd;
 	head_cmd = *pre_cmd;
 	while (*pre_cmd)
 	{
@@ -94,14 +67,11 @@ void	design_cmd(t_arg **pre_cmd,
 		ft_parse_word(data, *pre_cmd);
 		*pre_cmd = (*pre_cmd)->next;
 	}
-	check_empty_str(&head_cmd);
 	new->tab = convert_to_tab(head_cmd);
 	while (redirections)
 	{
 		ft_parse_word(data, redirections);
 		redirections = redirections->next;
 	}
-	if (!head_cmd)
-		return ;
-	*pre_cmd = tmp;
+	*pre_cmd = head_cmd;
 }

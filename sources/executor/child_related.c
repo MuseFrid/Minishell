@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   child_related.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:16:53 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/08/01 10:19:05 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 12:45:37 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	executor_child_dup(t_fd *fd)
+{
+	close(fd->pipe[0]);
+	if (fd->in != -2)
+		if (dup2(fd->in, 0) == -1)
+			kill_mini("Minishell");
+	if (fd->out != -2)
+		if (dup2(fd->out, 1) == -1)
+			kill_mini("Minishell");
+}
 
 void	ft_executer_child(t_simple_cmds *cmds,
 	t_env *env, t_fd *fd, t_data *data)
@@ -19,13 +30,7 @@ void	ft_executer_child(t_simple_cmds *cmds,
 	char	*path;
 
 	ft_handler_signal(3);
-	close(fd->pipe[0]);
-	if (fd->in != -2)
-		if (dup2(fd->in, 0) == -1)
-			kill_mini("Minishell");
-	if (fd->out != -2)
-		if (dup2(fd->out, 1) == -1)
-			kill_mini("Minishell");
+	executor_child_dup(fd);
 	if (!(cmds->tab && cmds->tab[0]))
 		exit(0);
 	if (cmds->builtin)
