@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/31 16:24:56 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 05:40:54 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ char	*ft_strldup(const char *str, int len);
 
 //		sources/utils/utils3.c
 int		ft_count_char_to_end(char *str, int index, char start, char *end);
+void	ft_error_msg_cd(char *c_path);
+
+//		sources/utils/utils4.c
+t_env	*ft_get_env_node_by_key(t_data *data, char *key);
+int		ft_dir_not_found(t_data *data, char *cd);
+
 
 //		sources/utils/fix_word.c
 void	redesign_word(char **word, int *i, char type, int *bool_quotes);

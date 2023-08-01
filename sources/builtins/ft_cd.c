@@ -6,28 +6,11 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/30 19:13:03 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 06:20:00 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_add_value(t_env *pwd, t_env *old_pwd, char *current_path)
-{
-	if (pwd && old_pwd)
-	{
-		ft_free((void **)&old_pwd->value);
-		old_pwd->value = current_path;
-		current_path = getcwd(NULL, 0);
-		if (!current_path)
-			kill_mini("Minishell");
-		ft_free((void **)&pwd->value);
-		pwd->value = current_path;
-	}
-	else
-		ft_free((void **)&current_path);
-	return (0);
-}
 
 static char	*ft_get_home(t_data *data)
 {
@@ -48,44 +31,47 @@ static char	*ft_get_home(t_data *data)
 	return (res);
 }
 
-static void	ft_error_msg(char *c_path)
+static void	ft_refresh_pwd_oldpwd(t_data *data)
 {
-	write(2, "Minishell: cd: ", 15);
-	perror(c_path);
+	t_env	*pwd;
+	t_env	*oldpwd;
+	char	*current_path;
+
+	current_path = getcwd(NULL, 0);
+	if (!current_path)
+		return ;
+	pwd = ft_get_env_node_by_key(data, "PWD");
+	oldpwd = ft_get_env_node_by_key(data, "OLDPWD");
+	ft_free((void **)&data->hidden_env->oldpwd);
+	data->hidden_env->oldpwd = ft_strdup(data->hidden_env->pwd);
+	if (!data->hidden_env->oldpwd)
+		data->hidden_env->oldpwd = ft_strdup("");
+	ft_free((void **)&(data->hidden_env->pwd));
+	data->hidden_env->pwd = current_path;
+	if (!data->hidden_env->pwd)
+		data->hidden_env->pwd = ft_strdup("");
+	if (pwd)
+		pwd->value = data->hidden_env->pwd;
+	if (oldpwd)
+		oldpwd->value = data->hidden_env->oldpwd;
 }
 
-static int	ft_check_val_err(t_env *pwd, t_env *old_pwd, char *cd, char *c_path)
+static int	ft_check_val_err(t_data *data, char *cd)
 {
-	while (pwd)
-	{
-		if (ft_strcmp_strict(pwd->key, "PWD") == 0)
-			break ;
-		pwd = pwd->next;
-	}
-	while (old_pwd)
-	{
-		if (ft_strcmp_strict(old_pwd->key, "OLDPWD") == 0)
-			break ;
-		old_pwd = old_pwd->next;
-	}
 	if (chdir(cd) == -1)
 	{
-		ft_error_msg(cd);
+		ft_error_msg_cd(cd);
 		return (1);
 	}
-	ft_add_value(pwd, old_pwd, c_path);
+	ft_refresh_pwd_oldpwd(data);
 	return (0);
 }
 
 int	ft_cd(t_data *data)
 {
-	t_env	*pwd;
-	t_env	*old_pwd;
 	char	*cd;
 	char	*current_path;
 
-	pwd = data->env;
-	old_pwd = data->env;
 	if (data->cmds->tab[1])
 	{
 		if (data->cmds->tab[2])
@@ -99,6 +85,6 @@ int	ft_cd(t_data *data)
 		cd = ft_get_home(data);
 	current_path = getcwd(NULL, 0);
 	if (!current_path)
-		return (1);
-	return (ft_check_val_err(pwd, old_pwd, cd, current_path));
+		return (ft_dir_not_found(data, cd));
+	return (ft_check_val_err(data, cd));
 }

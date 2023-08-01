@@ -6,16 +6,16 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/07/31 18:46:08 by gduchesn         ###   ########.fr        #
+#    Updated: 2023/08/01 00:57:56 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
-LDFLAGS = -L$(HOME)/.brew/opt/readline/lib
-CPPFLAGS = -I$(HOME)/.brew/opt/readline/include
+FLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+LDFLAGS = -L/opt/homebrew/opt/readline/lib
+CPPFLAGS = -I/opt/homebrew/opt/readline/include
 LIBRARIES = -lreadline
 INCLUDES = -I$(HEADERS_D)
 REMOVE = rm -Rf
@@ -51,7 +51,7 @@ UTILS_LIST = ga_error.c \
 	env_new_node.c env_concat_value.c \
 	path_user_dollar.c path_user_dollar2.c \
 	libft_utils.c libft_utils2.c libft_utils3.c \
-	utils.c utils2.c utils3.c \
+	utils.c utils2.c utils3.c utils4.c \
 	ft_split.c kill_mini.c free.c \
 	fix_word.c
 

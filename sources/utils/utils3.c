@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 23:50:15 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/30 21:02:25 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 05:36:03 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,10 @@ int	ft_count_char_to_end(char *str, int index, char start, char *end)
 			++len;
 	}
 	return (len);
+}
+
+void	ft_error_msg_cd(char *c_path)
+{
+	write(2, "Minishell: cd: ", 15);
+	perror(c_path);
 }

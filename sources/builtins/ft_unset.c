@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 23:05:56 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 13:14:18 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 06:15:00 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ static void	ft_logic(t_data *data, t_env *current, char **value, int i)
 	while (value[i])
 	{
 		key = ft_catch_key_env(value[i]);
-		if (ft_strcmp_strict(key, "_") == 0)
+		if (!ft_strcmp_strict(key, "_"))
 			key = NULL;
+		if (!ft_strcmp_strict(key, "PWD"))
+			data->hidden_env->pwd = NULL;
+		if(!ft_strcmp_strict(key, "OLDPWD"))
+			data->hidden_env->oldpwd = NULL;
 		first = data->env;
 		current = first;
 		while (current)
