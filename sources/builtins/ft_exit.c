@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 22:18:03 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/31 15:27:27 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 09:13:02 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	ft_exit(t_data *data)
 	i = 0;
 	unlink(HEREDOC_FILE);
 	errno = 0;
-	printf("exit\n");
+	if (data->cmds->pid == -2)
+		printf("exit\n");
 	tab = data->cmds->tab;
 	if (tab[1])
 	{

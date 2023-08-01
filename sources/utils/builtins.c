@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 16:34:11 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 11:37:43 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:07:47 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ static int	ft_builtins_tab(char *cmd)
 	return (-1);
 }
 
-static int	cmds_tab_value(t_data *data)
+static int	cmds_tab_value(t_simple_cmds *cmds)
 {
-	if (!data->cmds)
+	if (!cmds)
 		return (1);
-	if (!data->cmds->tab)
+	if (!cmds->tab)
 		return (1);
 	return (0);
 }
 
-int	ft_check_builtins(t_data *data)
+int	ft_check_builtins(t_simple_cmds *cmds)
 {
 	int	(*builtin[8])(t_data *);
 	int	res;
@@ -59,17 +59,17 @@ int	ft_check_builtins(t_data *data)
 	builtin[5] = &ft_pwd;
 	builtin[6] = &ft_unset;
 	builtin[7] = NULL;
-	if (cmds_tab_value(data))
+	if (cmds_tab_value(cmds))
 		return (0);
-	res = ft_builtins_tab(data->cmds->tab[0]);
+	res = ft_builtins_tab(cmds->tab[0]);
 	argc = 0;
-	while (data->cmds->tab[argc])
+	while (cmds->tab[argc])
 		++argc;
 	if (res < 0)
-		data->cmds->builtin = NULL;
-	else if (argc == 1 && ft_strcmp_strict(data->cmds->tab[0], "export") == 0)
-		data->cmds->builtin = builtin[2];
+		cmds->builtin = NULL;
+	else if (argc == 1 && ft_strcmp_strict(cmds->tab[0], "export") == 0)
+		cmds->builtin = builtin[2];
 	else
-		data->cmds->builtin = builtin[res];
+		cmds->builtin = builtin[res];
 	return (0);
 }

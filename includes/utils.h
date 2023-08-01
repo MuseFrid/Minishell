@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/08/01 08:54:23 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:07:39 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ga_error(char *error_msg);
 char	**ft_split(char const *s, char c);
 
 //		sources/utils/builtins.c
-int		ft_check_builtins(t_data *data);
+int     ft_check_builtins(t_simple_cmds *cmds);
 
 //		sources/utils/env_concat_value.c
 void	ft_concat_env(t_data *data, t_env *new, char *value, int equal_index);
