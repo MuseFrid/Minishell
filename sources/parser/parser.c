@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 21:24:15 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 18:05:42 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 20:23:12 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	its_token(t_arg **arg, t_simple_cmds **cmds)
 	(*arg)->word = ft_strdup((*arg)->next->word);
 	to_destroy = (*arg)->next;
 	lst_unlink_arg(to_destroy);
-	lst_clear_arg(to_destroy);
+	lst_clear_arg(&to_destroy);
 	lst_unlink_arg((*arg));
 	lst_add_arg(&(*cmds)->redirections, (*arg));
 	(*arg) = tmp;
@@ -38,17 +38,17 @@ static t_arg	*its_token_faild(int *bool_quit,
 {
 	*bool_quit = 1;
 	if (new->redirections)
-		lst_clear_arg(new->redirections);
+		lst_clear_arg(&(new->redirections));
 	free(new);
-	lst_clear_arg(*arg);
-	return (lst_clear_arg(pre_cmd));
+	lst_clear_arg(&(*arg));
+	return (lst_clear_arg(&pre_cmd));
 }
 
 t_arg	*arg_is_pipe(t_arg **arg, t_arg *tmp, t_arg *pre_cmd)
 {
 	tmp = (*arg)->next;
 	(*arg)->next = NULL;
-	lst_clear_arg(*arg);
+	lst_clear_arg(&(*arg));
 	*arg = tmp;
 	return (pre_cmd);
 }
@@ -94,15 +94,15 @@ t_simple_cmds	*parser(t_arg *arg,
 		lst_new_cmds(&new);
 		pre_cmd = grab_redirections(&arg, new, &bool_quit);
 		if (bool_quit)
-			return (lst_clear_cmds(cmds));
+			return (lst_clear_cmds(&cmds));
 		design_cmd(&pre_cmd, new, data, new->redirections);
 		if (new->end == 1)
 		{
-			lst_clear_arg(pre_cmd);
-			return (lst_clear_cmds(cmds));
+			lst_clear_arg(&pre_cmd);
+			return (lst_clear_cmds(&cmds));
 		}
 		lst_add_back_cmds(&cmds, new);
-		lst_clear_arg(pre_cmd);
+		lst_clear_arg(&pre_cmd);
 	}
 	(*data).cmds = cmds;
 	return (cmds);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 14:30:38 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 17:59:28 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 20:21:52 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_simple_cmds	*parser(t_arg *arg,
 					t_data *data, t_simple_cmds *cmds, t_arg *pre_cmd);
 void			lst_add_back_cmds(t_simple_cmds **head,
 					t_simple_cmds *new);
-void			*lst_clear_cmds(t_simple_cmds *head);
+void			*lst_clear_cmds(t_simple_cmds **head);
 int				lst_size_arg(t_arg *pre_cmd);
 void			lst_unlink_arg(t_arg *arg);
 void			lst_new_cmds(t_simple_cmds **new);

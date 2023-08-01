@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 19:45:18 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/30 19:13:15 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 02:00:47 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_prompt(t_data *data)
 
 	if (data->nbr_l == INT_MAX)
 		data->nbr_l = -1;
-	++data->nbr_l;
+	++(data->nbr_l);
 	path_and_username = ft_path_and_username(data);
 	if (path_and_username)
 		str = readline(path_and_username);

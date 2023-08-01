@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:07:19 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/31 16:24:47 by aabda            ###   ########.fr       */
+/*   Updated: 2023/07/31 20:23:36 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	free_env(t_env *env)
 void	free_all(t_data *data)
 {
 	free_env(data->env);
-	lst_clear_cmds(data->cmds);
+	lst_clear_cmds(&(data->cmds));
 	exit(1);
 }
 
 void	free_before_new_cmds(t_data *data, char *str)
 {
-	lst_clear_cmds(data->cmds);
+	lst_clear_cmds(&(data->cmds));
 	unlink(HEREDOC_FILE);
 	errno = 0;
 	ft_free((void **)&str);

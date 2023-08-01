@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:41:32 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/29 15:03:51 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 02:01:43 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	ft_init_shlvl(t_data *data)
 
 void	ft_init_struct(t_data *data, char **envp)
 {
+	data->nbr_l = 0;
 	data->env = NULL;
 	ft_getenv(data, envp);
 	ft_init_shlvl(data);

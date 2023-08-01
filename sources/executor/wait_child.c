@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 13:41:36 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/29 19:34:42 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 01:44:58by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	wait_child(t_data *data)
 	snake = data->cmds;
 	while (snake)
 	{
-		if (snake->pid != -2)
+		if (snake->pid != -2 && snake->pid != -1)
 		{
 			waitpid(snake->pid, &stat, 0);
 			if (WIFSIGNALED(stat))

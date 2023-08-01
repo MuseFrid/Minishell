@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_all_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 17:06:26 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/07/30 19:13:26 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 01:46:02 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,14 @@ void	usebuiltin(t_data *data, t_fd fd)
 	close(new_stdout);
 }
 
+void	close_parent_fd(t_fd fd)
+{
+	if (fd.out != -2)
+		close(fd.out);
+	if (fd.in != -2)
+		close(fd.in);
+}
+
 void	ft_run_all_cmds(t_data *data, t_simple_cmds *snake)
 {
 	t_fd			fd;
@@ -89,16 +97,16 @@ void	ft_run_all_cmds(t_data *data, t_simple_cmds *snake)
 		redirection_hub(snake->redirections, snake, data, fd.redirection);
 		ft_final_fd(&fd);
 		if (snake->end == 1)
-		{
-			if (fd.out != -2)
-				close(fd.out);
-			if (fd.in != -2)
-				close(fd.in);
-		}
+			close_parent_fd(fd);
 		else if (snake->builtin && snake->next == NULL && snake->prev == NULL)
 			usebuiltin(data, fd);
 		else
-			snake->pid = ft_create_child(snake, data->env, &fd, data);
+			ft_create_child(snake, data->env, &fd, data);
+		if (snake->pid == -1)
+		{
+			close(fd.pipe[0]);
+			break ;
+		}
 		snake = snake->next;
 	}
 }
