@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 16:49:46 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/08/01 04:16:18 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:07:32 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 static void	ft_if_cmds(t_data *data, char *str)
 {
+	t_simple_cmds	*cmds;
+	
+	cmds = data->cmds;
 	add_history(str);
-	ft_check_builtins(data);
+	while (cmds)
+	{
+		ft_check_builtins(cmds);
+		cmds = cmds->next;
+	}
 	ft_run_all_cmds(data, data->cmds);
 	if (data->cmds)
 		wait_child(data);

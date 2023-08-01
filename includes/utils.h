@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 01:18:05 by aabda             #+#    #+#             */
-/*   Updated: 2023/08/01 04:20:29 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 09:07:39 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ga_error(char *error_msg);
 char	**ft_split(char const *s, char c);
 
 //		sources/utils/builtins.c
-int		ft_check_builtins(t_data *data);
+int     ft_check_builtins(t_simple_cmds *cmds);
 
 //		sources/utils/env_concat_value.c
 void	ft_concat_env(t_data *data, t_env *new, char *value, int equal_index);
@@ -82,6 +82,11 @@ char	*ft_strldup(const char *str, int len);
 
 //		sources/utils/utils3.c
 int		ft_count_char_to_end(char *str, int index, char start, char *end);
+void	ft_error_msg_cd(char *c_path);
+
+//		sources/utils/utils4.c
+t_env	*ft_get_env_node_by_key(t_data *data, char *key);
+int		ft_dir_not_found(t_data *data, char *cd);
 
 //		sources/utils/fix_word.c
 void	redesign_word(char **word, int *i, char type, int *bool_quotes);

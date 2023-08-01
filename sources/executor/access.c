@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 19:51:48 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/08/01 06:28:29 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 07:59:31 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,14 @@ static void	ft_check_access(const char *cmd)
 {
 	if (access(cmd, F_OK) == -1)
 	{
-		perror("Minishell: ");
+		write(2, "Minishell: ", 11);
+		perror(cmd);
 		exit(127);
 	}
 	if (access(cmd, X_OK) == -1)
 	{
-		perror("Minishell: ");
+		write(2, "Minishell: ", 11);
+		perror(cmd);
 		exit(126);
 	}
 }

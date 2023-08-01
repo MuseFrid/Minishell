@@ -6,7 +6,7 @@
 #    By: aabda <aabda@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/30 23:26:47 by gduchesn          #+#    #+#              #
-#    Updated: 2023/08/01 09:19:03 by aabda            ###   ########.fr        #
+#    Updated: 2023/08/01 09:51:40 by aabda            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ UTILS_LIST = ga_error.c \
 	env_new_node.c env_concat_value.c \
 	path_user_dollar.c path_user_dollar2.c \
 	libft_utils.c libft_utils2.c libft_utils3.c \
-	utils.c utils2.c utils3.c \
+	utils.c utils2.c utils3.c utils4.c \
 	ft_split.c kill_mini.c free.c \
 	fix_word.c
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 23:05:56 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/25 13:14:18 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 07:03:32 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ static void	ft_var_found(t_data *data, t_env *current)
 	ft_free((void **)&current);
 }
 
+static void	cmp_unset(t_data *data, char **key)
+{
+	if (!ft_strcmp_strict(*key, "_"))
+		*key = NULL;
+	if (!ft_strcmp_strict(*key, "PWD"))
+		data->hidden_env->pwd = NULL;
+	if (!ft_strcmp_strict(*key, "OLDPWD"))
+		data->hidden_env->oldpwd = NULL;
+}
+
 static void	ft_logic(t_data *data, t_env *current, char **value, int i)
 {
 	t_env	*first;
@@ -38,8 +48,7 @@ static void	ft_logic(t_data *data, t_env *current, char **value, int i)
 	while (value[i])
 	{
 		key = ft_catch_key_env(value[i]);
-		if (ft_strcmp_strict(key, "_") == 0)
-			key = NULL;
+		cmp_unset(data, &key);
 		first = data->env;
 		current = first;
 		while (current)
