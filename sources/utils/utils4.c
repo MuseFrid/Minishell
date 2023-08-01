@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 00:55:52 by aabda             #+#    #+#             */
-/*   Updated: 2023/08/01 05:36:12 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 07:00:31 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_env	*ft_get_env_node_by_key(t_data *data, char *key)
 	}
 	return (node);
 }
+
 static void	ft_design_pwd_env(char **env, char *cd, int pick)
 {
 	char	*tmp;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:41:32 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/08/01 06:34:33 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 06:56:20 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_init_struct(t_data *data, char **envp)
 	if (!data->hidden_env)
 		kill_mini("Minishell");
 	data->env = NULL;
+	data->nbr_l = 0;
 	ft_getenv(data, envp);
 	data->hidden_env->pwd = ft_get_value_env(data, "PWD");
 	data->hidden_env->oldpwd = ft_get_value_env(data, "OLDPWD");

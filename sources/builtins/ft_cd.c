@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
+/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 20:31:37 by aabda             #+#    #+#             */
-/*   Updated: 2023/08/01 06:20:00 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 08:44:57 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ static void	ft_refresh_pwd_oldpwd(t_data *data)
 		return ;
 	pwd = ft_get_env_node_by_key(data, "PWD");
 	oldpwd = ft_get_env_node_by_key(data, "OLDPWD");
-	ft_free((void **)&data->hidden_env->oldpwd);
+	free(data->hidden_env->oldpwd);
+	if (pwd && (pwd->value != data->hidden_env->pwd))
+		ft_free((void **)&pwd->value);
+	if (oldpwd && (oldpwd->value != data->hidden_env->oldpwd))
+		ft_free((void **)&oldpwd->value);
 	data->hidden_env->oldpwd = ft_strdup(data->hidden_env->pwd);
 	if (!data->hidden_env->oldpwd)
 		data->hidden_env->oldpwd = ft_strdup("");
@@ -86,5 +90,6 @@ int	ft_cd(t_data *data)
 	current_path = getcwd(NULL, 0);
 	if (!current_path)
 		return (ft_dir_not_found(data, cd));
+	free(current_path);
 	return (ft_check_val_err(data, cd));
 }

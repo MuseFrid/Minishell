@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 16:31:02 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/08/01 04:25:07 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 07:17:34 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	design_cmd(t_arg **pre_cmd,
 		ft_parse_word(data, redirections);
 		redirections = redirections->next;
 	}
-	if (!*pre_cmd)
+	if (!head_cmd)
 		return ;
 	*pre_cmd = tmp;
 }

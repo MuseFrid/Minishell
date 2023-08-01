@@ -6,7 +6,7 @@
 /*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 20:24:14 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/28 09:39:20 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 08:24:03 by gduchesn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_replace_value_env(t_env *current, char *value)
 	new_val = ft_catch_value_env(value);
 	if (!new_val)
 		return ;
+	ft_free((void **)&value);
 	ft_free((void **)&current->value);
 	current->value = new_val;
 }
