@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 00:55:52 by aabda             #+#    #+#             */
-/*   Updated: 2023/08/01 07:00:31 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 13:25:18 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	ft_design_pwd_env(char **env, char *cd, int pick)
 	{
 		while (pick != 3 && (*env)[i])
 			++i;
-		printf("*env:%s value i: %d\n", *env, i);
 		if (i > 0 && ((*env)[i - 1] != '/'))
 			ft_design_pwd_env(env, "/", 3);
 		tmp = ft_strjoin(*env, cd);
