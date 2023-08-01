@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_related.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gduchesn <gduchesn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/28 12:16:53 by gduchesn          #+#    #+#             */
-/*   Updated: 2023/08/01 09:09:57 by gduchesn         ###   ########.fr       */
+/*   Updated: 2023/08/01 10:19:05 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	ft_executer_child(t_simple_cmds *cmds,
 	if (!(cmds->tab && cmds->tab[0]))
 		exit(0);
 	if (cmds->builtin)
+	{
+		data->cmds = cmds;
 		exit(cmds-> builtin(data));
+	}
 	final_env = redesign_env(env);
 	path = parse(final_env, cmds->tab[0]);
 	if (!path)

@@ -6,7 +6,7 @@
 /*   By: aabda <aabda@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 05:37:54 by aabda             #+#    #+#             */
-/*   Updated: 2023/07/30 19:16:24 by aabda            ###   ########.fr       */
+/*   Updated: 2023/08/01 10:23:10 by aabda            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static void	ft_logic(char **args)
 	}
 	while (args && args[i])
 	{
-		printf("%s", args[i]);
+		write(1, args[i], ft_strlen(args[i]));
 		if (args[i + 1])
-			printf(" ");
+			write(1, " ", 1);
 		++i;
 	}
 	if (!check)
-		printf("\n");
+		write(1, "\n", 1);
 }
 
 int	ft_echo(t_data *data)
